@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Servicios Aereos PSA</title>
+	<meta name="description" content="servicios aereos psa">
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link rel="stylesheet" href="{{ asset("bundles/backend/fonts/opensans/font.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/icons/font-awesome-4.2.0/css/font-awesome.min.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/css/animate.css") }}">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/css/app.css") }}">
+
+</head>
+<body class="themeDark app-aside-show app-header-fixed app-aside-fixed screen-lg">
+
+<!--[if lt IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- start: App Holder -->
+<div class="app" data-ui-view>
+
+	<div class="bg-themeBlue h-100">
+		<div class="container text-center animated fadeIn bg-themeBlue">
+			<div class="loginBox">
+				<div class="logoPlace text-center" style="height:150px;">
+					{# <img src="{{ asset("bundles/frontend/gfx/brand.png") }}" style="width: 100%;"> #}
+				</div>
+				{% block fos_user_content %}{% endblock %}
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- end: App Holder -->
+
+<script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
+<script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+<script src="{{ asset("bundles/backend/scripts/app.js") }}"></script>
+
+</body>
+</html>

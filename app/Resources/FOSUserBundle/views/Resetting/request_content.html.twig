@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="text-muted m-b-5">Reiniciar Contrase&ntilde;a</div>
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request relative">
+    <div class="form-group">
+        {% if invalid_username is defined %}
+            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+        {% endif %}
+        <input type="text" placeholder="Usuario o Email" 
+            id="username" name="username" required="required" class="form-control form-control-line" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-line btn-rounded" value="{{ 'resetting.request.submit'|trans }}" />
+    </div>
+</form>
