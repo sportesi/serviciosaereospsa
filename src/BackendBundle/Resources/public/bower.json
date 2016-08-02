@@ -1,0 +1,21 @@
+{
+  "name": "BackendPublic",
+  "authors": [
+    "Sebastian Portesi <sebastian@proyectiva.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sweetalert": "^1.0.1",
+    "startbootstrap-sb-admin-2": "^1.0.9"
+  }
+}
