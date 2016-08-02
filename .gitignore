@@ -16,3 +16,4 @@
 /web/bundles/
 /src/BackendBundle/Resources/public/bower_components/
 /src/FrontendBundle/Resources/public/bower_components/
+*~
