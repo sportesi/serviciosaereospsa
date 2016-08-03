@@ -1,44 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Servicios Aereos PSA</title>
-	<meta name="description" content="servicios aereos psa">
-	<meta name="viewport" content="width=device-width">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en">
 
-	<link rel="stylesheet" href="{{ asset("bundles/backend/fonts/opensans/font.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/icons/font-awesome-4.2.0/css/font-awesome.min.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/css/animate.css") }}">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/css/app.css") }}">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="servicios aereos psa">
+    <meta name="author" content="sebastian portesi">
+	<title>Servicios Aereos PSA</title>
+
+	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/font-awesome/css/font-awesome.min.css") }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset("bundles/backend/css/login.css") }}" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
-<body class="themeDark app-aside-show app-header-fixed app-aside-fixed screen-lg">
 
-<!--[if lt IE 8]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
+<body>
 
-<!-- start: App Holder -->
-<div class="app" data-ui-view>
-
-	<div class="bg-themeBlue h-100">
-		<div class="container text-center animated fadeIn bg-themeBlue">
-			<div class="loginBox">
-				<div class="logoPlace text-center" style="height:150px;">
-					{# <img src="{{ asset("bundles/frontend/gfx/brand.png") }}" style="width: 100%;"> #}
-				</div>
-				{% block fos_user_content %}{% endblock %}
-			</div>
-		</div>
-	</div>
-
-</div>
-<!-- end: App Holder -->
-
-<script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/scripts/app.js") }}"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading text-center">
+                    	<img src="">
+                        <h3 class="panel-title">Sistema de turnos online</h3>
+                    </div>
+                    <div class="panel-body">
+                    	{% block fos_user_content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
+	<script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+	<script src="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.js") }}"></script>
+	<script src="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js") }}"></script>
 
 </body>
+
 </html>
