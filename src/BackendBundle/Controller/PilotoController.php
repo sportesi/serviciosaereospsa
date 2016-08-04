@@ -14,6 +14,10 @@ class PilotoController extends Controller
 	 */
 	public function indexAction()
 	{
+		$em = $this->getDoctrine()->getManager();
+
+		
+
 	    return $this->render('BackendBundle:PilotoViews:index.html.twig');
 	}
 }
