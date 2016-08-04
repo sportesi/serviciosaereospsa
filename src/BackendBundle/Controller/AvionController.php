@@ -12,6 +12,8 @@ class AvionController extends Controller
 	 */
 	public function indexAction()
 	{
-	    return $this->render('BackendBundle:AvionViews:index.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
+	    return $this->render('BackendBundle:AvionViews:index.html.twig', array('aviones' => $aviones));
 	}
 }
