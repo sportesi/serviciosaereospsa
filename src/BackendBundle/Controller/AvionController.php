@@ -97,9 +97,27 @@ class AvionController extends Controller
 			'aviones' => $aviones, 
 			'form' => $form->createView(),
 			'editar' => true,
+			'avionId' => $id,
 		);
 
 	    return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+	}
+
+	/**
+	 * @Route("/avion/delete/{id}", name="BackendAvionDelete")
+	 * @Method("GET")
+	 */
+	public function deleteAction($id)
+	{
+	    $em = $this->getDoctrine()->getManager();
+	    $avion = $em->getRepository('AppBundle:Avion')->find($id);
+
+	    if (is_object($avion)) {
+	    	$em->remove($avion);
+	    	$em->flush();
+	    }
+
+    	return $this->redirectToRoute('BackendAvionHomepage');
 	}
 
 
