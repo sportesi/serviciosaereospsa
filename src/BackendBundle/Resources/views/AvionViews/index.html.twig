@@ -63,22 +63,9 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="btn-group pull-right">
                                     {% if editar %}
-                                        <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-save fw"></i> Guardar</button>
-                                        <button type="button" onclick="deleteAvion()" class="btn btn-default btn-danger"><i class="fa fa-trash fw"></i> Eliminar</button>
-                                        <script type="text/javascript">
-                                            function deleteAvion() {
-                                                var href = "{{ path('BackendAvionDelete', {'id' : avionId }) }}";
-                                                swal({
-                                                    title: 'Estas seguro?',
-                                                    text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
-                                                    type: 'warning',
-                                                    showCancelButton: true,
-                                                    cancelButtonText: 'Cancelar'
-                                                }, function(){
-                                                    window.location.href = href
-                                                })
-                                            }
-                                        </script>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save fw"></i> Guardar</button>
+                                        <a href="{{ path('BackendAvionHomepage') }}" class="btn btn-default"><i class="fa fa-reply fw"></i> Cancelar</a>
+                                        <button type="button" onclick="deleteAvion()" class="btn btn-danger"><i class="fa fa-trash fw"></i> Eliminar</button>
                                     {% else %}
                                         <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-save fw"></i> Agregar</button>
                                     {% endif %}
@@ -90,5 +77,20 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function deleteAvion() {
+            var href = "{{ path('BackendAvionDelete', {'id' : avionId is defined ? avionId : 0 }) }}";
+            swal({
+                title: 'Estas seguro?',
+                text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }, function(){
+                window.location.href = href
+            })
+        }
+    </script>
 
 {% endblock %}
