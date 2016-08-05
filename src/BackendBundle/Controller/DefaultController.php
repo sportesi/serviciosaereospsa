@@ -8,9 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="BackendHomepage")
+     * @Route("/{week}", defaults={"week" = 0}, name="BackendHomepage")
      */
-    public function indexAction()
+    public function indexAction($week)
     {
     	$em = $this->getDoctrine()->getManager();
 
@@ -22,6 +22,7 @@ class DefaultController extends Controller
     			'aviones' => $aviones,
     			'dias' => $dias,
     			'horarios' => $horarios,
+    			'date' => $week,
     		);
 
         return $this->render('BackendBundle:Default:index.html.twig', $pageData);

@@ -23,16 +23,19 @@
     <script type="text/javascript" src="{{ asset("/bundles/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
 
     <script type="text/javascript">
+
         moment.locale('es');
 
-        var start = moment().startOf('week').format('DD')
-        var end = moment().endOf('week').format('DD')
-        var month = moment().format('MMMM')
+        var date = moment().add({{ date | number_format }}, 'w').format()
+
+        var start = moment(date).startOf('week').format('DD')
+        var end = moment(date).endOf('week').format('DD')
+        var month = moment(date).format('MMMM')
         var semanaText = 'Semana del ' + start + ' al ' + end + ' del mes de ' + month.capitalizeFirstLetter()
         $('#semanaText').text(semanaText);
 
         $('.rotate').each(function(){
-            $(this).find('b').text(moment().day($(this).data('dia')).format('DD'))
+            $(this).find('b').text(moment(date).day($(this).data('dia')).format('DD'))
         })
 
     </script>
