@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class PilotoRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findAllWithUser()
+	{
+		$em = $this->getEntityManager();
+		$qb = $em->createQueryBuilder();
+		$qb->select('p, u')
+		   ->from('AppBundle:Piloto', 'p')
+		   ->leftJoin('p.usuario', 'u');
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
 }
