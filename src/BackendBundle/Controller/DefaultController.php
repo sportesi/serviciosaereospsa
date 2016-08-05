@@ -12,7 +12,17 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('BackendBundle:Default:index.html.twig');
+    	$em = $this->getDoctrine()->getManager();
+
+    	$aviones = $em->getRepository('AppBundle:Avion')->findAll();
+    	$dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
+
+    	$pageData = array(
+    			'aviones' => $aviones,
+    			'dias' => $dias,
+    		);
+
+        return $this->render('BackendBundle:Default:index.html.twig', $pageData);
     }
 
 }
