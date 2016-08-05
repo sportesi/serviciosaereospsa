@@ -1,21 +1,24 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
+{% block styles %}
+    <style type="text/css">
+        th{
+            text-align: center !important; 
+        }
+        .rotate{
+            transform: rotate(-90deg);
+            vertical-align: middle !important;
+            text-align: center !important;
+            line-height: 1 !important;
+            padding: 0 !important;
+        }
+        tbody td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-	<style type="text/css">
-		th{
-			text-align: center !important; 
-		}
-		.rotate{
-			transform: rotate(-90deg);
-			vertical-align: middle !important;
-			text-align: center !important;
-			line-height: 1 !important;
-			padding: 0 !important;
-		}
-		tbody td{
-			text-align: center;
-		}
-	</style>
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header"><i class="fa fa-table fa-fw"></i> Turnos</h1>
@@ -35,20 +38,9 @@
         				<tr>
         					<th width="1%">D&iacute;a</th>
         					<th>Mat</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
-        					<th>Piloto</th>
+        					{% for itemHorario in horarios %}
+                                <th>Piloto</th>
+                            {% endfor %}
         				</tr>
         			</thead>
         			<tbody>
@@ -57,22 +49,11 @@
             					<td colspan="1" rowspan="{{ aviones|length + 1 }}" class="rotate">{{ itemDia.nombre }}</td>
             				</tr>
                             {% for itemAvion in aviones %}
-            				    <tr data-id="{{ itemDia.id }}"> 
+            				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
                                     <td>{{ itemAvion.matricula }}</td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
-                                    <td></td> 
+                                    {% for itemHorario in horarios %}
+                                        <td data-horario="{{ itemHorario.id }}"></td>
+                                    {% endfor %} 
                                 </tr>
                             {% endfor %}
                         {% endfor %}
