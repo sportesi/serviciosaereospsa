@@ -54,6 +54,12 @@ class Piloto
      */
     private $email;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="usuario", referencedColumnName="id")
+     */
+    private $usuario;
+
 
     /**
      * Get id
@@ -183,5 +189,29 @@ class Piloto
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \AppBundle\Entity\User $usuario
+     *
+     * @return Piloto
+     */
+    public function setUsuario(\AppBundle\Entity\User $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }
