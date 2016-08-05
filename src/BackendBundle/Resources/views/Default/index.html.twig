@@ -19,7 +19,11 @@
 {% endblock %}
 
 {% block scripts %}
+    <!-- Moment JS -->
+    <script type="text/javascript" src="{{ asset("/bundles/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
+
     <script type="text/javascript">
+        moment.locale('es');
     </script>
 {% endblock %}
 
