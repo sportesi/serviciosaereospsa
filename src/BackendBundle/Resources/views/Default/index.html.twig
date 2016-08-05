@@ -28,20 +28,9 @@
         			<thead>
         				<tr>
         					<th colspan="2">Hora</th>
-        					<th>0800</th>
-        					<th>0900</th>
-        					<th>1000</th>
-        					<th>1100</th>
-        					<th>1200</th>
-        					<th>1300</th>
-        					<th>1400</th>
-        					<th>1500</th>
-        					<th>1600</th>
-        					<th>1700</th>
-        					<th>1800</th>
-        					<th>1900</th>
-        					<th>2000</th>
-        					<th>2100</th>
+        					{% for itemHorario in horarios %}
+                                <th>{{ itemHorario.hora }}</th>
+                            {% endfor %}
         				</tr>
         				<tr>
         					<th width="1%">D&iacute;a</th>

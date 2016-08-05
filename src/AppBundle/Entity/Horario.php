@@ -24,7 +24,7 @@ class Horario
     /**
      * @var int
      *
-     * @ORM\Column(name="hora", type="integer")
+     * @ORM\Column(name="hora", type="string", length=255)
      */
     private $hora;
 
@@ -63,4 +63,3 @@ class Horario
         return $this->hora;
     }
 }
-
