@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class PilotoController extends Controller
 {
 	/**
-	 * @Route("/piloto", name="BackendPilotoHomepage")
+	 * @Route("/piloto/listado", name="BackendPilotoHomepage")
 	 * @Method("GET")
 	 */
 	public function indexAction()

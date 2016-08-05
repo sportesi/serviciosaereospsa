@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class AvionController extends Controller
 {
 	/**
-	 * @Route("/avion", name="BackendAvionHomepage")
+	 * @Route("/avion/listado", name="BackendAvionHomepage")
 	 * @Method("GET")
 	 */
 	public function indexAction()
