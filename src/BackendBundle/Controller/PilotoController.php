@@ -16,8 +16,8 @@ class PilotoController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		
+		$pilotos = $em->getRepository('AppBundle:Piloto')->findAll();
 
-	    return $this->render('BackendBundle:PilotoViews:index.html.twig');
+	    return $this->render('BackendBundle:PilotoViews:index.html.twig', array('pilotos' => $pilotos));
 	}
 }
