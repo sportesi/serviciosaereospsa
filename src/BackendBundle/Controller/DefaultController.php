@@ -22,7 +22,7 @@ class DefaultController extends Controller
     			'aviones' => $aviones,
     			'dias' => $dias,
     			'horarios' => $horarios,
-    			'date' => $week,
+    			'week' => $week,
     		);
 
         return $this->render('BackendBundle:Default:index.html.twig', $pageData);

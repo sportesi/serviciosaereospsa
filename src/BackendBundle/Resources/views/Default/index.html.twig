@@ -26,7 +26,7 @@
 
         moment.locale('es');
 
-        var date = moment().add({{ date | number_format }}, 'w').format()
+        var date = moment().add({{ week | number_format }}, 'w').format()
 
         var start = moment(date).startOf('week').format('DD')
         var end = moment(date).endOf('week').format('DD')
@@ -52,6 +52,16 @@
             </h1>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="btn-group pull-right">
+                <a href="{{ path('BackendHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
+                <a href="{{ path('BackendHomepage', { 'week' : 0 }) }}" class="btn btn-default">Semana Actual</a>
+                <a href="{{ path('BackendHomepage', { 'week' : week + 1 }) }}" class="btn btn-default">Semana Siguiente</a>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col-lg-12">
         	<div class="table-responsive">
