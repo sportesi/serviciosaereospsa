@@ -68,7 +68,7 @@
             					<td colspan="1" rowspan="{{ aviones|length + 1 }}" class="rotate">{{ itemDia.nombre }}</td>
             				</tr>
                             {% for itemAvion in aviones %}
-            				    <tr> 
+            				    <tr data-id="{{ itemDia.id }}"> 
                                     <td>{{ itemAvion.matricula }}</td> 
                                     <td></td> 
                                     <td></td> 
