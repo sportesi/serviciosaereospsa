@@ -24,6 +24,17 @@
 
     <script type="text/javascript">
         moment.locale('es');
+
+        var start = moment().startOf('week').format('DD')
+        var end = moment().endOf('week').format('DD')
+        var month = moment().format('MMMM')
+        var semanaText = 'Semana del ' + start + ' al ' + end + ' del mes de ' + month.capitalizeFirstLetter()
+        $('#semanaText').text(semanaText);
+
+        $('.rotate').each(function(){
+            $(this).find('b').text(moment().day($(this).data('dia')).format('DD'))
+        })
+
     </script>
 {% endblock %}
 
@@ -33,7 +44,7 @@
             <h1 class="page-header">
                 <i class="fa fa-table fa-fw"></i> Turnos
                 <div class="pull-right">
-                    <h3 style="margin: 10px; ">Semana del 01 al 07 del mes de Agosto</h3>
+                    <h3 style="margin: 10px; " id="semanaText" ></h3>
                 </div>
             </h1>
         </div>
@@ -60,7 +71,7 @@
         			<tbody>
                         {% for itemDia in dias %}
             				<tr>
-            					<td colspan="1" rowspan="{{ aviones|length + 1 }}" class="rotate">{{ itemDia.nombre }}<br><b>27</b></td>
+            					<td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ itemDia.id }}" class="rotate">{{ itemDia.nombre }}<br><b></b></td>
             				</tr>
                             {% for itemAvion in aviones %}
             				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
