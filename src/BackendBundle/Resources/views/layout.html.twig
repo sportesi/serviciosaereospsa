@@ -41,6 +41,34 @@
                     </button>
                     <a class="navbar-brand" href="{{ path('BackendHomepage') }}">Sistema de Turnos Online</a>
                 </div>
+                <!-- start: Collapse items -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a class="userData" data-toggle="dropdown" data-ripple>
+                            <!-- <span class="avatar">
+                                <img src="{{ asset("bundles/backend/img/small_avatar.jpg") }}" class="img-circle thumb-xxs">
+                                <i class="on bottom"></i>
+                            </span> -->
+                            <span class="hidden-phone">
+                                Bienvenido 
+                                {{ app.user.username }} 
+                                <i class="fa fa-angle-down"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu no-p no-m dropdown-alt pull-right">
+                            <!-- <li class="dropdown-item no-p-r-l">
+                                <a class="dropdown-item">
+                                    Mi Perfil
+                                </a>
+                            </li> -->
+                            <li class="m-b-5 dropdown-item no-p-r-l">
+                                <a href="{{ path("fos_user_security_logout") }}" class="dropdown-item">
+                                    Cerrar Sesi&oacute;n
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
                 {# include 'BackendBundle:CommonViews:toplinks.html.twig' #}
 

@@ -5,10 +5,10 @@ namespace BackendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller
+class TurnoController extends Controller
 {
     /**
-     * @Route("/{week}", defaults={"week" = 0}, name="BackendHomepage")
+     * @Route("/turnos/listado/{week}", defaults={"week" = 0}, name="BackendHomepage")
      */
     public function indexAction($week)
     {
@@ -26,6 +26,14 @@ class DefaultController extends Controller
     		);
 
         return $this->render('BackendBundle:Default:index.html.twig', $pageData);
+    }
+
+    /**
+     * @Route("/", name="DefaultBackend")
+     */
+    public function defaultAction()
+    {
+        return $this->redirectToRoute('BackendHomepage');
     }
 
 }
