@@ -20,4 +20,5 @@ class PilotoController extends Controller
 
 	    return $this->render('BackendBundle:PilotoViews:index.html.twig', array('pilotos' => $pilotos));
 	}
+
 }
