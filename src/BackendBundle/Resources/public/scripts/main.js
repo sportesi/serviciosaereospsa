@@ -45,7 +45,7 @@ function ShowLoading() {
 		text: 'Por favor espere', 
 		showConfirmButton: false, 
 		allowEscapeKey: false, 
-		imageSize: '40x40' 
+		imageSize: '220x20' 
 	})
 }
 function HideLoading() {
