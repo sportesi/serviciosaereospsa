@@ -14,7 +14,7 @@ function initCalendar() {
 			horario: $(this).data('horario'),
 			avion: $(this).data('avion'),
 		}
-		$(this).toggleClass('bg-info')
+		$(this).addClass('bg-info')
 		newEvent(data, this)
 	})
 }
@@ -24,8 +24,25 @@ function newEvent(data, cell) {
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')
-		if ($(cell).text() === "") {
- 			$(cell).removeClass('bg-info')
+		$('.form-new-event').off('submit')
+		$(cell).removeClass('bg-info')
+		if ($(cell).text() !== "") {
+			$(cell).removeClass('bg-success')
+			$(cell).addClass('bg-success')
 		}
+	})
+	$('.form-new-event').on('submit', function(){
+		$('.form-new-event').off('submit')
+		saveNewEvent($(this).serialize(), cell)
+		return false
+	})
+}
+
+function saveNewEvent(postData, cell) {
+	$.post('', postData, function(data, textStatus, xhr) {
+		$(cell).text($('.form-new-event #inputNombre').val())
+		$('#newEvent').modal('hide')
+		$('.form-new-event')[0].reset()
+		swal('Turno creado!', '', 'success')
 	})
 }

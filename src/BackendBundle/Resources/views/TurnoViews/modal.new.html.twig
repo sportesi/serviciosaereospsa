@@ -1,17 +1,22 @@
 <div class="modal fade" id="newEvent">
 	<div class="modal-dialog">
-		<form action="" method="POST" class="form-horizontal" role="form">
+		<form action="" method="POST" class="form-horizontal form-new-event" role="form">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">Nuevo Turno</h4>
 				</div>
 				<div class="modal-body">
-					
+					<div class="form-group">
+						<label for="inputNombre" class="col-sm-2 control-label">Nombre:</label>
+						<div class="col-sm-10">
+							<input type="text" name="nombre" id="inputNombre" class="form-control" value="" required="required"  >
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary">Crear turno</button>
+					<button type="submit" class="btn btn-primary">Crear turno</button>
 				</div>
 			</div>
 		</form>
