@@ -38,6 +38,8 @@
             $(this).find('b').text(moment(date).day($(this).data('dia')).format('DD'))
         })
 
+        InitCalendar()
+
     </script>
 {% endblock %}
 
@@ -90,7 +92,7 @@
             				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
                                     <td>{{ itemAvion.matricula }}</td> 
                                     {% for itemHorario in horarios %}
-                                        <td data-horario="{{ itemHorario.id }}"></td>
+                                        <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
                                     {% endfor %} 
                                 </tr>
                             {% endfor %}
