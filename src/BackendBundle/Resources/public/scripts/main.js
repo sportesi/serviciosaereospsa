@@ -9,5 +9,6 @@ String.prototype.capitalizeFirstLetter = function() {
 function InitCalendar() {
 	$('td.clickable').on('click', function(){
 		console.log(this);
+		$(this).toggleClass('bg-success');
 	})
 }

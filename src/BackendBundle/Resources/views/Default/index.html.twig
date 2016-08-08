@@ -90,10 +90,14 @@
             				</tr>
                             {% for itemAvion in aviones %}
             				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
-                                    <td>{{ itemAvion.matricula }}</td> 
-                                    {% for itemHorario in horarios %}
-                                        <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
-                                    {% endfor %} 
+                                    <td>{{ itemAvion.matricula }}</td>
+                                    {% if itemAvion.servicio %}
+                                        {% for itemHorario in horarios %}
+                                            <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                        {% endfor %} 
+                                    {% else %}
+                                        <td colspan="{{ horarios|length }}" class="bg-warning">Fuera de Servicio</td>                                        
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         {% endfor %}
