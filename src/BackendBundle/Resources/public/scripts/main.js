@@ -14,12 +14,18 @@ function initCalendar() {
 			horario: $(this).data('horario'),
 			avion: $(this).data('avion'),
 		}
-		$(this).toggleClass('bg-success')
-		newEvent(data)
+		$(this).toggleClass('bg-info')
+		newEvent(data, this)
 	})
 }
 
-function newEvent(data) {
+function newEvent(data, cell) {
 	console.log(data)
-	$('#newEvent').modal()	
+	$('#newEvent').modal()
+	$('#newEvent').on('hidden.bs.modal', function(){
+		$('#newEvent').off('hidden.bs.modal')
+		if ($(cell).text() === "") {
+ 			$(cell).removeClass('bg-info')
+		}
+	})
 }
