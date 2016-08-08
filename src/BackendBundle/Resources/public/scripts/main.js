@@ -2,8 +2,6 @@ String.prototype.capitalizeFirstLetter = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1)
 }
 
-
-
 /* Calendar logic */
 
 function initCalendar() {
@@ -24,25 +22,10 @@ function newEvent(data, cell) {
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')
-		$('.form-new-event').off('submit')
 		$(cell).removeClass('bg-info')
 		if ($(cell).text() !== "") {
 			$(cell).removeClass('bg-success')
 			$(cell).addClass('bg-success')
 		}
-	})
-	$('.form-new-event').on('submit', function(){
-		$('.form-new-event').off('submit')
-		saveNewEvent($(this).serialize(), cell)
-		return false
-	})
-}
-
-function saveNewEvent(postData, cell) {
-	$.post('', postData, function(data, textStatus, xhr) {
-		$(cell).text($('.form-new-event #inputNombre').val())
-		$('#newEvent').modal('hide')
-		$('.form-new-event')[0].reset()
-		swal('Turno creado!', '', 'success')
 	})
 }
