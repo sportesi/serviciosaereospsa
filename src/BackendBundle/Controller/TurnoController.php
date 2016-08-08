@@ -25,7 +25,7 @@ class TurnoController extends Controller
     			'week' => $week,
     		);
 
-        return $this->render('BackendBundle:Default:index.html.twig', $pageData);
+        return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
     }
 
     /**
