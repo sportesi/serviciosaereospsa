@@ -19,6 +19,9 @@ function initCalendar() {
 
 function newEvent(data, cell) {
 	console.log(data)
+	$('[name="turno[dia]"]').val(data.dia)
+	$('[name="turno[horario]"]').val(data.horario)
+	$('[name="turno[avion]"]').val(data.avion)
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')

@@ -4,6 +4,8 @@ namespace BackendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\Turno;
 
 class TurnoController extends Controller
 {
@@ -24,6 +26,8 @@ class TurnoController extends Controller
     			'horarios' => $horarios,
     			'week' => $week,
     		);
+
+
 
         return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
     }
