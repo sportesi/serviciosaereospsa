@@ -2,3 +2,8 @@
 	margin-right: 2%;
 	cursor: pointer;
 }
+
+.img-logo {
+	width: 100%;
+	display: none;
+}
