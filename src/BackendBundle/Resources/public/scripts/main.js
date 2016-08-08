@@ -32,3 +32,22 @@ function newEvent(data, cell) {
 		}
 	})
 }
+
+
+/**
+ * Prototipo de loader para reemplazar el existente
+ * Se cierra con swal.close();
+ */
+function ShowLoading() {
+	swal({ 
+		imageUrl: '/bundles/backend/img/loader.gif', 
+		title: 'Cargando', 
+		text: 'Por favor espere', 
+		showConfirmButton: false, 
+		allowEscapeKey: false, 
+		imageSize: '40x40' 
+	})
+}
+function HideLoading() {
+	swal.close()
+}
