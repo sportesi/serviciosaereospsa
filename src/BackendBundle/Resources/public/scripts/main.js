@@ -30,6 +30,8 @@ function newEvent(data, cell) {
 			$(cell).removeClass('bg-success')
 			$(cell).addClass('bg-success')
 		}
+		$('.form-group-alumno select').val('').trigger('change')
+		$('.form-group-piloto select').val('').trigger('change')
 	})
 }
 
