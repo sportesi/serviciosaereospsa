@@ -24,6 +24,20 @@ function initCalendar() {
 		$('.form-group-alumno select').prop('required', $(this).val() === "")
 	})
 
+	$.getJSON('/backend/turnos/listado/get/json', function(response){
+		console.log(response)
+		for (var i = 0; i < response.length; i++) {
+			var turno = response[i]
+			var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
+			cell.toggleClass('bg-success')
+			if (turno.alumno) {
+				cell.text(turno.alumno.apellido)
+			} else {
+				cell.text(turno.piloto.apellido)
+			}
+		}
+	})
+
 }
 
 function newEvent(data, cell) {
@@ -49,7 +63,7 @@ function newEvent(data, cell) {
 
 /**
  * Prototipo de loader para reemplazar el existente
- * Se cierra con swal.close();
+ * Se cierra con swal.close()
  */
 function ShowLoading() {
 	swal({ 
