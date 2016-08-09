@@ -29,6 +29,15 @@ class TurnoController extends Controller
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
 
+        $pageData = array(
+                'aviones' => $aviones,
+                'dias' => $dias,
+                'horarios' => $horarios,
+                'week' => $week,
+                'alumnos' => $alumnos,
+                'pilotos' => $pilotos,
+            );
+
         if ($request->isMethod('POST')) {
             $turno = new Turno();
             $postTurno = $request->request->get('turno');
@@ -52,20 +61,18 @@ class TurnoController extends Controller
             $turno->setUpdatedAt(new \DateTime());
             $turno->setFecha(new \DateTime($postTurno['fecha']));
             $turno->setConfirmado(true);
+            $turno->setComentario($postTurno['comentario']);
 
-            $em->persist($turno);
-            $em->flush();
+            try {
+                $em->persist($turno);
+                $em->flush();
+                $creado = true;
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                $creado = false;        
+            }
+
+            $pageData['creado'] = $creado;
         }
-
-    	$pageData = array(
-    			'aviones' => $aviones,
-    			'dias' => $dias,
-    			'horarios' => $horarios,
-    			'week' => $week,
-                'alumnos' => $alumnos,
-                'pilotos' => $pilotos,
-    		);
-
 
         return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
     }

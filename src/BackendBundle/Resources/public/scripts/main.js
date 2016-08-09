@@ -6,15 +6,20 @@ String.prototype.capitalizeFirstLetter = function() {
 
 function initCalendar() {
 	$('td.clickable').on('click', function(){
-		var data = {
-			dia: $(this).data('dia'),
-			horario: $(this).data('horario'),
-			avion: $(this).data('avion'),
-			updatedAt: $(this).data('updatedAt'),
-			fecha: $(this).data('fecha'),
+		if (!$(this).data('turno')) {
+			var data = {
+				dia: $(this).data('dia'),
+				horario: $(this).data('horario'),
+				avion: $(this).data('avion'),
+				updatedAt: $(this).data('updatedAt'),
+				fecha: $(this).data('fecha'),
+			}
+			$(this).addClass('bg-info')
+			newEvent(data, this)
+		} else {
+			var data = $(this).data('turno')
+			editEvent(data)
 		}
-		$(this).addClass('bg-info')
-		newEvent(data, this)
 	})
 
 	$('.form-group-alumno select').on('change', function() {
@@ -24,6 +29,7 @@ function initCalendar() {
 		$('.form-group-alumno select').prop('required', $(this).val() === "")
 	})
 
+	ShowLoading()
 	$.getJSON('/backend/turnos/listado/get/json', function(response){
 		console.log(response)
 		for (var i = 0; i < response.length; i++) {
@@ -35,7 +41,11 @@ function initCalendar() {
 			} else {
 				cell.text(turno.piloto.apellido)
 			}
+			cell.data('turno', turno)
 		}
+		HideLoading()
+	}).fail(function(){
+		swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
 	})
 
 }
@@ -58,6 +68,16 @@ function newEvent(data, cell) {
 		$('.form-group-alumno select').val('').trigger('change')
 		$('.form-group-piloto select').val('').trigger('change')
 	})
+}
+
+function editEvent(data) {
+	if (data.alumno) {
+		$('.form-group-alumno select').val(data.alumno.id).trigger('change')
+	}
+	if (data.piloto) {
+		$('.form-group-piloto select').val(data.piloto.id).trigger('change')
+	}
+	$('#newEvent').modal('show')
 }
 
 

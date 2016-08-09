@@ -30,7 +30,7 @@ class Turno
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fecha", type="datetime", unique=true)
      */
     private $fecha;
 
@@ -70,6 +70,10 @@ class Turno
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(name="comentario", type="text", nullable=true)
+     */
+    private $comentario;
     
 
     /**
@@ -272,5 +276,29 @@ class Turno
     public function getDia()
     {
         return $this->dia;
+    }
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     *
+     * @return Turno
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
     }
 }
