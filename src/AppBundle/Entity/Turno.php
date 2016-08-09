@@ -70,39 +70,16 @@ class Turno
      */
     private $updatedAt;
 
+    
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set horario
-     *
-     * @param \DateTime $horario
-     *
-     * @return Turno
-     */
-    public function setHorario($horario)
-    {
-        $this->horario = $horario;
-
-        return $this;
-    }
-
-    /**
-     * Get horario
-     *
-     * @return \DateTime
-     */
-    public function getHorario()
-    {
-        return $this->horario;
     }
 
     /**
@@ -146,7 +123,7 @@ class Turno
     /**
      * Get confirmado
      *
-     * @return bool
+     * @return boolean
      */
     public function getConfirmado()
     {
@@ -154,75 +131,51 @@ class Turno
     }
 
     /**
-     * Set user
+     * Set updatedAt
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \DateTime $updatedAt
      *
      * @return Turno
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->user = $user;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get updatedAt
      *
-     * @return \AppBundle\Entity\User
+     * @return \DateTime
      */
-    public function getUser()
+    public function getUpdatedAt()
     {
-        return $this->user;
+        return $this->updatedAt;
     }
 
     /**
-     * Set avion
+     * Set horario
      *
-     * @param \AppBundle\Entity\Avion $avion
+     * @param \AppBundle\Entity\Horario $horario
      *
      * @return Turno
      */
-    public function setAvion(\AppBundle\Entity\Avion $avion = null)
+    public function setHorario(\AppBundle\Entity\Horario $horario = null)
     {
-        $this->avion = $avion;
+        $this->horario = $horario;
 
         return $this;
     }
 
     /**
-     * Get avion
+     * Get horario
      *
-     * @return \AppBundle\Entity\Avion
+     * @return \AppBundle\Entity\Horario
      */
-    public function getAvion()
+    public function getHorario()
     {
-        return $this->avion;
-    }
-
-    /**
-     * Set dia
-     *
-     * @param \AppBundle\Entity\Dia $dia
-     *
-     * @return Turno
-     */
-    public function setDia(\AppBundle\Entity\Dia $dia = null)
-    {
-        $this->dia = $dia;
-
-        return $this;
-    }
-
-    /**
-     * Get dia
-     *
-     * @return \AppBundle\Entity\Dia
-     */
-    public function getDia()
-    {
-        return $this->dia;
+        return $this->horario;
     }
 
     /**
@@ -274,26 +227,50 @@ class Turno
     }
 
     /**
-     * Set updatedAt
+     * Set avion
      *
-     * @param \DateTime $updatedAt
+     * @param \AppBundle\Entity\Avion $avion
      *
      * @return Turno
      */
-    public function setUpdatedAt($updatedAt)
+    public function setAvion(\AppBundle\Entity\Avion $avion = null)
     {
-        $this->updatedAt = $updatedAt;
+        $this->avion = $avion;
 
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get avion
      *
-     * @return \DateTime
+     * @return \AppBundle\Entity\Avion
      */
-    public function getUpdatedAt()
+    public function getAvion()
     {
-        return $this->updatedAt;
+        return $this->avion;
+    }
+
+    /**
+     * Set dia
+     *
+     * @param \AppBundle\Entity\Dia $dia
+     *
+     * @return Turno
+     */
+    public function setDia(\AppBundle\Entity\Dia $dia = null)
+    {
+        $this->dia = $dia;
+
+        return $this;
+    }
+
+    /**
+     * Get dia
+     *
+     * @return \AppBundle\Entity\Dia
+     */
+    public function getDia()
+    {
+        return $this->dia;
     }
 }
