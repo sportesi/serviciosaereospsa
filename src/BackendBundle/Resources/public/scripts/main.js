@@ -16,6 +16,14 @@ function initCalendar() {
 		$(this).addClass('bg-info')
 		newEvent(data, this)
 	})
+
+	$('.form-group-alumno select').on('change', function() {
+		$('.form-group-piloto select').prop('required', $(this).val() === "")
+	})
+	$('.form-group-piloto select').on('change', function() {
+		$('.form-group-alumno select').prop('required', $(this).val() === "")
+	})
+
 }
 
 function newEvent(data, cell) {
