@@ -22,16 +22,15 @@ class Turno
     private $id;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horario", type="time")
+     * @ORM\ManyToOne(targetEntity="Horario")
+     * @ORM\JoinColumn(name="horario", referencedColumnName="id")
      */
     private $horario;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date")
+     * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
 
@@ -43,10 +42,16 @@ class Turno
     private $confirmado;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="id_fos_user", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Piloto")
+     * @ORM\JoinColumn(name="piloto", referencedColumnName="id", nullable=true)
      */
-    private $user;
+    private $piloto;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Alumno")
+     * @ORM\JoinColumn(name="alumno", referencedColumnName="id", nullable=true)
+     */
+    private $alumno;
 
     /**
      * @ORM\ManyToOne(targetEntity="Avion")
@@ -56,9 +61,14 @@ class Turno
 
     /**
      * @ORM\ManyToOne(targetEntity="Dia")
-     * @ORM\JoinColumn(name="id_dia", referencedColumnName="id")
+     * @ORM\JoinColumn(name="dia", referencedColumnName="id")
      */
     private $dia;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
 
 
     /**
@@ -213,5 +223,77 @@ class Turno
     public function getDia()
     {
         return $this->dia;
+    }
+
+    /**
+     * Set piloto
+     *
+     * @param \AppBundle\Entity\Piloto $piloto
+     *
+     * @return Turno
+     */
+    public function setPiloto(\AppBundle\Entity\Piloto $piloto = null)
+    {
+        $this->piloto = $piloto;
+
+        return $this;
+    }
+
+    /**
+     * Get piloto
+     *
+     * @return \AppBundle\Entity\Piloto
+     */
+    public function getPiloto()
+    {
+        return $this->piloto;
+    }
+
+    /**
+     * Set alumno
+     *
+     * @param \AppBundle\Entity\Alumno $alumno
+     *
+     * @return Turno
+     */
+    public function setAlumno(\AppBundle\Entity\Alumno $alumno = null)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \AppBundle\Entity\Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->alumno;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Turno
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

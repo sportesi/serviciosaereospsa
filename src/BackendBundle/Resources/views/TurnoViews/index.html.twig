@@ -35,11 +35,21 @@
         var start = moment(date).startOf('week').format('DD')
         var end = moment(date).endOf('week').format('DD')
         var month = moment(date).format('MMMM')
+        var monthNumber = moment(date).format('MM')
         var semanaText = 'Semana del ' + start + ' al ' + end + ' del mes de ' + month.capitalizeFirstLetter()
         $('#semanaText').text(semanaText);
 
         $('.rotate').each(function(){
             $(this).find('b').text(moment(date).day($(this).data('dia')).format('DD'))
+        })
+
+        $('.clickable').each(function() {
+            $(this).data('updatedAt', date)
+            var fecha = (parseInt(start) - 1 + parseInt($(this).data('dia'))).toString() + '/'
+            fecha += monthNumber + '/'
+            fecha += moment().format('YYYY') + 'T'
+            fecha += $('th').eq($(this).data('horario')).text()
+            $(this).data('fecha', moment(fecha, 'D/MM/YYYYTHHmm').format())
         })
 
         initCalendar()

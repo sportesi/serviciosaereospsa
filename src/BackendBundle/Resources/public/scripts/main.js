@@ -6,11 +6,12 @@ String.prototype.capitalizeFirstLetter = function() {
 
 function initCalendar() {
 	$('td.clickable').on('click', function(){
-		console.log(this)
 		var data = {
 			dia: $(this).data('dia'),
 			horario: $(this).data('horario'),
 			avion: $(this).data('avion'),
+			updatedAt: $(this).data('updatedAt'),
+			fecha: $(this).data('fecha'),
 		}
 		$(this).addClass('bg-info')
 		newEvent(data, this)
@@ -22,6 +23,8 @@ function newEvent(data, cell) {
 	$('[name="turno[dia]"]').val(data.dia)
 	$('[name="turno[horario]"]').val(data.horario)
 	$('[name="turno[avion]"]').val(data.avion)
+	$('[name="turno[updatedAt]"]').val(data.updatedAt)
+	$('[name="turno[fecha]"]').val(data.fecha)
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')

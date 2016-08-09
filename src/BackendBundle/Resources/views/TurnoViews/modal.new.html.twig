@@ -10,6 +10,8 @@
 					<input type="hidden" name="turno[dia]">
 					<input type="hidden" name="turno[horario]">
 					<input type="hidden" name="turno[avion]">
+					<input type="hidden" name="turno[fecha]">
+					<input type="hidden" name="turno[updatedAt]">
 					<div class="form-group form-group-piloto">
 						<label for="inputPiloto" class="col-sm-2 control-label">Piloto:</label>
 						<div class="col-sm-10">
@@ -24,7 +26,7 @@
 					<div class="form-group  form-group-alumno">
 						<label for="inputAlumno" class="col-sm-2 control-label">Alumno:</label>
 						<div class="col-sm-10">
-							<select name="alumno" id="inputAlumno" class="form-control" required="required" style="width: 75%">
+							<select name="turno[alumno]" id="inputAlumno" class="form-control" required="required" style="width: 75%">
 								<option value="">Seleccione el/la alumno/a...</option>
 								{% for itemAlumno in alumnos %}
 								    <option value="{{ itemAlumno.id }}">{{ itemAlumno.apellido ~ ', ' ~ itemAlumno.nombre }}</option>
