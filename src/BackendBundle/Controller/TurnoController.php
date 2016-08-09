@@ -19,14 +19,17 @@ class TurnoController extends Controller
     	$aviones = $em->getRepository('AppBundle:Avion')->findAll();
     	$horarios = $em->getRepository('AppBundle:Horario')->findAll();
     	$dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
+        $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
+        $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
 
     	$pageData = array(
     			'aviones' => $aviones,
     			'dias' => $dias,
     			'horarios' => $horarios,
     			'week' => $week,
+                'alumnos' => $alumnos,
+                'pilotos' => $pilotos,
     		);
-
 
 
         return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
