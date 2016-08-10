@@ -39,8 +39,13 @@ class TurnoController extends Controller
             );
 
         if ($request->isMethod('POST')) {
-            $turno = new Turno();
             $postTurno = $request->request->get('turno');
+            
+            if ($postTurno['id']) {
+            	$turno = $em->getRepository('AppBundle:Turno')->find($postTurno['id']);
+            } else {
+            	$turno = new Turno();
+            }
 
             foreach ($aviones as $item) {
                 if ($item->getId() == $postTurno['avion']) {$turno->setAvion($item); }
@@ -98,6 +103,22 @@ class TurnoController extends Controller
         $turnos = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno')->findAll();
         $jsonContent = $serializer->serialize($turnos, 'json');
         return new Response($jsonContent);
+    }
+
+    /**
+     * @Route("/turnos/listado/delete/{id}", name="BackendTurnosDelete")
+     */
+    public function deleteAction($id)
+    {
+    	if ($id) {
+			$em = $this->getDoctrine()->getManager();
+    		$turno = $em->getRepository('AppBundle:Turno')->find($id);
+    		if (is_object($turno)) {
+    			$em->remove($turno);
+				$em->flush();
+    		}
+    	}
+        return $this->redirectToRoute('BackendHomepage');
     }
 
 }

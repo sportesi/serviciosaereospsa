@@ -37,23 +37,25 @@ function initCalendar() {
 	})
 
 	ShowLoading()
-	$.getJSON('/backend/turnos/listado/get/json', function(response){
-		console.log(response)
-		for (var i = 0; i < response.length; i++) {
-			var turno = response[i]
-			var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
-			cell.toggleClass('bg-success')
-			if (turno.alumno) {
-				cell.text(turno.alumno.apellido)
-			} else {
-				cell.text(turno.piloto.apellido)
+	jQuery(document).ready(function($) {
+		$.getJSON('/backend/turnos/listado/get/json', function(response){
+			console.log(response)
+			for (var i = 0; i < response.length; i++) {
+				var turno = response[i]
+				var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
+				cell.toggleClass('bg-success')
+				if (turno.alumno) {
+					cell.text(turno.alumno.apellido)
+				} else {
+					cell.text(turno.piloto.apellido)
+				}
+				cell.data('turno', turno)
 			}
-			cell.data('turno', turno)
-		}
-		HideLoading()
-	}).fail(function(){
-		swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
-	})
+			HideLoading()
+		}).fail(function(){
+			swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
+		})
+	});
 
 }
 
@@ -69,7 +71,7 @@ function newEvent(data, cell) {
 	$('.form-group-alumno select').val('').trigger('change')
 	$('.form-group-piloto select').val('').trigger('change')
 	$('.modal-title').hide()
-	$('.btn-primary').hide()
+	$('.btn-success').hide()
 	$('.form-new-title').show()
 	$('.form-new-btn').show()
 	$('#newEvent').modal()
@@ -98,8 +100,9 @@ function editEvent(data) {
 	$('[name="turno[updatedAt]"]').val(data.updatedAt)
 	$('[name="turno[fecha]"]').val(data.fecha)
 	$('[name="turno[comentario]"]').val(data.turno.comentario)
+	$('.form-delete-btn').data(data)
 	$('.modal-title').hide()
-	$('.btn-primary').hide()
+	$('.btn-success').hide()
 	$('.form-edit-title').show()
 	$('.form-edit-btn').show()
 	$('#newEvent').modal('show')
@@ -122,4 +125,20 @@ function ShowLoading() {
 }
 function HideLoading() {
 	swal.close()
+}
+
+
+function deleteTurno(turno) {
+	var data = $(turno).data()
+	swal({
+		title: 'Atencion!',
+		text: 'Estas a punto de eliminar un turno. \nEsta accion no puede deshacerse',
+		type: 'warning',
+		showCancelButton: true,
+		cancelButtonText: 'Cancelar',
+		closeOnConfirm: false,   
+		showLoaderOnConfirm: true,
+	}, function(){
+		window.location.href = '/backend/turnos/listado/delete/' + data.turno.id
+	})
 }
