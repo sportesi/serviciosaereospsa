@@ -4,9 +4,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Nuevo Turno</h4>
+					<h4 class="modal-title form-new-title">Nuevo Turno</h4>
+					<h4 class="modal-title form-edit-title">Editar Turno</h4>
 				</div>
 				<div class="modal-body">
+					<input type="hidden" name="turno[id]">
 					<input type="hidden" name="turno[dia]">
 					<input type="hidden" name="turno[horario]">
 					<input type="hidden" name="turno[avion]">
@@ -43,7 +45,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Crear turno</button>
+					<button type="submit" class="btn btn-primary form-new-btn">Crear turno</button>
+					<button type="submit" class="btn btn-primary form-edit-btn">Editar turno</button>
 				</div>
 			</div>
 		</form>

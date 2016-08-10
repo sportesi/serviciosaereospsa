@@ -17,7 +17,14 @@ function initCalendar() {
 			$(this).addClass('bg-info')
 			newEvent(data, this)
 		} else {
-			var data = $(this).data('turno')
+			var data = {
+				dia: $(this).data('dia'),
+				horario: $(this).data('horario'),
+				avion: $(this).data('avion'),
+				updatedAt: $(this).data('updatedAt'),
+				fecha: $(this).data('fecha'),
+				turno: $(this).data('turno'),
+			}
 			editEvent(data)
 		}
 	})
@@ -52,11 +59,19 @@ function initCalendar() {
 
 function newEvent(data, cell) {
 	console.log(data)
+	$('[name="turno[id]"]').val(0)
 	$('[name="turno[dia]"]').val(data.dia)
 	$('[name="turno[horario]"]').val(data.horario)
 	$('[name="turno[avion]"]').val(data.avion)
 	$('[name="turno[updatedAt]"]').val(data.updatedAt)
 	$('[name="turno[fecha]"]').val(data.fecha)
+	$('[name="turno[comentario]"]').val("")
+	$('.form-group-alumno select').val('').trigger('change')
+	$('.form-group-piloto select').val('').trigger('change')
+	$('.modal-title').hide()
+	$('.btn-primary').hide()
+	$('.form-new-title').show()
+	$('.form-new-btn').show()
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')
@@ -65,18 +80,28 @@ function newEvent(data, cell) {
 			$(cell).removeClass('bg-success')
 			$(cell).addClass('bg-success')
 		}
-		$('.form-group-alumno select').val('').trigger('change')
-		$('.form-group-piloto select').val('').trigger('change')
 	})
 }
 
 function editEvent(data) {
-	if (data.alumno) {
-		$('.form-group-alumno select').val(data.alumno.id).trigger('change')
+	console.log(data)
+	if (data.turno.alumno) {
+		$('.form-group-alumno select').val(data.turno.alumno.id).trigger('change')
 	}
-	if (data.piloto) {
-		$('.form-group-piloto select').val(data.piloto.id).trigger('change')
+	if (data.turno.piloto) {
+		$('.form-group-piloto select').val(data.turno.piloto.id).trigger('change')
 	}
+	$('[name="turno[id]"]').val(data.turno.id)
+	$('[name="turno[dia]"]').val(data.dia)
+	$('[name="turno[horario]"]').val(data.horario)
+	$('[name="turno[avion]"]').val(data.avion)
+	$('[name="turno[updatedAt]"]').val(data.updatedAt)
+	$('[name="turno[fecha]"]').val(data.fecha)
+	$('[name="turno[comentario]"]').val(data.turno.comentario)
+	$('.modal-title').hide()
+	$('.btn-primary').hide()
+	$('.form-edit-title').show()
+	$('.form-edit-btn').show()
 	$('#newEvent').modal('show')
 }
 
@@ -92,7 +117,7 @@ function ShowLoading() {
 		text: 'Por favor espere', 
 		showConfirmButton: false, 
 		allowEscapeKey: false, 
-		imageSize: '220x20' 
+		imageSize: '80x80' 
 	})
 }
 function HideLoading() {
