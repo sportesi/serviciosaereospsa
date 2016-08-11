@@ -119,7 +119,11 @@
                                     <td>{{ itemAvion.matricula }}</td>
                                     {% if itemAvion.servicio %}
                                         {% for itemHorario in horarios %}
-                                            <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                            {% if itemHorario.hora == '1300' %}
+                                                <td class="bg-disabled"></td>
+                                            {% else %}
+                                                <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                            {% endif %}
                                         {% endfor %} 
                                     {% else %}
                                         <td colspan="{{ horarios|length }}" class="bg-warning">Fuera de Servicio: {{ itemAvion.razonFueraServicio }}</td>
