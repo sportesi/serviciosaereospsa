@@ -55,7 +55,7 @@ function initCalendar() {
 		}).fail(function(){
 			swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
 		})
-	});
+	})
 
 }
 
@@ -68,12 +68,9 @@ function newEvent(data, cell) {
 	$('[name="turno[updatedAt]"]').val(data.updatedAt)
 	$('[name="turno[fecha]"]').val(data.fecha)
 	$('[name="turno[comentario]"]').val("")
-	$('.form-group-alumno select').val('').trigger('change')
-	$('.form-group-piloto select').val('').trigger('change')
-	$('.modal-title').hide()
-	$('.btn-success').hide()
-	$('.form-new-title').show()
-	$('.form-new-btn').show()
+	$('.form-group-alumno select, .form-group-piloto select').val('').trigger('change')
+	$('.modal-title, .btn-success, .btn-danger').hide()
+	$('.form-new-title, .form-new-btn').show()
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')
@@ -101,10 +98,8 @@ function editEvent(data) {
 	$('[name="turno[fecha]"]').val(data.fecha)
 	$('[name="turno[comentario]"]').val(data.turno.comentario)
 	$('.form-delete-btn').data(data)
-	$('.modal-title').hide()
-	$('.btn-success').hide()
-	$('.form-edit-title').show()
-	$('.form-edit-btn').show()
+	$('.modal-title, .btn-success').hide()
+	$('.btn-danger, .form-edit-title, .form-edit-btn').show()
 	$('#newEvent').modal('show')
 }
 
@@ -141,4 +136,61 @@ function deleteTurno(turno) {
 	}, function(){
 		window.location.href = '/backend/turnos/listado/delete/' + data.turno.id
 	})
+}
+
+var modo = 'edicion'
+var selected
+function switchMode() {
+	modo = (modo === 'edicion' ? 'mover' : 'edicion')
+	switch(modo){
+		case 'edicion':
+			// Habilita clicks para crear o editar turnos
+			$('td.clickable').off('click')
+			$('td.clickable').on('click', function(){
+				if (!$(this).data('turno')) {
+					var data = {
+						dia: $(this).data('dia'),
+						horario: $(this).data('horario'),
+						avion: $(this).data('avion'),
+						updatedAt: $(this).data('updatedAt'),
+						fecha: $(this).data('fecha'),
+					}
+					$(this).addClass('bg-info')
+					newEvent(data, this)
+				} else {
+					var data = {
+						dia: $(this).data('dia'),
+						horario: $(this).data('horario'),
+						avion: $(this).data('avion'),
+						updatedAt: $(this).data('updatedAt'),
+						fecha: $(this).data('fecha'),
+						turno: $(this).data('turno'),
+					}
+					editEvent(data)
+				}
+			})
+			break
+		case 'mover':
+			// Deshabilita creacion y edicion de turnos, para habilitar traslado
+			$('td.clickable').off('click')
+			$('td.clickable').on('click', function(){
+				var turno = $(this).data('turno')
+				if (turno) {
+					selected = turno
+				} else {
+					var data = {
+						dia: $(this).data('dia'),
+						horario: $(this).data('horario'),
+						avion: $(this).data('avion'),
+						updatedAt: $(this).data('updatedAt'),
+						fecha: $(this).data('fecha'),
+						turno: selected,
+					}
+					editEvent(data)
+					selected = undefined
+					switchMode()
+				}
+			})
+			break 
+	}
 }
