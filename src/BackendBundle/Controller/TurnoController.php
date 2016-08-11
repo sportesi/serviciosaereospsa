@@ -91,16 +91,27 @@ class TurnoController extends Controller
     }
 
     /**
-     * @Route("/turnos/listado/get/json/{week}", defaults={"week" = 0}, name="BackendTurnosGetJson")
+     * @Route("/turnos/listado/get/json", name="BackendTurnosGetJson")
      */
-    public function getJsonAction($week)
+    public function getJsonAction(Request $request)
     {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
 
         $serializer = new Serializer($normalizers, $encoders);
+	
+		$em = $this->getDoctrine()->getManager();
+		$qb = $em->createQueryBuilder();
 
-        $turnos = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno')->findAll();
+		$qb->select(array('t'))
+		   ->from('AppBundle:Turno', 't');
+
+		$qb->where('t.fecha BETWEEN :start AND :end')
+		   ->setParameter('start', $request->query->get('start'))
+		   ->setParameter('end', $request->query->get('end'));
+
+		$turnos = $qb->getQuery()->getResult();
+
         $jsonContent = $serializer->serialize($turnos, 'json');
         return new Response($jsonContent);
     }

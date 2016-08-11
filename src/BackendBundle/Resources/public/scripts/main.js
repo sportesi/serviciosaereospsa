@@ -38,23 +38,24 @@ function initCalendar() {
 
 	ShowLoading()
 	jQuery(document).ready(function($) {
-		$.getJSON('/backend/turnos/listado/get/json', function(response){
-			
-			for (var i = 0; i < response.length; i++) {
-				var turno = response[i]
-				var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
-				cell.toggleClass('bg-success')
-				if (turno.alumno) {
-					cell.text(turno.alumno.apellido)
-				} else {
-					cell.text(turno.piloto.apellido)
+		setTimeout(function(){
+			$.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete},function(response){
+				for (var i = 0; i < response.length; i++) {
+					var turno = response[i]
+					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
+					cell.toggleClass('bg-success')
+					if (turno.alumno) {
+						cell.text(turno.alumno.apellido)
+					} else {
+						cell.text(turno.piloto.apellido)
+					}
+					cell.data('turno', turno)
 				}
-				cell.data('turno', turno)
-			}
-			HideLoading()
-		}).fail(function(){
-			swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
-		})
+				HideLoading()
+			}).fail(function(){
+				swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
+			})
+		}, 1000)
 	})
 
 }
