@@ -122,7 +122,7 @@
                                             <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
                                         {% endfor %} 
                                     {% else %}
-                                        <td colspan="{{ horarios|length }}" class="bg-warning">Fuera de Servicio</td>
+                                        <td colspan="{{ horarios|length }}" class="bg-warning">Fuera de Servicio: {{ itemAvion.razonFueraServicio }}</td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}

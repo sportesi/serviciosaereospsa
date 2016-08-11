@@ -35,6 +35,11 @@ class Avion
      */
     private $servicio;
 
+    /**
+     * @ORM\Column(name="razon_fuera_servicio", type="string", length=255, nullable=true)
+     */
+    private $razonFueraServicio;
+
 
     /**
      * Get id
@@ -92,5 +97,29 @@ class Avion
     public function getServicio()
     {
         return $this->servicio;
+    }
+
+    /**
+     * Set razonFueraServicio
+     *
+     * @param string $razonFueraServicio
+     *
+     * @return Avion
+     */
+    public function setRazonFueraServicio($razonFueraServicio)
+    {
+        $this->razonFueraServicio = $razonFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get razonFueraServicio
+     *
+     * @return string
+     */
+    public function getRazonFueraServicio()
+    {
+        return $this->razonFueraServicio;
     }
 }

@@ -24,6 +24,7 @@ class AvionController extends Controller
 		$form = $this->createFormBuilder($avion)
 		             ->setAction($this->generateUrl('BackendAvionPost'))
 		             ->add('matricula')
+		             ->add('razonFueraServicio')
 		             ->add('servicio', CheckboxType::class, array('required' => false))
 		             ->getForm();
 
@@ -52,6 +53,7 @@ class AvionController extends Controller
 		$form = $this->createFormBuilder($avion)
 		             ->setAction($this->generateUrl('BackendAvionPost', array("id" => $id)))
 		             ->add('matricula')
+		             ->add('razonFueraServicio')
 		             ->add('servicio', CheckboxType::class, array('required' => false))
 		             ->getForm();
 
@@ -90,6 +92,7 @@ class AvionController extends Controller
 		$form = $this->createFormBuilder($avion)
 		             ->setAction($this->generateUrl('BackendAvionPost', array("id" => $id)))
 		             ->add('matricula')
+		             ->add('razonFueraServicio')
 		             ->add('servicio', CheckboxType::class, array('required' => false))
 		             ->getForm();
 
