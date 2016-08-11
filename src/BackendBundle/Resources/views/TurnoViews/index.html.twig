@@ -76,6 +76,10 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-left">
+                <button type="button" onclick="switchMode()" class="btn btn-primary btn-modo-crear">Cambiar a modo "Crear turnos"</button>
+                <button type="button" onclick="switchMode()" class="btn btn-success btn-modo-mover" style="display: none;">Cambiar a modo "Mover turnos"</button>
+            </div>
             <div class="btn-group pull-right">
                 <a href="{{ path('BackendHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
                 <a href="{{ path('BackendHomepage', { 'week' : 0 }) }}" class="btn btn-default">Semana Actual</a>

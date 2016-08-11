@@ -39,7 +39,7 @@ function initCalendar() {
 	ShowLoading()
 	jQuery(document).ready(function($) {
 		$.getJSON('/backend/turnos/listado/get/json', function(response){
-			console.log(response)
+			
 			for (var i = 0; i < response.length; i++) {
 				var turno = response[i]
 				var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
@@ -60,7 +60,7 @@ function initCalendar() {
 }
 
 function newEvent(data, cell) {
-	console.log(data)
+	
 	$('[name="turno[id]"]').val(0)
 	$('[name="turno[dia]"]').val(data.dia)
 	$('[name="turno[horario]"]').val(data.horario)
@@ -68,9 +68,9 @@ function newEvent(data, cell) {
 	$('[name="turno[updatedAt]"]').val(data.updatedAt)
 	$('[name="turno[fecha]"]').val(data.fecha)
 	$('[name="turno[comentario]"]').val("")
-	$('.form-group-alumno select, .form-group-piloto select').val('').trigger('change')
-	$('.modal-title, .btn-success, .btn-danger').hide()
-	$('.form-new-title, .form-new-btn').show()
+	$('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change')
+	$('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide()
+	$('#newEvent .form-new-title, #newEvent .form-new-btn').show()
 	$('#newEvent').modal()
 	$('#newEvent').on('hidden.bs.modal', function(){
 		$('#newEvent').off('hidden.bs.modal')
@@ -83,12 +83,12 @@ function newEvent(data, cell) {
 }
 
 function editEvent(data) {
-	console.log(data)
+	
 	if (data.turno.alumno) {
-		$('.form-group-alumno select').val(data.turno.alumno.id).trigger('change')
+		$('#newEvent .form-group-alumno select').val(data.turno.alumno.id).trigger('change')
 	}
 	if (data.turno.piloto) {
-		$('.form-group-piloto select').val(data.turno.piloto.id).trigger('change')
+		$('#newEvent .form-group-piloto select').val(data.turno.piloto.id).trigger('change')
 	}
 	$('[name="turno[id]"]').val(data.turno.id)
 	$('[name="turno[dia]"]').val(data.dia)
@@ -98,8 +98,8 @@ function editEvent(data) {
 	$('[name="turno[fecha]"]').val(data.fecha)
 	$('[name="turno[comentario]"]').val(data.turno.comentario)
 	$('.form-delete-btn').data(data)
-	$('.modal-title, .btn-success').hide()
-	$('.btn-danger, .form-edit-title, .form-edit-btn').show()
+	$('#newEvent .modal-title, #newEvent .btn-success').hide()
+	$('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show()
 	$('#newEvent').modal('show')
 }
 
@@ -138,13 +138,15 @@ function deleteTurno(turno) {
 	})
 }
 
-var modo = 'edicion'
+var modo = 'crear'
 var selected
 function switchMode() {
-	modo = (modo === 'edicion' ? 'mover' : 'edicion')
+	modo = (modo === 'crear' ? 'mover' : 'crear')
 	switch(modo){
-		case 'edicion':
+		case 'crear':
 			// Habilita clicks para crear o editar turnos
+			$('.btn-modo-mover').hide()
+			$('.btn-modo-crear').show()
 			$('td.clickable').off('click')
 			$('td.clickable').on('click', function(){
 				if (!$(this).data('turno')) {
@@ -172,25 +174,39 @@ function switchMode() {
 			break
 		case 'mover':
 			// Deshabilita creacion y edicion de turnos, para habilitar traslado
+			$('.btn-modo-crear').hide()
+			$('.btn-modo-mover').show()
 			$('td.clickable').off('click')
 			$('td.clickable').on('click', function(){
 				var turno = $(this).data('turno')
 				if (turno) {
 					selected = turno
+					$(this).addClass('bg-info')
+					var cell = this
+					$('#newEvent').on('hidden.bs.modal', function(){
+						$('#newEvent').off('hidden.bs.modal')
+						$(cell).removeClass('bg-info')
+						if ($(cell).text() !== "") {
+							$(cell).removeClass('bg-success')
+							$(cell).addClass('bg-success')
+						}
+					})
 				} else {
-					var data = {
-						dia: $(this).data('dia'),
-						horario: $(this).data('horario'),
-						avion: $(this).data('avion'),
-						updatedAt: $(this).data('updatedAt'),
-						fecha: $(this).data('fecha'),
-						turno: selected,
+					if (selected) {
+						var data = {
+							dia: $(this).data('dia'),
+							horario: $(this).data('horario'),
+							avion: $(this).data('avion'),
+							updatedAt: $(this).data('updatedAt'),
+							fecha: $(this).data('fecha'),
+							turno: selected,
+						}
+						editEvent(data)
+						selected = undefined
 					}
-					editEvent(data)
-					selected = undefined
-					switchMode()
 				}
 			})
 			break 
 	}
+	
 }
