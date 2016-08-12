@@ -122,7 +122,15 @@
                                             {% if itemHorario.hora == '1300' %}
                                                 <td class="bg-disabled"></td>
                                             {% else %}
-                                                <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                                {% set checkNull = itemAvion.desdeFueraServicio %}
+                                                {% set checkDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
+                                                {% set checkHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
+                                                {% set checkHorario = itemHorario.hora | number_format(0, '', '') %}
+                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario %}
+                                                    <td class="bg-warning" colspan=""></td>
+                                                {% else %}
+                                                    <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %} 
                                     {% else %}
