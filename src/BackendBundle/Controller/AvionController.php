@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Avion;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use AppBundle\Form\AvionType;
 
 class AvionController extends Controller
 {
@@ -21,12 +21,8 @@ class AvionController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
 		$avion = new Avion();
-		$form = $this->createFormBuilder($avion)
-		             ->setAction($this->generateUrl('BackendAvionPost'))
-		             ->add('matricula')
-		             ->add('razonFueraServicio')
-		             ->add('servicio', CheckboxType::class, array('required' => false))
-		             ->getForm();
+		
+		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost')));
 
 		$pageData = array(
 			'aviones' => $aviones, 
@@ -50,12 +46,7 @@ class AvionController extends Controller
 			$avion = new Avion();
 		}
 		
-		$form = $this->createFormBuilder($avion)
-		             ->setAction($this->generateUrl('BackendAvionPost', array("id" => $id)))
-		             ->add('matricula')
-		             ->add('razonFueraServicio')
-		             ->add('servicio', CheckboxType::class, array('required' => false))
-		             ->getForm();
+		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost', array('id' => $id))));
 
 		$form->handleRequest($request);
 
@@ -64,8 +55,6 @@ class AvionController extends Controller
 				$em->persist($avion);
 			}
 			$em->flush();
-
-			return $this->redirectToRoute('BackendAvionHomepage');
 		}
 		
 		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
@@ -89,12 +78,7 @@ class AvionController extends Controller
 		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
 		$avion = $em->getRepository('AppBundle:Avion')->find($id);
 		
-		$form = $this->createFormBuilder($avion)
-		             ->setAction($this->generateUrl('BackendAvionPost', array("id" => $id)))
-		             ->add('matricula')
-		             ->add('razonFueraServicio')
-		             ->add('servicio', CheckboxType::class, array('required' => false))
-		             ->getForm();
+		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost', array('id' => $id))));
 
 		$pageData = array(
 			'aviones' => $aviones, 
@@ -103,7 +87,7 @@ class AvionController extends Controller
 			'avionId' => $id,
 		);
 
-	    return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+		return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
 	}
 
 	/**

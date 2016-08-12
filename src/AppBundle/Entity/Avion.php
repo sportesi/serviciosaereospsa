@@ -36,9 +36,29 @@ class Avion
     private $servicio;
 
     /**
+     * @ORM\Column(name="tipo_fuera_servicio", type="string", length=255, nullable=true)
+     */
+    private $tipoFueraServicio;
+
+    /**
      * @ORM\Column(name="razon_fuera_servicio", type="string", length=255, nullable=true)
      */
     private $razonFueraServicio;
+
+    /**
+     * @ORM\Column(name="desde_fuera_servicio", type="time", nullable=true)
+     */
+    private $desdeFueraServicio;
+
+    /**
+     * @ORM\Column(name="hasta_fuera_servicio", type="time", nullable=true)
+     */
+    private $hastaFueraServicio;
+
+    /**
+     * @ORM\Column(name="fecha_fuera_servicio", type="date", nullable=true)
+     */
+    private $fechaFueraServicio;
 
 
     /**
@@ -121,5 +141,101 @@ class Avion
     public function getRazonFueraServicio()
     {
         return $this->razonFueraServicio;
+    }
+
+    /**
+     * Set tipoFueraServicio
+     *
+     * @param string $tipoFueraServicio
+     *
+     * @return Avion
+     */
+    public function setTipoFueraServicio($tipoFueraServicio)
+    {
+        $this->tipoFueraServicio = $tipoFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoFueraServicio
+     *
+     * @return string
+     */
+    public function getTipoFueraServicio()
+    {
+        return $this->tipoFueraServicio;
+    }
+
+    /**
+     * Set desdeFueraServicio
+     *
+     * @param \DateTime $desdeFueraServicio
+     *
+     * @return Avion
+     */
+    public function setDesdeFueraServicio($desdeFueraServicio)
+    {
+        $this->desdeFueraServicio = $desdeFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get desdeFueraServicio
+     *
+     * @return \DateTime
+     */
+    public function getDesdeFueraServicio()
+    {
+        return $this->desdeFueraServicio;
+    }
+
+    /**
+     * Set hastaFueraServicio
+     *
+     * @param \DateTime $hastaFueraServicio
+     *
+     * @return Avion
+     */
+    public function setHastaFueraServicio($hastaFueraServicio)
+    {
+        $this->hastaFueraServicio = $hastaFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get hastaFueraServicio
+     *
+     * @return \DateTime
+     */
+    public function getHastaFueraServicio()
+    {
+        return $this->hastaFueraServicio;
+    }
+
+    /**
+     * Set fechaFueraServicio
+     *
+     * @param \DateTime $fechaFueraServicio
+     *
+     * @return Avion
+     */
+    public function setFechaFueraServicio($fechaFueraServicio)
+    {
+        $this->fechaFueraServicio = $fechaFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaFueraServicio
+     *
+     * @return \DateTime
+     */
+    public function getFechaFueraServicio()
+    {
+        return $this->fechaFueraServicio;
     }
 }

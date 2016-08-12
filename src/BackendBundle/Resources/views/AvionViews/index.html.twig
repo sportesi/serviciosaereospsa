@@ -2,15 +2,17 @@
 
 {% block scripts %}
     <script type="text/javascript">
-        $('#form_servicio').on('change', function(){
+        $('#avion_servicio').on('change', function(){
             if ($(this).prop('checked')) {
-                $('#group_razonFueraServicio').hide()
+                $('.group_razonFueraServicio').fadeOut()
+                $('.group_razonFueraServicio *').prop('disabled', true)
             } else {
-                $('#group_razonFueraServicio').show()
+                $('.group_razonFueraServicio *').prop('disabled', false)
+                $('.group_razonFueraServicio').fadeIn()
             }
         })
-        if (!$('#form_servicio').prop('checked')) {
-            $('#group_razonFueraServicio').show()
+        if (!$('#avion_servicio').prop('checked')) {
+            $('.group_razonFueraServicio').fadeIn()
         }
     </script>
 {% endblock %}
@@ -65,24 +67,43 @@
                         <div class="form-group">
                             <label for="input" class="col-sm-3 control-label">Matricula</label>
                             <div class="col-sm-9">
-                                {{ form_widget(form.matricula, { 'attr' : { 'class' : 'form-control' } }) }}
+                                {{ form_widget(form.matricula) }}
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="input" class="col-sm-3 control-label">En Servicio</label>
                             <div class="col-sm-9">
-                                <div class="checkbox">
-                                    <label>
-                                        {{ form_widget(form.servicio) }}
-                                        En Servicio
-                                    </label>
-                                </div>
+                                {{ form_widget(form.servicio) }}
                             </div>
                         </div>
-                        <div class="form-group" id="group_razonFueraServicio" style="display: none;">
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputTipoFueraServicio" class="col-sm-3 control-label">Tipo F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.tipoFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
                             <label for="input" class="col-sm-3 control-label">Raz&oacute;n F/S</label>
                             <div class="col-sm-9">
-                                {{ form_widget(form.razonFueraServicio, { 'attr' : { 'class' : 'form-control' } }) }}
+                                {{ form_widget(form.razonFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Fecha F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.fechaFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputDesdeFueraServicio" class="col-sm-3 control-label">Desde F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.desdeFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputHastaFueraServicio" class="col-sm-3 control-label">Hasta F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.hastaFueraServicio) }}
                             </div>
                         </div>
                     </div>

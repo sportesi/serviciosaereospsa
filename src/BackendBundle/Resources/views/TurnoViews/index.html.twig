@@ -117,7 +117,7 @@
                             {% for itemAvion in aviones %}
             				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
                                     <td>{{ itemAvion.matricula }}</td>
-                                    {% if itemAvion.servicio %}
+                                    {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' %}
                                         {% for itemHorario in horarios %}
                                             {% if itemHorario.hora == '1300' %}
                                                 <td class="bg-disabled"></td>
@@ -126,8 +126,9 @@
                                             {% endif %}
                                         {% endfor %} 
                                     {% else %}
-                                        <td colspan="{{ horarios|length }}" class="bg-warning">Fuera de Servicio: {{ itemAvion.razonFueraServicio }}</td>
+                                        <td colspan="{{ horarios|length }}" class="bg-warning">{{ itemAvion.tipoFueraServicio }}: {{ itemAvion.razonFueraServicio }}</td>
                                     {% endif %}
+
                                 </tr>
                             {% endfor %}
                         {% endfor %}
