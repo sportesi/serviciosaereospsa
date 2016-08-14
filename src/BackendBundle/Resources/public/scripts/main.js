@@ -36,7 +36,7 @@ function initCalendar() {
 		$('.form-group-alumno select').prop('required', $(this).val() === "")
 	})
 
-	/*ShowLoading()
+	ShowLoading()
 	jQuery(document).ready(function($) {
 		setTimeout(function(){
 			$.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete},function(response){
@@ -56,7 +56,7 @@ function initCalendar() {
 				swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
 			})
 		}, 1000)
-	})*/
+	})
 
 }
 
