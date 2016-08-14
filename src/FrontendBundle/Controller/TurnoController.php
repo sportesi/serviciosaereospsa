@@ -87,15 +87,18 @@ class TurnoController extends Controller
     public function getJsonAction(Request $request)
     {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-
-        $serializer = new Serializer($normalizers, $encoders);
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setIgnoredAttributes(array('alumno', 'piloto', 'confirmado', 'comentario', 'updatedAt'));
+        $serializer = new Serializer(array($normalizer), $encoders);
 	
 		$em = $this->getDoctrine()->getManager();
 		$qb = $em->createQueryBuilder();
 
 		$qb->select(array('t'))
-		   ->from('AppBundle:Turno', 't');
+		   ->from('AppBundle:Turno', 't')
+		   ->join('AppBundle:Avion', 'a', 'WITH', 'a.id = t.avion')
+		   ->join('AppBundle:Dia', 'd', 'WITH', 'd.id = t.dia')
+		   ->join('AppBundle:Horario', 'h', 'WITH', 'h.id = t.horario');
 
 		$qb->where('t.fecha BETWEEN :start AND :end')
 		   ->setParameter('start', $request->query->get('start'))
