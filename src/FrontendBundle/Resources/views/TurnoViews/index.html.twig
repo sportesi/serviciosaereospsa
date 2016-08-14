@@ -79,7 +79,9 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="btn-group pull-right">
-                <a href="{{ path('FrontendTurnoHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
+                {% if week != 0 %}
+                    <a href="{{ path('FrontendTurnoHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
+                {% endif %}
                 <a href="{{ path('FrontendTurnoHomepage', { 'week' : 0 }) }}" class="btn btn-default">Semana Actual</a>
                 <a href="{{ path('FrontendTurnoHomepage', { 'week' : week + 1 }) }}" class="btn btn-default">Semana Siguiente</a>
             </div>
