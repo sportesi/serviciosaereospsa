@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use FOS\UserBundle\Mailer\MailerInterface;
 
 class TurnoController extends Controller
 {
@@ -134,6 +135,28 @@ class TurnoController extends Controller
     		}
     	}
         return $this->redirectToRoute('BackendHomepage');
+    }
+
+
+    /**
+     * @Route("/prepare", name="prepare")
+     */
+    public function prepareAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // $alumnos = $em->getRepository('AppBundle:Alumno')->findAll();
+
+        // $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
+        // $tokenGenerator = $this->get('fos_user.util.token_generator');
+        // $user->setConfirmationToken($tokenGenerator->generateToken());
+        // $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        // $this->get('fos_user.user_manager')->updateUser($user);
+        // foreach ($alumnos as $item) {
+            
+        // }
+
+        return new Response('<html><body></body></html>');
     }
 
 }
