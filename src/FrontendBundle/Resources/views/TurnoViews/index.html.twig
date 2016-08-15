@@ -42,7 +42,7 @@
         $('#semanaText').text(semanaText);
 
         $('.rotate').each(function(){
-            $(this).find('b').text(moment(date).day($(this).data('dia')).format('DD'))
+            $(this).find('b').text(moment(date).add(-1, 'week').day($(this).data('dia')).format('DD'))
         })
 
         $('.clickable').each(function() {
@@ -51,6 +51,11 @@
             fecha += monthNumber + '/'
             fecha += moment().format('YYYY') + 'T'
             fecha += $('th').eq($(this).data('horario')).text()
+            if (moment(fecha, 'D/MM/YYYYTHHmm').isBefore(moment())) {
+                $(this).removeClass('clickable')
+                $(this).off('click')
+                $(this).addClass('bg-disabled')
+            }
             $(this).data('fecha', moment(fecha, 'D/MM/YYYYTHHmm').format())
         })
 
@@ -78,6 +83,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {{ weekStart }}
             <div class="btn-group pull-right">
                 {% if week != 0 %}
                     <a href="{{ path('FrontendTurnoHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>

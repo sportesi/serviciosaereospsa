@@ -201,7 +201,7 @@ function initCalendar() {
 				for (var i = 0; i < response.length; i++) {
 					var turno = response[i]
 					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
-					cell.toggleClass('bg-disabled')
+					cell.addClass('bg-disabled')
 					cell.removeClass('clickable')
 					cell.off('click')
 					cell.text('')

@@ -28,6 +28,10 @@ class TurnoController extends Controller
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
 
+        $ts = strtotime('today');
+        $week_start = date('d-m-Y', strtotime('last monday', $ts));
+        echo $ts;
+
         $pageData = array(
                 'aviones' => $aviones,
                 'dias' => $dias,
@@ -35,6 +39,7 @@ class TurnoController extends Controller
                 'week' => $week,
                 'alumnos' => $alumnos,
                 'pilotos' => $pilotos,
+                'weekStart' => $week_start,
             );
 
         if ($request->isMethod('POST')) {
