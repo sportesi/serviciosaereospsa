@@ -22,6 +22,10 @@ class TurnoController extends Controller
 	{
     	$em = $this->getDoctrine()->getManager();
 
+    	$usuario = $this->container->get('security.token_storage')->getToken()->getUser();
+    	$alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
+    	$piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
+
     	$aviones = $em->getRepository('AppBundle:Avion')->findAll();
     	$horarios = $em->getRepository('AppBundle:Horario')->findAll();
     	$dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
@@ -39,6 +43,7 @@ class TurnoController extends Controller
                 'alumnos' => $alumnos,
                 'pilotos' => $pilotos,
                 'weekStart' => $week_start,
+                'loggedAs' => (sizeof($alumno) > 0) ? 'alumno' : 'piloto',
             );
 
         if ($request->isMethod('POST')) {
@@ -59,10 +64,6 @@ class TurnoController extends Controller
             foreach ($dias as $item) {
                 if ($item->getId() == $postTurno['dia']) {$turno->setDia($item); }
             }
-
-            $usuario = $this->container->get('security.token_storage')->getToken()->getUser();
-            $alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
-            $piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
 
             if (sizeof($alumno) > 0) {
             	$turno->setAlumno($alumno[0]);
