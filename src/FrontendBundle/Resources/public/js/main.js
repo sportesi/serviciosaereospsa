@@ -20,11 +20,6 @@ $(document).ready(function(){
 			'margin-bottom' : '60px'
 		});
 	}
-
-
-
-
-
 	
 	//code for the background slider
 	$.backstretch([
@@ -35,10 +30,6 @@ $(document).ready(function(){
         fade: 750,
         duration: 2500
     });
-
-
-
-
 
 	
  	//code for the cerlces Countdouwn
@@ -72,10 +63,6 @@ $(document).ready(function(){
 	        }
 	    }
 	});
-
-
-
-
 
 	
 	//To show loading icon on form submit
@@ -161,7 +148,7 @@ String.prototype.capitalizeFirstLetter = function() {
 }
 
 /* Calendar logic */
-
+var reservasSemana = 0;
 function initCalendar() {
 	$('td.clickable').on('click', setClickEvent)
 
@@ -176,6 +163,9 @@ function initCalendar() {
 	jQuery(document).ready(function($) {
 		setTimeout(function(){
 			$.getJSON('/turno/calendario/get/by/' + $('[name=user]').val(), {start: startComplete, end: endComplete}, function(json, textStatus) {
+				if ($('[name=loggedAs]').val() == 'alumno') {
+					reservasSemana = json.length
+				}
 				for (var i = 0; i < json.length; i++) {
 					var turno = json[i]
 					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
@@ -283,25 +273,29 @@ function deleteTurno(turno) {
 }
 
 function setClickEvent() {
-	if (!$(this).data('turno')) {
-		var data = {
-			dia: $(this).data('dia'),
-			horario: $(this).data('horario'),
-			avion: $(this).data('avion'),
-			updatedAt: $(this).data('updatedAt'),
-			fecha: $(this).data('fecha'),
+	if (reservasSemana < 2) {
+		if (!$(this).data('turno')) {
+			var data = {
+				dia: $(this).data('dia'),
+				horario: $(this).data('horario'),
+				avion: $(this).data('avion'),
+				updatedAt: $(this).data('updatedAt'),
+				fecha: $(this).data('fecha'),
+			}
+			$(this).addClass('bg-info')
+			newEvent(data, this)
+		} else {
+			var data = {
+				dia: $(this).data('dia'),
+				horario: $(this).data('horario'),
+				avion: $(this).data('avion'),
+				updatedAt: $(this).data('updatedAt'),
+				fecha: $(this).data('fecha'),
+				turno: $(this).data('turno'),
+			}
+			editEvent(data)
 		}
-		$(this).addClass('bg-info')
-		newEvent(data, this)
 	} else {
-		var data = {
-			dia: $(this).data('dia'),
-			horario: $(this).data('horario'),
-			avion: $(this).data('avion'),
-			updatedAt: $(this).data('updatedAt'),
-			fecha: $(this).data('fecha'),
-			turno: $(this).data('turno'),
-		}
-		editEvent(data)
+		swal('Atencion', 'Solo puede reservar dos turnos por semana. Para mas informacion comuniquese con PSA. \nGracias', 'warning')
 	}
 }
