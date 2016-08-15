@@ -39,7 +39,7 @@ function initCalendar() {
 	ShowLoading()
 	jQuery(document).ready(function($) {
 		setTimeout(function(){
-			$.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete},function(response){
+			$.getJSON('/web/backend/turnos/listado/get/json', {start: startComplete, end: endComplete},function(response){
 				for (var i = 0; i < response.length; i++) {
 					var turno = response[i]
 					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
@@ -111,7 +111,7 @@ function editEvent(data) {
  */
 function ShowLoading() {
 	swal({ 
-		imageUrl: '/bundles/backend/img/loader.gif', 
+		imageUrl: '/web/bundles/backend/img/loader.gif', 
 		title: 'Cargando', 
 		text: 'Por favor espere', 
 		showConfirmButton: false, 
@@ -135,7 +135,7 @@ function deleteTurno(turno) {
 		closeOnConfirm: false,   
 		showLoaderOnConfirm: true,
 	}, function(){
-		window.location.href = '/backend/turnos/listado/delete/' + data.turno.id
+		window.location.href = '/web/backend/turnos/listado/delete/' + data.turno.id
 	})
 }
 

@@ -147,11 +147,11 @@ class TurnoController extends Controller
 
         // $alumnos = $em->getRepository('AppBundle:Alumno')->findAll();
 
-        // $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
-        // $tokenGenerator = $this->get('fos_user.util.token_generator');
-        // $user->setConfirmationToken($tokenGenerator->generateToken());
-        // $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
-        // $this->get('fos_user.user_manager')->updateUser($user);
+        $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
+        $tokenGenerator = $this->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
+        $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $this->get('fos_user.user_manager')->updateUser($user);
         // foreach ($alumnos as $item) {
             
         // }
