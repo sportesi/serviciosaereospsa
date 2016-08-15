@@ -59,11 +59,16 @@ class TurnoController extends Controller
             foreach ($dias as $item) {
                 if ($item->getId() == $postTurno['dia']) {$turno->setDia($item); }
             }
-            foreach ($alumnos as $item) {
-                if ($item->getId() == $postTurno['alumno']) {$turno->setAlumno($item); }
+
+            $usuario = $this->container->get('security.token_storage')->getToken()->getUser();
+            $alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
+            $piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
+
+            if (sizeof($alumno) > 0) {
+            	$turno->setAlumno($alumno[0]);
             }
-            foreach ($pilotos as $item) {
-                if ($item->getId() == $postTurno['piloto']) {$turno->setPiloto($item); }
+            if (sizeof($piloto) > 0) {
+            	$turno->setPiloto($piloto[0]);
             }
 
             $turno->setUpdatedAt(new \DateTime());
@@ -165,7 +170,7 @@ class TurnoController extends Controller
     }
 
     /**
-     * @Route("/turnos/listado/delete/{id}", name="FrontendTurnosDelete")
+     * @Route("/turno/listado/delete/{id}", name="FrontendTurnosDelete")
      */
     public function deleteAction($id)
     {
@@ -173,11 +178,11 @@ class TurnoController extends Controller
 			$em = $this->getDoctrine()->getManager();
     		$turno = $em->getRepository('AppBundle:Turno')->find($id);
     		if (is_object($turno)) {
-    			$em->persist($turno);
+    			$em->remove($turno);
 				$em->flush();
     		}
     	}
-        return $this->redirectToRoute('BackendHomepage');
+        return $this->redirectToRoute('FrontendTurnoHomepage');
     }
 
 }
