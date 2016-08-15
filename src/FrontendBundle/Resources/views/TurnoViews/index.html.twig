@@ -42,7 +42,7 @@
         $('#semanaText').text(semanaText);
 
         $('.rotate').each(function(){
-            $(this).find('b').text(moment(date).add(-1, 'week').day($(this).data('dia')).format('DD'))
+            $(this).find('b').text(moment(date).day($(this).data('dia')).format('DD'))
         })
 
         $('.clickable').each(function() {
@@ -83,7 +83,6 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ weekStart }}
             <div class="btn-group pull-right">
                 {% if week != 0 %}
                     <a href="{{ path('FrontendTurnoHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
@@ -115,6 +114,7 @@
         			</thead>
         			<tbody>
                         {% for itemDia in dias %}
+                            {% set fechaDia = weekStart | date_modify('+' ~ (itemDia.id - 1) ~ ' day') | date_modify('+' ~ week ~ ' week') | date('d-m-Y') %}
             				<tr>
             					<td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ itemDia.id }}" class="rotate">{{ itemDia.nombre }}<br><b></b></td>
             				</tr>
@@ -127,11 +127,12 @@
                                             {% if itemHorario.hora == '1300' %}
                                                 <td class="bg-disabled"></td>
                                             {% else %}
+                                                {% set checkFecha = itemAvion.fechaFueraServicio | date('d-m-Y') %}
                                                 {% set checkNull = itemAvion.desdeFueraServicio %}
                                                 {% set checkDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
                                                 {% set checkHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
                                                 {% set checkHorario = itemHorario.hora | number_format(0, '', '') %}
-                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario %}
+                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario and fechaDia == checkFecha %}
                                                     {% if not disabled %}
                                                         <td class="bg-warning" colspan="{{ (checkHasta - checkDesde + 100) / 100 }}">
                                                             {{ itemAvion.tipoFueraServicio }}

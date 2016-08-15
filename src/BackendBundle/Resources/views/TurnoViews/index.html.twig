@@ -111,6 +111,7 @@
         			</thead>
         			<tbody>
                         {% for itemDia in dias %}
+                            {% set fechaDia = weekStart | date_modify('+' ~ (itemDia.id - 1) ~ ' day') | date_modify('+' ~ week ~ ' week') | date('d-m-Y') %}
             				<tr>
             					<td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ itemDia.id }}" class="rotate">{{ itemDia.nombre }}<br><b></b></td>
             				</tr>
@@ -123,11 +124,12 @@
                                             {% if itemHorario.hora == '1300' %}
                                                 <td class="bg-disabled"></td>
                                             {% else %}
+                                                {% set checkFecha = itemAvion.fechaFueraServicio | date('d-m-Y') %}
                                                 {% set checkNull = itemAvion.desdeFueraServicio %}
                                                 {% set checkDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
                                                 {% set checkHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
                                                 {% set checkHorario = itemHorario.hora | number_format(0, '', '') %}
-                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario %}
+                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario and checkFecha == fechaDia %}
                                                     {% if not disabled %}
                                                         <td class="bg-warning" colspan="{{ (checkHasta - checkDesde + 100) / 100 }}">
                                                             {{ itemAvion.tipoFueraServicio }}: {{ itemAvion.razonFueraServicio }}

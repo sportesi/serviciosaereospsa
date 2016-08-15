@@ -28,9 +28,8 @@ class TurnoController extends Controller
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
 
-        $ts = strtotime('today');
-        $week_start = date('d-m-Y', strtotime('last monday', $ts));
-        echo $ts;
+        $day = date('w', strtotime('+'. $week. ' weeks'));
+        $week_start = strtotime('-'.(1-$day).' days');
 
         $pageData = array(
                 'aviones' => $aviones,
