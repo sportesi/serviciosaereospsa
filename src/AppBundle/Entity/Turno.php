@@ -74,6 +74,11 @@ class Turno
      * @ORM\Column(name="comentario", type="text", nullable=true)
      */
     private $comentario;
+
+    /**
+     * @ORM\Column(name="cancelado", type="boolean", nullable=true)
+     */
+    private $cancelado;
     
 
     /**
@@ -300,5 +305,29 @@ class Turno
     public function getComentario()
     {
         return $this->comentario;
+    }
+
+    /**
+     * Set cancelado
+     *
+     * @param boolean $cancelado
+     *
+     * @return Turno
+     */
+    public function setCancelado($cancelado)
+    {
+        $this->cancelado = $cancelado;
+
+        return $this;
+    }
+
+    /**
+     * Get cancelado
+     *
+     * @return boolean
+     */
+    public function getCancelado()
+    {
+        return $this->cancelado;
     }
 }

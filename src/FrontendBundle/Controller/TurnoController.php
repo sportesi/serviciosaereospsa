@@ -128,7 +128,7 @@ class TurnoController extends Controller
 
 		$usuario = $em->getRepository('AppBundle:User')->find($id);
 		$alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
-		// $piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
+		$piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
 
 		if (sizeof($alumno) > 0) {
 			$qb->select(array('t'))
@@ -144,23 +144,40 @@ class TurnoController extends Controller
 			   ->setParameter('alumno', $alumno[0]->getId());
 		}
 
-		// if (sizeof($piloto) > 0) {
-		//    	$qb->select(array('t'))
-		// 	   ->from('AppBundle:Turno', 't')
-		// 	   ->join('AppBundle:Avion', 'a', 'WITH', 'a.id = t.avion')
-		// 	   ->join('AppBundle:Dia', 'd', 'WITH', 'd.id = t.dia')
-		// 	   ->join('AppBundle:Horario', 'h', 'WITH', 'h.id = t.horario');
+		if (sizeof($piloto) > 0) {
+		   	$qb->select(array('t'))
+			   ->from('AppBundle:Turno', 't')
+			   ->join('AppBundle:Avion', 'a', 'WITH', 'a.id = t.avion')
+			   ->join('AppBundle:Dia', 'd', 'WITH', 'd.id = t.dia')
+			   ->join('AppBundle:Horario', 'h', 'WITH', 'h.id = t.horario');
 
-		// 	$qb->where('t.fecha BETWEEN :start AND :end AND t.piloto = :piloto')
-		// 	   ->setParameter('start', $request->query->get('start'))
-		// 	   ->setParameter('end', $request->query->get('end'))
-		// 	   ->setParameter('piloto', $piloto);
-		// }
+			$qb->where('t.fecha BETWEEN :start AND :end')
+			   ->andWhere('t.piloto = :piloto')
+			   ->setParameter('start', $request->query->get('start'))
+			   ->setParameter('end', $request->query->get('end'))
+			   ->setParameter('piloto', $piloto[0]->getId());
+		}
 
 		$turnos = $qb->getQuery()->getResult();
 
         $jsonContent = $serializer->serialize($turnos, 'json');
         return new Response($jsonContent);
+    }
+
+    /**
+     * @Route("/turnos/listado/delete/{id}", name="FrontendTurnosDelete")
+     */
+    public function deleteAction($id)
+    {
+    	if ($id) {
+			$em = $this->getDoctrine()->getManager();
+    		$turno = $em->getRepository('AppBundle:Turno')->find($id);
+    		if (is_object($turno)) {
+    			$em->persist($turno);
+				$em->flush();
+    		}
+    	}
+        return $this->redirectToRoute('BackendHomepage');
     }
 
 }

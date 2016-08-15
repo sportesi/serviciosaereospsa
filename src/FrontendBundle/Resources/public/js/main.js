@@ -278,7 +278,7 @@ function deleteTurno(turno) {
 		closeOnConfirm: false,   
 		showLoaderOnConfirm: true,
 	}, function(){
-		window.location.href = '/backend/turnos/listado/delete/' + data.turno.id
+		window.location.href = '/frontend/turnos/listado/delete/' + data.turno.id
 	})
 }
 
