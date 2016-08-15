@@ -114,4 +114,53 @@ class TurnoController extends Controller
         return new Response($jsonContent);
     }
 
+    /**
+     * @Route("/turno/calendario/get/by/{id}", name="FrontendTurnosGetBy")
+     */
+    public function getJsonActionById(Request $request, $id)
+    {
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer(array($normalizer), $encoders);
+	
+		$em = $this->getDoctrine()->getManager();
+		$qb = $em->createQueryBuilder();
+
+		$usuario = $em->getRepository('AppBundle:User')->find($id);
+		$alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
+		// $piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));
+
+		if (sizeof($alumno) > 0) {
+			$qb->select(array('t'))
+			   ->from('AppBundle:Turno', 't')
+			   ->join('AppBundle:Avion', 'a', 'WITH', 'a.id = t.avion')
+			   ->join('AppBundle:Dia', 'd', 'WITH', 'd.id = t.dia')
+			   ->join('AppBundle:Horario', 'h', 'WITH', 'h.id = t.horario');
+
+			$qb->where('t.fecha BETWEEN :start AND :end')
+			   ->andWhere('t.alumno = :alumno')
+			   ->setParameter('start', $request->query->get('start'))
+			   ->setParameter('end', $request->query->get('end'))
+			   ->setParameter('alumno', $alumno[0]->getId());
+		}
+
+		// if (sizeof($piloto) > 0) {
+		//    	$qb->select(array('t'))
+		// 	   ->from('AppBundle:Turno', 't')
+		// 	   ->join('AppBundle:Avion', 'a', 'WITH', 'a.id = t.avion')
+		// 	   ->join('AppBundle:Dia', 'd', 'WITH', 'd.id = t.dia')
+		// 	   ->join('AppBundle:Horario', 'h', 'WITH', 'h.id = t.horario');
+
+		// 	$qb->where('t.fecha BETWEEN :start AND :end AND t.piloto = :piloto')
+		// 	   ->setParameter('start', $request->query->get('start'))
+		// 	   ->setParameter('end', $request->query->get('end'))
+		// 	   ->setParameter('piloto', $piloto);
+		// }
+
+		$turnos = $qb->getQuery()->getResult();
+
+        $jsonContent = $serializer->serialize($turnos, 'json');
+        return new Response($jsonContent);
+    }
+
 }
