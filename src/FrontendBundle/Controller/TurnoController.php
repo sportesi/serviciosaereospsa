@@ -22,6 +22,10 @@ class TurnoController extends Controller
 	{
     	$em = $this->getDoctrine()->getManager();
 
+    	if ($week > 2) {
+    		$week = 2;
+    	}
+
     	$usuario = $this->container->get('security.token_storage')->getToken()->getUser();
     	$alumno = $em->getRepository('AppBundle:Alumno')->findBy(array('usuario' => $usuario));
     	$piloto = $em->getRepository('AppBundle:Piloto')->findBy(array('usuario' => $usuario));

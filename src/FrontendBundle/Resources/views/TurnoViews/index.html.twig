@@ -123,7 +123,12 @@
             				    <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
                                     <td>{{ itemAvion.matricula }}</td>
                                     {% set checkAvion = (itemAvion.matricula == 'LV-AOL') ? 'piloto' : ((itemAvion.matricula == 'LV-AOM') ? 'piloto' : 'alumno') %}
-                                    {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' and checkAvion == loggedAs %}
+                                    {% if loggedAs == 'alumno' %}
+                                        {% set checkAlumno = (checkAvion == loggedAs) %}
+                                    {% else %}
+                                        {% set checkAlumno = true %}
+                                    {% endif %}
+                                    {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' and checkAlumno %}
                                         {% set disabled = false %}
                                         {% for itemHorario in horarios %}
                                             {% if itemHorario.hora == '1300' %}
@@ -147,7 +152,7 @@
                                             {% endif %}
                                         {% endfor %} 
                                     {% else %}
-                                        {% if checkAvion == loggedAs %}
+                                        {% if checkAlumno %}
                                             <td colspan="{{ horarios|length }}" class="bg-warning">{{ itemAvion.tipoFueraServicio }}</td>
                                         {% else %}
                                             <td colspan="{{ horarios|length }}" class="bg-disabled"></td>
