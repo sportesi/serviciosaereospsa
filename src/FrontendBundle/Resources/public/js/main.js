@@ -259,22 +259,26 @@ function HideLoading() {
 
 function deleteTurno(turno) {
 	var data = $(turno).data()
-	swal({
-		title: 'Atencion!',
-		text: 'Estas a punto de eliminar un turno. \nEsta accion no puede deshacerse',
-		type: 'warning',
-		showCancelButton: true,
-		cancelButtonText: 'Cancelar',
-		closeOnConfirm: false,   
-		showLoaderOnConfirm: true,
-	}, function(){
-		window.location.href = '/turno/listado/delete/' + data.turno.id
-	})
+	if (moment(data.fecha).isAfter(moment(), 'day')) {
+		swal({
+			title: 'Atencion!',
+			text: 'Estas a punto de eliminar un turno. \nEsta accion no puede deshacerse',
+			type: 'warning',
+			showCancelButton: true,
+			cancelButtonText: 'Cancelar',
+			closeOnConfirm: false,   
+			showLoaderOnConfirm: true,
+		}, function(){
+			window.location.href = '/turno/listado/delete/' + data.turno.id
+		})
+	} else {
+		swal('Atencion', 'Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
+	}
 }
 
 function setClickEvent() {
-	if (reservasSemana < 2) {
-		if (!$(this).data('turno')) {
+	if (!$(this).data('turno')) {
+		if (reservasSemana < 2) {
 			var data = {
 				dia: $(this).data('dia'),
 				horario: $(this).data('horario'),
@@ -284,18 +288,18 @@ function setClickEvent() {
 			}
 			$(this).addClass('bg-info')
 			newEvent(data, this)
-		} else {
-			var data = {
-				dia: $(this).data('dia'),
-				horario: $(this).data('horario'),
-				avion: $(this).data('avion'),
-				updatedAt: $(this).data('updatedAt'),
-				fecha: $(this).data('fecha'),
-				turno: $(this).data('turno'),
-			}
-			editEvent(data)
+		}else {
+			swal('Atencion', 'Solo puede reservar dos turnos por semana. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
 		}
 	} else {
-		swal('Atencion', 'Solo puede reservar dos turnos por semana. Para mas informacion comuniquese con PSA. \nGracias', 'warning')
+		var data = {
+			dia: $(this).data('dia'),
+			horario: $(this).data('horario'),
+			avion: $(this).data('avion'),
+			updatedAt: $(this).data('updatedAt'),
+			fecha: $(this).data('fecha'),
+			turno: $(this).data('turno'),
+		}
+		editEvent(data)
 	}
 }
