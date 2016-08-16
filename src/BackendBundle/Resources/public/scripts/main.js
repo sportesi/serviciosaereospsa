@@ -43,10 +43,11 @@ function initCalendar() {
 				for (var i = 0; i < response.length; i++) {
 					var turno = response[i]
 					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
-					cell.toggleClass('bg-success')
 					if (turno.alumno) {
+						cell.toggleClass('bg-success')
 						cell.text(turno.alumno.apellido)
 					} else {
+						cell.toggleClass('bg-info')
 						cell.text(turno.piloto.apellido)
 					}
 					cell.data('turno', turno)
