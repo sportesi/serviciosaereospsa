@@ -85,7 +85,7 @@ function newEvent(data, cell) {
 }
 
 function editEvent(data) {
-	
+	$('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change')
 	if (data.turno.alumno) {
 		$('#newEvent .form-group-alumno select').val(data.turno.alumno.id).trigger('change')
 	}
