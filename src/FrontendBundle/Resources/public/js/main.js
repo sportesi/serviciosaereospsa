@@ -23,9 +23,9 @@ $(document).ready(function(){
 	
 	//code for the background slider
 	$.backstretch([
-      "/web/bundles/frontend/img/bg_img.jpg",
-      "/web/bundles/frontend/img/bg_img2.jpg",
-      "/web/bundles/frontend/img/bg_img3.jpg"
+      "/bundles/frontend/img/bg_img.jpg",
+      "/bundles/frontend/img/bg_img2.jpg",
+      "/bundles/frontend/img/bg_img3.jpg"
     ], {
         fade: 750,
         duration: 2500
@@ -162,7 +162,7 @@ function initCalendar() {
 	ShowLoading()
 	jQuery(document).ready(function($) {
 		setTimeout(function(){
-			$.getJSON('/web/turno/calendario/get/by/' + $('[name=user]').val(), {start: startComplete, end: endComplete}, function(json, textStatus) {
+			$.getJSON('/turno/calendario/get/by/' + $('[name=user]').val(), {start: startComplete, end: endComplete}, function(json, textStatus) {
 				if ($('[name=loggedAs]').val() == 'alumno') {
 					reservasSemana = json.length
 				}
@@ -177,7 +177,7 @@ function initCalendar() {
 					}
 					cell.data('turno', turno)
 				}
-				$.getJSON('/web/turno/calendario/get/json', {start: startComplete, end: endComplete}, function(response){
+				$.getJSON('/turno/calendario/get/json', {start: startComplete, end: endComplete}, function(response){
 					for (var i = 0; i < response.length; i++) {
 						var turno = response[i]
 						var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
@@ -244,7 +244,7 @@ function editEvent(data) {
  */
 function ShowLoading() {
 	swal({ 
-		imageUrl: '/web/bundles/backend/img/loader.gif', 
+		imageUrl: '/bundles/backend/img/loader.gif', 
 		title: 'Cargando', 
 		text: 'Por favor espere', 
 		showConfirmButton: false, 
@@ -269,7 +269,7 @@ function deleteTurno(turno) {
 			closeOnConfirm: false,   
 			showLoaderOnConfirm: true,
 		}, function(){
-			window.location.href = '/web/turno/listado/delete/' + data.turno.id
+			window.location.href = '/turno/listado/delete/' + data.turno.id
 		})
 	} else {
 		swal('Atencion', 'Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
