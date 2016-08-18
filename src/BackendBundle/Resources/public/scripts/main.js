@@ -45,13 +45,17 @@ function initCalendar() {
 					var cell = $('td[data-dia='+turno.dia.id+'][data-avion='+turno.avion.id+'][data-horario='+turno.horario.id+']')
 					if (turno.alumno) {
 						cell.toggleClass('bg-success')
-						cell.text(turno.alumno.apellido)
+						cell.find('div').text(turno.alumno.apellido)
 					} else {
 						cell.toggleClass('bg-info')
-						cell.text(turno.piloto.apellido)
+						cell.find('div').text(turno.piloto.apellido)
+					}
+					if (turno.comentario) {
+						cell.find('div').data('content', turno.comentario)
 					}
 					cell.data('turno', turno)
 				}
+				setPopoverOn()
 				HideLoading()
 			}).fail(function(){
 				swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
@@ -211,4 +215,22 @@ function switchMode() {
 			break 
 	}
 	
+}
+
+function setPopoverOn() {
+	$('td.bg-info div, td.bg-success div').off('mouseover')
+	$('td.bg-info div, td.bg-success div').on('mouseover', function(){
+		var div = $(this)
+		if (div.data('content')) {
+			div.popover({placement: 'top'})
+			div.popover('show')
+		}
+	})
+	$('td.bg-info div, td.bg-success div').off('mouseout')
+	$('td.bg-info div, td.bg-success div').on('mouseout', function(){
+		var div = $(this)
+		if (div.data('content')) {
+			div.popover('hide')
+		}
+	})
 }

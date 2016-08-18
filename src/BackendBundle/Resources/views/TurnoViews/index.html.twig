@@ -137,7 +137,9 @@
                                                         {% set disabled = true %}
                                                     {% endif %}
                                                 {% else %}
-                                                    <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}"></td>
+                                                    <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}">
+                                                        <div></div>        
+                                                    </td>
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %} 
