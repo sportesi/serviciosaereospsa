@@ -4,28 +4,40 @@ String.prototype.capitalizeFirstLetter = function () {
 
 /* Calendar logic */
 
+var selectedDates = [];
+
 function initCalendar() {
     $('td.clickable').on('click', function () {
-        if (!$(this).data('turno')) {
-            var data = {
-                dia: $(this).data('dia'),
-                horario: $(this).data('horario'),
-                avion: $(this).data('avion'),
-                updatedAt: $(this).data('updatedAt'),
-                fecha: $(this).data('fecha')
-            };
-            $(this).addClass('bg-info');
-            newEvent(data, this);
+        var cell = $(this);
+        if (window.event.ctrlKey) {
+            if (!cell.data('turno')) {
+                cell.toggleClass('bg-primary');
+                var data = $(this).data();
+                _.pullAllBy(selectedDates, data, _.isEqual);
+                selectedDates.push(data);
+            }
         } else {
-            var data = {
-                dia: $(this).data('dia'),
-                horario: $(this).data('horario'),
-                avion: $(this).data('avion'),
-                updatedAt: $(this).data('updatedAt'),
-                fecha: $(this).data('fecha'),
-                turno: $(this).data('turno')
-            };
-            editEvent(data);
+            if (!cell.data('turno')) {
+                var data = {
+                    dia: cell.data('dia'),
+                    horario: cell.data('horario'),
+                    avion: cell.data('avion'),
+                    updatedAt: cell.data('updatedAt'),
+                    fecha: cell.data('fecha')
+                };
+                cell.addClass('bg-info');
+                newEvent(data, this);
+            } else {
+                var data = {
+                    dia: cell.data('dia'),
+                    horario: cell.data('horario'),
+                    avion: cell.data('avion'),
+                    updatedAt: cell.data('updatedAt'),
+                    fecha: cell.data('fecha'),
+                    turno: cell.data('turno')
+                };
+                editEvent(data);
+            }
         }
     });
 
@@ -44,10 +56,12 @@ function initCalendar() {
                     var turno = response[i];
                     var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
                     if (turno.alumno) {
-                        cell.toggleClass('bg-success');
+                        cell.removeClass('bg-success');
+                        cell.addClass('bg-success');
                         cell.find('div').text(turno.alumno.apellido);
                     } else {
-                        cell.toggleClass('bg-info');
+                        cell.removeClass('bg-info');
+                        cell.addClass('bg-info');
                         cell.find('div').text(turno.piloto.apellido);
                     }
                     if (turno.comentario) {
@@ -81,7 +95,7 @@ function newEvent(data, cell) {
     $('#newEvent').on('hidden.bs.modal', function () {
         $('#newEvent').off('hidden.bs.modal');
         $(cell).removeClass('bg-info');
-        if ($(cell).text() !== "") {
+        if ($(cell).text().trim() !== "") {
             $(cell).removeClass('bg-success');
             $(cell).addClass('bg-success');
         }
