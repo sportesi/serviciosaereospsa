@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Servicios A&eacute;reos PSA</title>
-	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/font-awesome/css/font-awesome.min.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/backend/css/styles.css") }}" type="text/css">
-	<link rel="stylesheet" href="{{ asset("bundles/frontend/css/calendar.css") }}" type="text/css">
-	{% block styles %}
-	    
-	{% endblock %}
-</head>
-<body>
-	<nav class="navbar navbar-default" style="background: white; ">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="/" style="padding: 0;">
-	      	<img alt="Brand" src="{{ asset("/bundles/backend/img/logo.jpg") }}" style="width: 115px;">
-	      </a>
-	    </div>
+    <head>
+        <title>Servicios A&eacute;reos PSA</title>
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/font-awesome/css/font-awesome.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/css/styles.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("bundles/frontend/css/calendar.css") }}" type="text/css">
+        {% block styles %}
 
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenido {{ app.user.email }} <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesi&oacute;n</a></li>
-	          </ul>
-	        </li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
-	<div class="content-wrapper">
-		{% block body %}
-		    
-		{% endblock %}
-	</div>
-</body>
-<script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js") }}"></script>
-<script src="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js") }}"></script>
-<script src="{{ asset("bundles/frontend/js/main.js") }}"></script>
-{% block scripts %}
-    
-{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-default" style="background: white; ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/" style="padding: 0;">
+                        <img alt="Brand" src="{{ asset("/bundles/backend/img/logo.jpg") }}" style="width: 115px;">
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenido {{ app.user.email }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesi&oacute;n</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content-wrapper">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+    </body>
+    <script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
+    <script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.js") }}"></script>
+    <script src="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js") }}"></script>
+    <script src="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js") }}"></script>
+    <script src="{{ asset("bundles/frontend/js/main.js") }}"></script>
+    {% block scripts %}
+
+    {% endblock %}
 </html>
