@@ -48,11 +48,13 @@
 
         $('.clickable').each(function () {
             $(this).data('updatedAt', date);
-            var fecha = (parseInt(start) - 1 + parseInt($(this).data('dia'))).toString() + '/';
-            fecha += monthNumber + '/';
-            fecha += moment().format('YYYY') + 'T';
-            fecha += $('th').eq($(this).data('horario')).text();
-            $(this).data('fecha', moment(fecha, 'D/MM/YYYYTHHmm').format());
+
+            var fecha = moment(startComplete);
+            fecha.add(-1, 'days');
+            fecha.add(parseInt($(this).data('dia')), 'days');
+            fecha.add(parseInt($('th').eq($(this).data('horario')).text()) / 100, 'hours');
+
+            $(this).data('fecha', moment(fecha).format());
         });
 
         initCalendar();

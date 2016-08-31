@@ -80,7 +80,7 @@ function initCalendar() {
 }
 
 function newEvent(data, cell) {
-
+    console.log(data);
     $('[name="turno[id]"]').val(0);
     $('[name="turno[dia]"]').val(data.dia);
     $('[name="turno[horario]"]').val(data.horario);
