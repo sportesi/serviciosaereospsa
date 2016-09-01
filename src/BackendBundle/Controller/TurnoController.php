@@ -27,6 +27,7 @@ class TurnoController extends Controller {
         $dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
+        var_dump($pilotos);
 
         $day = date('w');
         $week_start = strtotime('-' . (1 - $day) . ' days');
@@ -50,40 +51,78 @@ class TurnoController extends Controller {
                 $turno = new Turno();
             }
 
-            foreach ($aviones as $item) {
-                if ($item->getId() == $postTurno['avion']) {
-                    $turno->setAvion($item);
-                }
-            }
-            foreach ($horarios as $item) {
-                if ($item->getId() == $postTurno['horario']) {
-                    $turno->setHorario($item);
-                }
-            }
-            foreach ($dias as $item) {
-                if ($item->getId() == $postTurno['dia']) {
-                    $turno->setDia($item);
-                }
-            }
-            foreach ($alumnos as $item) {
-                if ($item->getId() == $postTurno['alumno']) {
-                    $turno->setAlumno($item);
-                }
-            }
-            foreach ($pilotos as $item) {
-                if ($item->getId() == $postTurno['piloto']) {
-                    $turno->setPiloto($item);
-                }
-            }
-
-            $turno->setUpdatedAt(new DateTime());
-            $turno->setFecha(new DateTime($postTurno['fecha']));
-            $turno->setConfirmado(true);
-            $turno->setComentario($postTurno['comentario']);
-
             try {
-                $em->persist($turno);
-                $em->flush();
+                if ($postTurno['multiple'] == 'true') {
+                    $selectedDates = json_decode($postTurno['selected-dates']);
+                    foreach ($selectedDates as $date) {
+                        foreach ($aviones as $item) {
+                            if ($item->getId() == $date->avion) {
+                                $turno->setAvion($item);
+                            }
+                        }
+                        foreach ($horarios as $item) {
+                            if ($item->getId() == $date->horario) {
+                                $turno->setHorario($item);
+                            }
+                        }
+                        foreach ($dias as $item) {
+                            if ($item->getId() == $date->dia) {
+                                $turno->setDia($item);
+                            }
+                        }
+                        foreach ($alumnos as $item) {
+                            if ($item->getId() == $postTurno['alumno']) {
+                                $turno->setAlumno($item);
+                            }
+                        }
+                        foreach ($pilotos as $item) {
+                            if ($item->getId() == $postTurno['piloto']) {
+                                $turno->setPiloto($item);
+                            }
+                        }
+                        $turno->setFecha(new DateTime($date->fecha));
+                        $turno->setUpdatedAt(new DateTime());
+                        $turno->setConfirmado(true);
+                        $turno->setComentario($postTurno['comentario']);
+
+                        $em->persist($turno);
+                        $em->flush();
+                        $turno = new Turno();
+                    }
+                } else {
+                    foreach ($aviones as $item) {
+                        if ($item->getId() == $postTurno['avion']) {
+                            $turno->setAvion($item);
+                        }
+                    }
+                    foreach ($horarios as $item) {
+                        if ($item->getId() == $postTurno['horario']) {
+                            $turno->setHorario($item);
+                        }
+                    }
+                    foreach ($dias as $item) {
+                        if ($item->getId() == $postTurno['dia']) {
+                            $turno->setDia($item);
+                        }
+                    }
+                    foreach ($alumnos as $item) {
+                        if ($item->getId() == $postTurno['alumno']) {
+                            $turno->setAlumno($item);
+                        }
+                    }
+                    foreach ($pilotos as $item) {
+                        if ($item->getId() == $postTurno['piloto']) {
+                            $turno->setPiloto($item);
+                        }
+                    }
+                    $turno->setFecha(new DateTime($postTurno['fecha']));
+                    $turno->setUpdatedAt(new DateTime());
+                    $turno->setConfirmado(true);
+                    $turno->setComentario($postTurno['comentario']);
+
+                    $em->persist($turno);
+                    $em->flush();
+                }
                 $creado = true;
             } catch (DBALException $e) {
                 $creado = false;

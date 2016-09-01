@@ -88,6 +88,11 @@ function newEvent(data, cell) {
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
     $('[name="turno[fecha]"]').val(data.fecha);
     $('[name="turno[comentario]"]').val("");
+    if (selectedDates.length > 0) {
+        $('[name="turno[multiple]"]').val(true);
+        $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
+    }
+    
     $('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change');
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
     $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
