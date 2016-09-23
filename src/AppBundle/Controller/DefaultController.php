@@ -16,7 +16,11 @@ class DefaultController extends Controller
     {
         if ($this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('BackendHomepage');
-        } else if ($this->isGranted('ROLE_PILOT')) {
+        }
+        if ($this->isGranted('ROLE_PILOT')) {
+            return $this->redirectToRoute('FrontendTurnoHomepage');
+        }
+        if ($this->isGranted('ROLE_ALUMN')) {
             return $this->redirectToRoute('FrontendTurnoHomepage');
         }
     }
