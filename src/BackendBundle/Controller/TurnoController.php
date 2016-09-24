@@ -27,7 +27,6 @@ class TurnoController extends Controller {
         $dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
-        var_dump($pilotos);
 
         $day = date('w');
         $week_start = strtotime('-' . (1 - $day) . ' days');
