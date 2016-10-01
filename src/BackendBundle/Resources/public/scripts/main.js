@@ -280,9 +280,11 @@ function DisableFoxtrotSierra() {
                         count++;
                     }
                 });
-                tdStart.attr('colspan', count);
-                tdStart.text(tfs + ': ' + rfs);
-                tdStart.addClass('bg-warning');
+                if (tdStart) {
+                    tdStart.attr('colspan', count);
+                    tdStart.text(tfs + ': ' + rfs);
+                    tdStart.addClass('bg-warning');
+                }
             }
         }
     });
