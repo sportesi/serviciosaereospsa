@@ -7,8 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class AvionType extends AbstractType
 {
@@ -21,9 +20,8 @@ class AvionType extends AbstractType
         $builder
             ->add('matricula')
             ->add('razonFueraServicio', null, array('required' => false))
-            ->add('desdeFueraServicio', TimeType::class, array('widget' => 'single_text','required' => false))
-            ->add('hastaFueraServicio', TimeType::class, array('widget' => 'single_text','required' => false))
-            ->add('fechaFueraServicio', DateType::class, array('widget' => 'single_text','required' => false))
+            ->add('desdeFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false))
+            ->add('hastaFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false))
             ->add('tipoFueraServicio', ChoiceType::class, array(
                 'choices'  => array(
                         'Fuera de Servicio' => 'Fuera de Servicio',

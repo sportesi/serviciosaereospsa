@@ -46,19 +46,14 @@ class Avion
     private $razonFueraServicio;
 
     /**
-     * @ORM\Column(name="desde_fuera_servicio", type="time", nullable=true)
+     * @ORM\Column(name="desde_fuera_servicio", type="datetime", nullable=true)
      */
     private $desdeFueraServicio;
 
     /**
-     * @ORM\Column(name="hasta_fuera_servicio", type="time", nullable=true)
+     * @ORM\Column(name="hasta_fuera_servicio", type="datetime", nullable=true)
      */
     private $hastaFueraServicio;
-
-    /**
-     * @ORM\Column(name="fecha_fuera_servicio", type="date", nullable=true)
-     */
-    private $fechaFueraServicio;
 
     /**
      * @ORM\Column(name="avion_order", type="integer", nullable=true)
@@ -266,5 +261,29 @@ class Avion
     public function getAvionOrder()
     {
         return $this->avionOrder;
+    }
+
+    /**
+     * Set fechaFueraServicioHasta
+     *
+     * @param \DateTime $fechaFueraServicioHasta
+     *
+     * @return Avion
+     */
+    public function setFechaFueraServicioHasta($fechaFueraServicioHasta)
+    {
+        $this->fechaFueraServicioHasta = $fechaFueraServicioHasta;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaFueraServicioHasta
+     *
+     * @return \DateTime
+     */
+    public function getFechaFueraServicioHasta()
+    {
+        return $this->fechaFueraServicioHasta;
     }
 }

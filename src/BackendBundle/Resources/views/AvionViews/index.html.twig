@@ -2,6 +2,7 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{{ asset('/bundles/backend/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset("/bundles/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
     <script type="text/javascript">
         $('#avion_servicio').on('change', function(){
             if ($(this).prop('checked')) {
@@ -47,14 +48,14 @@
                     <thead>
                         <tr>
                             <th>Matr&iacute;cula</th>
-                            <th>En Servicio</th>
+                            <th>Fuera de Servicio</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for item in aviones %}
                             <tr onclick="window.location.href = '{{ path('BackendAvionEdit', { 'id' : item.id }) }}'" data-id="{{ item.id }}">
                                 <td>{{ item.matricula }}</td>
-                                <td>{{ item.servicio ? 'Si' : 'No' }}</td>
+                                <td>{{ item.servicio ? 'No' : 'Si' }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -98,19 +99,13 @@
                             </div>
                         </div>
                         <div class="form-group group_razonFueraServicio" style="display: none;">
-                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Fecha F/S:</label>
-                            <div class="col-sm-9">
-                                {{ form_widget(form.fechaFueraServicio) }}
-                            </div>
-                        </div>
-                        <div class="form-group group_razonFueraServicio" style="display: none;">
-                            <label for="inputDesdeFueraServicio" class="col-sm-3 control-label">Desde F/S:</label>
+                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Desde F/S:</label>
                             <div class="col-sm-9">
                                 {{ form_widget(form.desdeFueraServicio) }}
                             </div>
                         </div>
                         <div class="form-group group_razonFueraServicio" style="display: none;">
-                            <label for="inputHastaFueraServicio" class="col-sm-3 control-label">Hasta F/S:</label>
+                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Hasta F/S:</label>
                             <div class="col-sm-9">
                                 {{ form_widget(form.hastaFueraServicio) }}
                             </div>

@@ -130,11 +130,15 @@
                                                     <td class="bg-disabled"></td>
                                                 {% endif %}
                                             {% else %}
-                                                {% set checkFecha = itemAvion.fechaFueraServicio | date('d-m-Y') %}
+                                                {% set checkFechaDesde = itemAvion.fechaFueraServicio | date('d-m-Y') %}
+                                                {% set checkHorarioDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
+                                                {% set checkDesde = checkFechaDesde ~ ' ' ~ checkHorarioDesde %}
+                                                {% set checkFechaHasta = itemAvion.fechaFueraServicio | date('d-m-Y') %}
+                                                {% set checkHorarioHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
+                                                {% set checkDesde = checkFechaHasta ~ ' ' ~ checkHorarioHasta %}
                                                 {% set checkNull = itemAvion.desdeFueraServicio %}
-                                                {% set checkDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
-                                                {% set checkHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
                                                 {% set checkHorario = itemHorario.hora | number_format(0, '', '') %}
+                                                {% set check = fechaDia ~ ' ' ~ checkHorario %}
                                                 {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario and checkFecha == fechaDia %}
                                                     {% if not disabled %}
                                                         <td class="bg-warning" colspan="{{ (checkHasta - checkDesde + 100) / 100 }}">
@@ -144,7 +148,7 @@
                                                     {% endif %}
                                                 {% else %}
                                                     <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}">
-                                                        <div></div>
+                                                        <div>{{ () }}</div>
                                                     </td>
                                                 {% endif %}
                                             {% endif %}
