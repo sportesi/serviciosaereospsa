@@ -20,8 +20,8 @@ class AvionType extends AbstractType
         $builder
             ->add('matricula')
             ->add('razonFueraServicio', null, array('required' => false))
-            ->add('desdeFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false))
-            ->add('hastaFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false))
+            ->add('desdeFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false, 'attr' => array('class' => 'datepicker')))
+            ->add('hastaFueraServicio', DateTimeType::class, array('widget' => 'single_text','required' => false, 'attr' => array('class' => 'datepicker')))
             ->add('tipoFueraServicio', ChoiceType::class, array(
                 'choices'  => array(
                         'Fuera de Servicio' => 'Fuera de Servicio',

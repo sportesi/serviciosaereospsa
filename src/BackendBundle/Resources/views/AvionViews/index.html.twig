@@ -1,8 +1,13 @@
 {% extends 'BackendBundle::layout.html.twig' %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('/bundles/backend/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+
 {% block scripts %}
     <script type="text/javascript" src="{{ asset('/bundles/backend/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset("/bundles/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/backend/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript">
         $('#avion_servicio').on('change', function(){
             if ($(this).prop('checked')) {
@@ -19,11 +24,21 @@
         $('.table-aviones tbody').sortable({
             stop: function( event, ui ) {
                 var data = $('.table tbody').sortable('toArray', { attribute : 'data-id' });
-                $.post('/backend/avion/order/set', { 'order' : data }, function(){
-
-                })
+                $.post('/backend/avion/order/set', { 'order' : data });
             }
         });
+
+        jQuery(document).ready(function($) {
+            $('.datepicker').datetimepicker({
+                locale: 'es'
+            });
+            $('.datepicker').each(function(){
+                var date = moment($(this).attr('value'));
+                console.log($(this).attr('value'))
+                $(this).data("DateTimePicker").date(date);
+            })
+        });
+        
     </script>
 {% endblock %}
 
