@@ -29,9 +29,7 @@
         });
 
         jQuery(document).ready(function($) {
-            $('.datepicker').datetimepicker({
-                locale: 'es'
-            });
+            $('.datepicker').datetimepicker();
             $('.datepicker').each(function(){
                 var date = moment($(this).attr('value'));
                 console.log($(this).attr('value'))

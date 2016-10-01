@@ -69,10 +69,11 @@ function initCalendar() {
                     }
                     cell.data('turno', turno);
                 }
+                DisableFoxtrotSierra();
                 setPopoverOn();
                 HideLoading();
             }).fail(function () {
-                swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning');
+                swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
             });
         }, 1000);
     });
@@ -250,6 +251,39 @@ function setPopoverOn() {
         var div = $(this);
         if (div.data('content')) {
             div.popover('hide');
+        }
+    });
+}
+
+function DisableFoxtrotSierra() {
+    $('tr[data-fsd]').each(function() {
+        var data = $(this).data();
+        if (data.fsd) {
+            var day = moment(date).startOf('isoweek').day(data.dia);
+            var fsd = moment(data.fsd.date);
+            var fsh = moment(data.fsh.date);
+            var tfs = data.tfs;
+            var rfs = data.rfs;
+            if (day.isSameOrAfter(fsd, 'day') && day.isSameOrBefore(fsh, 'day')) {
+                var tdStart = null ;
+                var count = 0;
+                $(this).find('td[data-hparsed]').each(function() {
+                    var dataTr = $(this).data();
+                    var hparsed = parseInt(dataTr.hparsed) / 100;
+                    day.hour(hparsed);
+                    if (day.isSameOrAfter(fsd) && day.isSameOrBefore(fsh)) {
+                        if (!tdStart) {
+                            tdStart = $(this);
+                        } else {
+                            $(this).remove();
+                        }
+                        count++;
+                    }
+                });
+                tdStart.attr('colspan', count);
+                tdStart.text(tfs + ': ' + rfs);
+                tdStart.addClass('bg-warning');
+            }
         }
     });
 }

@@ -100,63 +100,48 @@
                     <thead>
                         <tr>
                             <th colspan="2">Hora</th>
-                                {% for itemHorario in horarios %}
+                            {% for itemHorario in horarios %}
                                 <th>{{ itemHorario.hora }}</th>
-                                {% endfor %}
+                            {% endfor %}
                         </tr>
                         <tr>
                             <th width="1%">D&iacute;a</th>
                             <th>Mat</th>
-                                {% for itemHorario in horarios %}
+                            {% for itemHorario in horarios %}
                                 <th>Piloto</th>
-                                {% endfor %}
+                            {% endfor %}
                         </tr>
                     </thead>
                     <tbody>
-                        {% dump(weekStart) %}
                         {% for itemDia in dias %}
                             {% set fechaDia = weekStart | date_modify('+' ~ (itemDia.id - 1) ~ ' day') | date_modify('+' ~ week ~ ' week') | date('d-m-Y') %}
                             <tr>
                                 <td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ itemDia.id }}" class="rotate">{{ itemDia.nombre }}<br><b></b></td>
                             </tr>
                             {% for itemAvion in aviones %}
-                                <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}">
+                                <tr data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" 
+                                    {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' and not itemAvion.servicio %}
+                                        data-fsd="{{ itemAvion.desdeFueraServicio | json_encode() }}"
+                                        data-fsh="{{ itemAvion.hastaFueraServicio | json_encode() }}"
+                                        data-tfs="{{ itemAvion.tipoFueraServicio | json_encode() }}"
+                                        data-rfs="{{ itemAvion.razonFueraServicio | json_encode() }}"
+                                    {% endif %} >
                                     <td>{{ itemAvion.matricula }}</td>
                                     {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' %}
-                                        {% set disabled = false %}
                                         {% for itemHorario in horarios %}
                                             {% if itemHorario.hora == '1300' %}
-                                                {% if not disabled %}
-                                                    <td class="bg-disabled"></td>
-                                                {% endif %}
+                                                <td class="bg-disabled" data-hparsed="{{ itemHorario.hora }}"></td>
                                             {% else %}
-                                                {% set checkFechaDesde = itemAvion.fechaFueraServicio | date('d-m-Y') %}
-                                                {% set checkHorarioDesde = itemAvion.desdeFueraServicio | date('H00') | number_format(0, '', '') %}
-                                                {% set checkDesde = checkFechaDesde ~ ' ' ~ checkHorarioDesde %}
-                                                {% set checkFechaHasta = itemAvion.fechaFueraServicio | date('d-m-Y') %}
-                                                {% set checkHorarioHasta = itemAvion.hastaFueraServicio | date('H00') | number_format(0, '', '') %}
-                                                {% set checkDesde = checkFechaHasta ~ ' ' ~ checkHorarioHasta %}
-                                                {% set checkNull = itemAvion.desdeFueraServicio %}
-                                                {% set checkHorario = itemHorario.hora | number_format(0, '', '') %}
-                                                {% set check = fechaDia ~ ' ' ~ checkHorario %}
-                                                {% if not itemAvion.servicio and checkNull and checkDesde <= checkHorario and checkHasta >= checkHorario and checkFecha == fechaDia %}
-                                                    {% if not disabled %}
-                                                        <td class="bg-warning" colspan="{{ (checkHasta - checkDesde + 100) / 100 }}">
-                                                            {{ itemAvion.tipoFueraServicio }}: {{ itemAvion.razonFueraServicio }}
-                                                        </td>
-                                                        {% set disabled = true %}
-                                                    {% endif %}
-                                                {% else %}
-                                                    <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}">
-                                                        <div>{{ () }}</div>
-                                                    </td>
-                                                {% endif %}
+                                                <td class="clickable" 
+                                                    data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}" 
+                                                    data-hparsed="{{ itemHorario.hora }}">
+                                                    <div></div>
+                                                </td>
                                             {% endif %}
                                         {% endfor %} 
                                     {% else %}
                                         <td colspan="{{ horarios|length }}" class="bg-warning">{{ itemAvion.tipoFueraServicio }}: {{ itemAvion.razonFueraServicio }}</td>
                                     {% endif %}
-
                                 </tr>
                             {% endfor %}
                         {% endfor %}
