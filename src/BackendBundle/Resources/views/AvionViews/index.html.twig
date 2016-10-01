@@ -31,9 +31,11 @@
         jQuery(document).ready(function($) {
             $('.datepicker').datetimepicker();
             $('.datepicker').each(function(){
-                var stringDate = $(this).attr('value').replace('Z', '');
-                var date = moment(stringDate);
-                $(this).data("DateTimePicker").date(date);
+                var stringDate = $(this).attr('value');
+                if (stringDate) {
+                    var date = moment(stringDate.replace('Z', ''));
+                    $(this).data("DateTimePicker").date(date);
+                }
             })
         });
         
