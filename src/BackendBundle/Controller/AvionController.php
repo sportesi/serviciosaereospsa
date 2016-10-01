@@ -107,5 +107,29 @@ class AvionController extends Controller
     	return $this->redirectToRoute('BackendAvionHomepage');
 	}
 
+	/**
+	 * @Route("/avion/order/set", name="BackendAvionOrderSet")
+	 * @Method("POST")
+	 */
+	public function setOrderAction(Request $request)
+	{
+		$avionOrder = $request->request->get('order');
+	    $em = $this->getDoctrine()->getManager();
+	    $qb = $em->createQueryBuilder();
+	    $qb->select('a')
+	    ->from('BackendBundle:Avion', 'a')
+	    ->where($qb->expr()->in('a.id', $avionOrder));
+
+	    $aviones = $qb->getQuery()->getResult();
+
+	    foreach ($aviones as $avion) {
+	    	$avion->setAvionOrder(array_search($avion->getId(), $avionOrder));
+	    }
+
+	    $em->flush();
+
+	    return new Response();
+	}
+
 
 }

@@ -1,0 +1,3 @@
+-- 01/10/2016
+ALTER TABLE avion ADD avion_order INT DEFAULT NULL;
+

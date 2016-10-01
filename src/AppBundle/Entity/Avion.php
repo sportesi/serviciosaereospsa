@@ -60,6 +60,11 @@ class Avion
      */
     private $fechaFueraServicio;
 
+    /**
+     * @ORM\Column(name="avion_order", type="integer", nullable=true)
+     */
+    private $avionOrder;
+
 
     /**
      * Get id
@@ -237,5 +242,29 @@ class Avion
     public function getFechaFueraServicio()
     {
         return $this->fechaFueraServicio;
+    }
+
+    /**
+     * Set avionOrder
+     *
+     * @param integer $avionOrder
+     *
+     * @return Avion
+     */
+    public function setAvionOrder($avionOrder)
+    {
+        $this->avionOrder = $avionOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get avionOrder
+     *
+     * @return integer
+     */
+    public function getAvionOrder()
+    {
+        return $this->avionOrder;
     }
 }
