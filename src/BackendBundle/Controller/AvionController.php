@@ -65,7 +65,8 @@ class AvionController extends Controller
 			'editar' => false,
 		);
 
-	    return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+	    // return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+	    return $this->redirect($this->generateUrl('BackendAvionEdit', array('id' => $id)));
 	}
 
 	/**

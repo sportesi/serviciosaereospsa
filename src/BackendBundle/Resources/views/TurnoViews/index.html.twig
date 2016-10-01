@@ -113,6 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% dump(weekStart) %}
                         {% for itemDia in dias %}
                             {% set fechaDia = weekStart | date_modify('+' ~ (itemDia.id - 1) ~ ' day') | date_modify('+' ~ week ~ ' week') | date('d-m-Y') %}
                             <tr>
@@ -125,7 +126,9 @@
                                         {% set disabled = false %}
                                         {% for itemHorario in horarios %}
                                             {% if itemHorario.hora == '1300' %}
-                                                <td class="bg-disabled"></td>
+                                                {% if not disabled %}
+                                                    <td class="bg-disabled"></td>
+                                                {% endif %}
                                             {% else %}
                                                 {% set checkFecha = itemAvion.fechaFueraServicio | date('d-m-Y') %}
                                                 {% set checkNull = itemAvion.desdeFueraServicio %}
@@ -141,7 +144,7 @@
                                                     {% endif %}
                                                 {% else %}
                                                     <td class="clickable" data-dia="{{ itemDia.id }}" data-avion="{{ itemAvion.id }}" data-horario="{{ itemHorario.id }}">
-                                                        <div></div>        
+                                                        <div></div>
                                                     </td>
                                                 {% endif %}
                                             {% endif %}

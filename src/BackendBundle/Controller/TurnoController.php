@@ -29,7 +29,8 @@ class TurnoController extends Controller {
         $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
 
         $day = date('w');
-        $week_start = strtotime('-' . (1 - $day) . ' days');
+        $day = intval($day) - 1;
+        $week_start = date('d-m-Y', strtotime('-'.$day.' days'));
 
         $pageData = array(
             'aviones' => $aviones,
