@@ -19,7 +19,7 @@ class AvionController extends Controller
 	public function indexAction()
 	{
 		$em = $this->getDoctrine()->getManager();
-		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
+		$aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
 		$avion = new Avion();
 		
 		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost')));
@@ -117,7 +117,7 @@ class AvionController extends Controller
 	    $em = $this->getDoctrine()->getManager();
 	    $qb = $em->createQueryBuilder();
 	    $qb->select('a')
-	    ->from('BackendBundle:Avion', 'a')
+	    ->from('AppBundle:Avion', 'a')
 	    ->where($qb->expr()->in('a.id', $avionOrder));
 
 	    $aviones = $qb->getQuery()->getResult();

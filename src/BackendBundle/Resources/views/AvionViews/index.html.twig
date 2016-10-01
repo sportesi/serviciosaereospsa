@@ -18,7 +18,7 @@
         $('.table-aviones tbody').sortable({
             stop: function( event, ui ) {
                 var data = $('.table tbody').sortable('toArray', { attribute : 'data-id' });
-                $.post('/', { 'order' : data }, function(){
+                $.post('/backend/avion/order/set', { 'order' : data }, function(){
 
                 })
             }

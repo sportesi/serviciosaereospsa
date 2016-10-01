@@ -22,7 +22,7 @@ class TurnoController extends Controller {
     public function indexAction(Request $request, $week) {
         $em = $this->getDoctrine()->getManager();
 
-        $aviones = $em->getRepository('AppBundle:Avion')->findAll();
+        $aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
         $horarios = $em->getRepository('AppBundle:Horario')->findAll();
         $dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
         $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
