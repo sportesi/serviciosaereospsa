@@ -148,7 +148,8 @@ String.prototype.capitalizeFirstLetter = function () {
 }
 
 /* Calendar logic */
-var reservasSemana = 0;
+var reservaDia = [];
+var isAlumno = false;
 function initCalendar() {
     $('td.clickable').on('click', setClickEvent)
 
@@ -163,11 +164,10 @@ function initCalendar() {
     jQuery(document).ready(function ($) {
         setTimeout(function () {
             $.getJSON('/turno/calendario/get/by/' + $('[name=user]').val(), {start: startComplete, end: endComplete}, function (json, textStatus) {
-                if ($('[name=loggedAs]').val() == 'alumno') {
-                    reservasSemana = json.length
-                }
+                isAlumno = $('[name=loggedAs]').val() == 'alumno';
                 for (var i = 0; i < json.length; i++) {
                     var turno = json[i]
+                    reservaDia.push(turno.dia.id);
                     var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']')
                     cell.toggleClass('bg-success')
                     if (turno.alumno) {
@@ -278,7 +278,9 @@ function deleteTurno(turno) {
 
 function setClickEvent() {
     if (!$(this).data('turno')) {
-        if (reservasSemana < 2) {
+        var dia = $(this).data().dia;
+        var match = reservaDia.filter(function(x) { return x == dia } );
+        if (isAlumno && match.length == 0) {
             var data = {
                 dia: $(this).data('dia'),
                 horario: $(this).data('horario'),
@@ -289,7 +291,7 @@ function setClickEvent() {
             $(this).addClass('bg-info')
             newEvent(data, this)
         } else {
-            swal('Atencion', 'Solo puede reservar dos turnos por semana. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
+            swal('Atencion', 'Solo puede reservar un turnos por dia. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
         }
     } else {
         var data = {

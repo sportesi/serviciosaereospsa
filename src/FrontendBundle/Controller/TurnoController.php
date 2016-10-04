@@ -90,6 +90,7 @@ class TurnoController extends Controller
             }
 
             $pageData['creado'] = $creado;
+            return $this->redirectToRoute('FrontendTurnoHomepage');
         }
 
         return $this->render('FrontendBundle:TurnoViews:index.html.twig', $pageData);
