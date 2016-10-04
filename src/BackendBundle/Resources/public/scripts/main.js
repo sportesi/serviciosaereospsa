@@ -5,6 +5,7 @@ String.prototype.capitalizeFirstLetter = function () {
 /* Calendar logic */
 
 var selectedDates = [];
+var selectedDatesDelete = [];
 
 function initCalendar() {
     $('td.clickable').on('click', function () {
@@ -14,7 +15,14 @@ function initCalendar() {
                 cell.toggleClass('bg-primary');
                 var data = $(this).data();
                 _.pullAllBy(selectedDates, data, _.isEqual);
+                selectedDates = _.uniqBy(selectedDates, 'turno');
                 selectedDates.push(data);
+            } else {
+                cell.toggleClass('bg-danger');
+                var data = $(this).data();
+                _.pullAllBy(selectedDatesDelete, data, _.isEqual);
+                selectedDatesDelete = _.uniqBy(selectedDatesDelete, 'turno');
+                selectedDatesDelete.push(data);
             }
         } else {
             if (!cell.data('turno')) {
@@ -160,7 +168,24 @@ function deleteTurno(turno) {
         closeOnConfirm: false,
         showLoaderOnConfirm: true
     }, function () {
-        window.location.href = '/backend/turnos/listado/delete/' + data.turno.id;
+        var ids = [];
+        if (selectedDatesDelete.length === 0) {
+            ids.push(data.turno.id);
+        } else {
+            ids = _.map(_.map(selectedDatesDelete, 'turno'), 'id');
+        }
+        $.ajax({
+            url: '/backend/turnos/listado/delete',
+            type: 'POST',
+            data: { 'ids': ids },
+        })
+        .done(function() {
+            swal('Turnos eliminados', null, 'success');
+            window.location.reload();
+        })
+        .fail(function() {
+            swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
+        });        
     });
 }
 

@@ -60,11 +60,10 @@ class Avion
      */
     private $avionOrder;
 
-
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -112,35 +111,11 @@ class Avion
     /**
      * Get servicio
      *
-     * @return bool
+     * @return boolean
      */
     public function getServicio()
     {
         return $this->servicio;
-    }
-
-    /**
-     * Set razonFueraServicio
-     *
-     * @param string $razonFueraServicio
-     *
-     * @return Avion
-     */
-    public function setRazonFueraServicio($razonFueraServicio)
-    {
-        $this->razonFueraServicio = $razonFueraServicio;
-
-        return $this;
-    }
-
-    /**
-     * Get razonFueraServicio
-     *
-     * @return string
-     */
-    public function getRazonFueraServicio()
-    {
-        return $this->razonFueraServicio;
     }
 
     /**
@@ -165,6 +140,30 @@ class Avion
     public function getTipoFueraServicio()
     {
         return $this->tipoFueraServicio;
+    }
+
+    /**
+     * Set razonFueraServicio
+     *
+     * @param string $razonFueraServicio
+     *
+     * @return Avion
+     */
+    public function setRazonFueraServicio($razonFueraServicio)
+    {
+        $this->razonFueraServicio = $razonFueraServicio;
+
+        return $this;
+    }
+
+    /**
+     * Get razonFueraServicio
+     *
+     * @return string
+     */
+    public function getRazonFueraServicio()
+    {
+        return $this->razonFueraServicio;
     }
 
     /**
@@ -216,30 +215,6 @@ class Avion
     }
 
     /**
-     * Set fechaFueraServicio
-     *
-     * @param \DateTime $fechaFueraServicio
-     *
-     * @return Avion
-     */
-    public function setFechaFueraServicio($fechaFueraServicio)
-    {
-        $this->fechaFueraServicio = $fechaFueraServicio;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaFueraServicio
-     *
-     * @return \DateTime
-     */
-    public function getFechaFueraServicio()
-    {
-        return $this->fechaFueraServicio;
-    }
-
-    /**
      * Set avionOrder
      *
      * @param integer $avionOrder
@@ -261,29 +236,5 @@ class Avion
     public function getAvionOrder()
     {
         return $this->avionOrder;
-    }
-
-    /**
-     * Set fechaFueraServicioHasta
-     *
-     * @param \DateTime $fechaFueraServicioHasta
-     *
-     * @return Avion
-     */
-    public function setFechaFueraServicioHasta($fechaFueraServicioHasta)
-    {
-        $this->fechaFueraServicioHasta = $fechaFueraServicioHasta;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaFueraServicioHasta
-     *
-     * @return \DateTime
-     */
-    public function getFechaFueraServicioHasta()
-    {
-        return $this->fechaFueraServicioHasta;
     }
 }

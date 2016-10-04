@@ -5,6 +5,7 @@ namespace BackendBundle\Controller;
 use AppBundle\Entity\Turno;
 use DateTime;
 use Doctrine\DBAL\DBALException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -167,18 +168,23 @@ class TurnoController extends Controller {
     }
 
     /**
-     * @Route("/turnos/listado/delete/{id}", name="BackendTurnosDelete")
+     * @Route("/turnos/listado/delete", name="BackendTurnosDelete")
+     * @Method("POST")
      */
-    public function deleteAction($id) {
-        if ($id) {
-            $em = $this->getDoctrine()->getManager();
-            $turno = $em->getRepository('AppBundle:Turno')->find($id);
-            if (is_object($turno)) {
-                $em->remove($turno);
-                $em->flush();
+    public function deleteAction(Request $request) {
+        $deleteIds = $request->request->get('ids');
+        var_dump($deleteIds);
+        $em = $this->getDoctrine()->getManager();
+        foreach ($deleteIds as $id) {
+            if ($id) {
+                $turno = $em->getRepository('AppBundle:Turno')->find($id);
+                if (is_object($turno)) {
+                    $em->remove($turno);
+                    $em->flush();   
+                }
             }
         }
-        return $this->redirectToRoute('BackendHomepage');
+        return new Response('');
     }
 
     /**
