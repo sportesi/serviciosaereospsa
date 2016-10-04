@@ -53,7 +53,7 @@ class TurnoController extends Controller {
             }
 
             try {
-                if ($postTurno['multiple'] == 'true') {
+                if ($postTurno['multiple'] == 'true' && true) {
                     $selectedDates = json_decode($postTurno['selected-dates']);
                     foreach ($selectedDates as $date) {
                         foreach ($aviones as $item) {
@@ -90,6 +90,7 @@ class TurnoController extends Controller {
                         $em->flush();
                         $turno = new Turno();
                     }
+                    return $this->redirectToRoute('BackendHomepage');
                 } else {
                     foreach ($aviones as $item) {
                         if ($item->getId() == $postTurno['avion']) {
@@ -168,12 +169,11 @@ class TurnoController extends Controller {
     }
 
     /**
-     * @Route("/turnos/listado/delete", name="BackendTurnosDelete")
-     * @Method("POST")
+     * @Route("/turnos/listado/delete/turnos", name="BackendTurnosDelete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request) {
-        $deleteIds = $request->request->get('ids');
-        var_dump($deleteIds);
+        $deleteIds = $request->query->get('ids');
         $em = $this->getDoctrine()->getManager();
         foreach ($deleteIds as $id) {
             if ($id) {

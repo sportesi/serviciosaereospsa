@@ -14,13 +14,15 @@ function initCalendar() {
             if (!cell.data('turno')) {
                 cell.toggleClass('bg-primary');
                 var data = $(this).data();
-                _.pullAllBy(selectedDates, data, _.isEqual);
-                selectedDates = _.uniqBy(selectedDates, 'turno');
-                selectedDates.push(data);
+                selectedDates = _.uniqBy(selectedDates, 'fecha');
+                if (cell.hasClass('bg-primary')) {
+                    selectedDates.push(data);
+                } else {
+                    _.remove(selectedDates, data);
+                }
             } else {
                 cell.toggleClass('bg-danger');
                 var data = $(this).data();
-                _.pullAllBy(selectedDatesDelete, data, _.isEqual);
                 selectedDatesDelete = _.uniqBy(selectedDatesDelete, 'turno');
                 selectedDatesDelete.push(data);
             }
@@ -175,8 +177,8 @@ function deleteTurno(turno) {
             ids = _.map(_.map(selectedDatesDelete, 'turno'), 'id');
         }
         $.ajax({
-            url: '/backend/turnos/listado/delete',
-            type: 'POST',
+            url: '/backend/turnos/listado/delete/turnos',
+            type: 'GET',
             data: { 'ids': ids },
         })
         .done(function() {
