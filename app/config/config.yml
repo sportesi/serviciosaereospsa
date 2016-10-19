@@ -80,5 +80,5 @@ fos_user:
     resetting:
         email:
             from_email:
-                address:        resetting@no-reply.com
-                sender_name:    Demo Resetting
+                address:        info@serviciosaereospsa.com
+                sender_name:    Reinicio de Password

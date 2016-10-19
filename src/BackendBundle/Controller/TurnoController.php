@@ -31,7 +31,7 @@ class TurnoController extends Controller {
 
         $day = date('w');
         $day = intval($day) - 1;
-        $week_start = date('d-m-Y', strtotime('-'.$day.' days'));
+        $week_start = date('d-m-Y', strtotime('-' . $day . ' days'));
 
         $pageData = array(
             'aviones' => $aviones,
@@ -99,13 +99,22 @@ class TurnoController extends Controller {
                     }
                     foreach ($horarios as $item) {
                         if ($item->getId() == $postTurno['horario']) {
+                            if ($turno->getHorario() !== $item) {
+                                $notify = true;
+                            }
                             $turno->setHorario($item);
                         }
                     }
                     foreach ($dias as $item) {
                         if ($item->getId() == $postTurno['dia']) {
+                            if ($turno->getDia() !== $item) {
+                                $notify = true;
+                            }
                             $turno->setDia($item);
                         }
+                    }
+                    if ($notify) {
+                        $this->notifyChange($turno->getAlumno(), $turno->getPiloto(), $turno, $postTurno['fecha']);
                     }
                     foreach ($alumnos as $item) {
                         if ($item->getId() == $postTurno['alumno']) {
@@ -180,7 +189,7 @@ class TurnoController extends Controller {
                 $turno = $em->getRepository('AppBundle:Turno')->find($id);
                 if (is_object($turno)) {
                     $em->remove($turno);
-                    $em->flush();   
+                    $em->flush();
                 }
             }
         }
@@ -203,6 +212,26 @@ class TurnoController extends Controller {
         // foreach ($alumnos as $item) {
         // }
 
+        return new Response('<html><body></body></html>');
+    }
+
+    private function notifyChange($alumno, $piloto, $turno, $fecha) {
+        $emailArray = array();
+        if (is_object($alumno)) {
+            array_push($emailArray, $alumno->getEmail());
+        }
+        if (is_object($piloto)) {
+            array_push($emailArray, $piloto->getEmail());
+        }
+        $nuevaFecha = new DateTime($fecha);
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Aviso de cambio de turno')
+                ->setFrom('info@serviciosaereospsa.com')
+                ->setTo($emailArray)
+                ->setBody('Su turno de la fecha ' . $turno->getFecha()->format('d-m-Y H:i') . " se cambio de horario.\n"
+                . "El nuevo horario es a las " . $nuevaFecha->format('H:i') . " el dia " . $nuevaFecha->format('d-m-Y'));
+        $this->get('mailer')->send($message);
         return new Response('<html><body></body></html>');
     }
 

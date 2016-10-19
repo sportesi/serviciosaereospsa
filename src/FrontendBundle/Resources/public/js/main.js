@@ -1,3 +1,5 @@
+/* global swal, startComplete, endComplete */
+
 $(document).ready(function () {
 
     //Code to center the content div
@@ -68,7 +70,7 @@ $(document).ready(function () {
     //To show loading icon on form submit
     $('#sub_form').submit(function () {
         submit_icons('icon', 'loading');
-    })
+    });
 
     if ($('#sub_form').length) {
         //Mailchim Subscription form
@@ -144,97 +146,97 @@ $(document).ready(function () {
 /* Logica del calendario */
 
 String.prototype.capitalizeFirstLetter = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1)
-}
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
 
 /* Calendar logic */
 var reservaDia = [];
 var isAlumno = false;
 function initCalendar() {
-    $('td.clickable').on('click', setClickEvent)
+    $('td.clickable').on('click', setClickEvent);
 
     $('.form-group-alumno select').on('change', function () {
-        $('.form-group-piloto select').prop('required', $(this).val() === "")
-    })
+        $('.form-group-piloto select').prop('required', $(this).val() === "");
+    });
     $('.form-group-piloto select').on('change', function () {
-        $('.form-group-alumno select').prop('required', $(this).val() === "")
-    })
+        $('.form-group-alumno select').prop('required', $(this).val() === "");
+    });
 
-    ShowLoading()
+    ShowLoading();
     jQuery(document).ready(function ($) {
         setTimeout(function () {
             $.getJSON('/turno/calendario/get/by/' + $('[name=user]').val(), {start: startComplete, end: endComplete}, function (json, textStatus) {
-                isAlumno = $('[name=loggedAs]').val() == 'alumno';
+                isAlumno = $('[name=loggedAs]').val() === 'alumno';
                 for (var i = 0; i < json.length; i++) {
-                    var turno = json[i]
+                    var turno = json[i];
                     reservaDia.push(turno.dia.id);
-                    var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']')
-                    cell.toggleClass('bg-success')
+                    var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
+                    cell.toggleClass('bg-success');
                     if (turno.alumno) {
-                        cell.text(turno.alumno.apellido)
+                        cell.text(turno.alumno.apellido);
                     } else {
-                        cell.text(turno.piloto.apellido)
+                        cell.text(turno.piloto.apellido);
                     }
-                    cell.data('turno', turno)
+                    cell.data('turno', turno);
                 }
                 $.getJSON('/turno/calendario/get/json', {start: startComplete, end: endComplete}, function (response) {
                     for (var i = 0; i < response.length; i++) {
-                        var turno = response[i]
-                        var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']')
+                        var turno = response[i];
+                        var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
                         if (!cell.data('turno')) {
-                            cell.addClass('bg-disabled')
-                            cell.removeClass('clickable')
-                            cell.off('click')
-                            cell.text('')
-                            cell.data('turno', turno)
+                            cell.addClass('bg-disabled');
+                            cell.removeClass('clickable');
+                            cell.off('click');
+                            cell.text('');
+                            cell.data('turno', turno);
                         }
                     }
-                    HideLoading()
+                    HideLoading();
                 }).fail(function () {
-                    swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
-                })
+                    swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning');
+                });
             }).fail(function () {
-                swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning')
-            })
-        }, 1000)
-    })
+                swal('Intente nuevamente', 'Ocurrio un error, prueba a refrescar la pagina', 'warning');
+            });
+        }, 1000);
+    });
 
 }
 
 function newEvent(data, cell) {
 
-    $('[name="turno[id]"]').val(0)
-    $('[name="turno[dia]"]').val(data.dia)
-    $('[name="turno[horario]"]').val(data.horario)
-    $('[name="turno[avion]"]').val(data.avion)
-    $('[name="turno[updatedAt]"]').val(data.updatedAt)
-    $('[name="turno[fecha]"]').val(data.fecha)
-    $('[name="turno[comentario]"]').val("")
-    $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide()
-    $('#newEvent .form-new-title, #newEvent .form-new-btn').show()
-    $('#newEvent').modal()
+    $('[name="turno[id]"]').val(0);
+    $('[name="turno[dia]"]').val(data.dia);
+    $('[name="turno[horario]"]').val(data.horario);
+    $('[name="turno[avion]"]').val(data.avion);
+    $('[name="turno[updatedAt]"]').val(data.updatedAt);
+    $('[name="turno[fecha]"]').val(data.fecha);
+    $('[name="turno[comentario]"]').val("");
+    $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
+    $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
+    $('#newEvent').modal();
     $('#newEvent').on('hidden.bs.modal', function () {
-        $('#newEvent').off('hidden.bs.modal')
-        $(cell).removeClass('bg-info')
+        $('#newEvent').off('hidden.bs.modal');
+        $(cell).removeClass('bg-info');
         if ($(cell).text() !== "") {
-            $(cell).removeClass('bg-success')
-            $(cell).addClass('bg-success')
+            $(cell).removeClass('bg-success');
+            $(cell).addClass('bg-success');
         }
-    })
+    });
 }
 
 function editEvent(data) {
-    $('[name="turno[id]"]').val(data.turno.id)
-    $('[name="turno[dia]"]').val(data.dia)
-    $('[name="turno[horario]"]').val(data.horario)
-    $('[name="turno[avion]"]').val(data.avion)
-    $('[name="turno[updatedAt]"]').val(data.updatedAt)
-    $('[name="turno[fecha]"]').val(data.fecha)
-    $('[name="turno[comentario]"]').val(data.turno.comentario)
-    $('.form-delete-btn').data(data)
-    $('#newEvent .modal-title, #newEvent .btn-success').hide()
-    $('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show()
-    $('#newEvent').modal('show')
+    $('[name="turno[id]"]').val(data.turno.id);
+    $('[name="turno[dia]"]').val(data.dia);
+    $('[name="turno[horario]"]').val(data.horario);
+    $('[name="turno[avion]"]').val(data.avion);
+    $('[name="turno[updatedAt]"]').val(data.updatedAt);
+    $('[name="turno[fecha]"]').val(data.fecha);
+    $('[name="turno[comentario]"]').val(data.turno.comentario);
+    $('.form-delete-btn').data(data);
+    $('#newEvent .modal-title, #newEvent .btn-success').hide();
+    $('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show();
+    $('#newEvent').modal('show');
 }
 
 
@@ -250,48 +252,55 @@ function ShowLoading() {
         showConfirmButton: false,
         allowEscapeKey: false,
         imageSize: '80x80'
-    })
+    });
 }
 function HideLoading() {
-    swal.close()
+    swal.close();
 }
 
 
 function deleteTurno(turno) {
-    var data = $(turno).data()
+    var data = $(turno).data();
+    var todayLimit = moment().set('hour', 12).set('minutes', 0).set('seconds', 0);
     if (moment(data.fecha).isAfter(moment(), 'day')) {
-        swal({
-            title: 'Atencion!',
-            text: 'Estas a punto de eliminar un turno. \nEsta accion no puede deshacerse',
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar',
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        }, function () {
-            window.location.href = '/turno/listado/delete/' + data.turno.id
-        })
+        if (moment().isBefore(todayLimit)) {
+            swal({
+                title: 'Atencion!',
+                text: 'Estas a punto de cancelar un turno. \nEsta accion no puede deshacerse',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                window.location.href = '/turno/listado/delete/' + data.turno.id;
+            });
+        } else {
+            swal('Atencion', 'Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning');
+        }
     } else {
-        swal('Atencion', 'Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
+        swal('Atencion', 'Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning');
     }
 }
 
 function setClickEvent() {
     if (!$(this).data('turno')) {
         var dia = $(this).data().dia;
-        var match = reservaDia.filter(function(x) { return x == dia } );
-        if (isAlumno && match.length == 0) {
+        var match = reservaDia.filter(function (x) {
+            return x === dia;
+        });
+        if (isAlumno && match.length === 0) {
             var data = {
                 dia: $(this).data('dia'),
                 horario: $(this).data('horario'),
                 avion: $(this).data('avion'),
                 updatedAt: $(this).data('updatedAt'),
-                fecha: $(this).data('fecha'),
-            }
-            $(this).addClass('bg-info')
-            newEvent(data, this)
+                fecha: $(this).data('fecha')
+            };
+            $(this).addClass('bg-info');
+            newEvent(data, this);
         } else {
-            swal('Atencion', 'Solo puede reservar un turnos por dia. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning')
+            swal('Atencion', 'Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning');
         }
     } else {
         var data = {
@@ -300,8 +309,8 @@ function setClickEvent() {
             avion: $(this).data('avion'),
             updatedAt: $(this).data('updatedAt'),
             fecha: $(this).data('fecha'),
-            turno: $(this).data('turno'),
-        }
-        editEvent(data)
+            turno: $(this).data('turno')
+        };
+        editEvent(data);
     }
 }
