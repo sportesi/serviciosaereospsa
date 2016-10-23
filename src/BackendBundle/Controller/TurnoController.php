@@ -201,16 +201,19 @@ class TurnoController extends Controller {
      */
     public function prepareAction() {
         $em = $this->getDoctrine()->getManager();
-
-        // $alumnos = $em->getRepository('AppBundle:Alumno')->findAll();
-
+        
+        $password = $this->generateRandomString();
+        
         $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
-        $tokenGenerator = $this->get('fos_user.util.token_generator');
-        $user->setConfirmationToken($tokenGenerator->generateToken());
-        $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $user->setPlainPassword($password);
         $this->get('fos_user.user_manager')->updateUser($user);
-        // foreach ($alumnos as $item) {
-        // }
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Aviso de cambio de turno')
+                ->setFrom('info@serviciosaereospsa.com')
+                ->setTo("sebastian.portesi@outlook.com")
+                ->setBody("Password: " . $password);
+        $this->get('mailer')->send($message);
 
         return new Response('<html><body></body></html>');
     }
@@ -233,6 +236,16 @@ class TurnoController extends Controller {
                 . "El nuevo horario es a las " . $nuevaFecha->format('H:i') . " el dia " . $nuevaFecha->format('d-m-Y'));
 //        $this->get('mailer')->send($message);
 //        return new Response('<html><body></body></html>');
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
 }
