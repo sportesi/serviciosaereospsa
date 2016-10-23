@@ -231,8 +231,8 @@ class TurnoController extends Controller {
                 ->setTo($emailArray)
                 ->setBody('Su turno de la fecha ' . $turno->getFecha()->format('d-m-Y H:i') . " se cambio de horario.\n"
                 . "El nuevo horario es a las " . $nuevaFecha->format('H:i') . " el dia " . $nuevaFecha->format('d-m-Y'));
-        $this->get('mailer')->send($message);
-        return new Response('<html><body></body></html>');
+//        $this->get('mailer')->send($message);
+//        return new Response('<html><body></body></html>');
     }
 
 }
