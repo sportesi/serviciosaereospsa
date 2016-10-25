@@ -20,7 +20,6 @@ class AlumnoType extends AbstractType
             ->add('telefono')
             ->add('direccion')
             ->add('email')
-            ->add('usuario')
         ;
     }
     
