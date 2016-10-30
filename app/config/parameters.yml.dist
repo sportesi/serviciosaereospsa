@@ -6,7 +6,7 @@ parameters:
     database_user: u380789842_stag
     database_password: k5tlMKg30qbR
     mailer_transport: smtp
-    mailer_port: 587
+    mailer_port: 465
     mailer_host: mx1.hostinger.com.ar
     mailer_user: appmailer@serviciosaereospsa.esy.es
     mailer_password: C8zzVoyg9nnZ

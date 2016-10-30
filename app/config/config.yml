@@ -83,5 +83,5 @@ fos_user:
     resetting:
         email:
             from_email:
-                address:        info@serviciosaereospsa.com
+                address:        appmailer@serviciosaereospsa.esy.es
                 sender_name:    Reinicio de Password
