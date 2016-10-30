@@ -200,8 +200,6 @@ class TurnoController extends Controller {
      * @Route("/prepare", name="prepare")
      */
     public function prepareAction() {
-        $em = $this->getDoctrine()->getManager();
-        
         $password = $this->generateRandomString();
         
         $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
@@ -210,8 +208,8 @@ class TurnoController extends Controller {
 
         $message = \Swift_Message::newInstance()
                 ->setSubject('Aviso de cambio de turno')
-                ->setFrom('info@serviciosaereospsa.com')
-                ->setTo("sebastian.portesi@outlook.com")
+                ->setFrom(array("appmailer@serviciosaereospsa.esy.es"))
+                ->setTo(array("sebastian.portesi@outlook.com"))
                 ->setBody("Password: " . $password);
         $this->get('mailer')->send($message);
 
