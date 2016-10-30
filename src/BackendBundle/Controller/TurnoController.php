@@ -196,26 +196,6 @@ class TurnoController extends Controller {
         return new Response('');
     }
 
-    /**
-     * @Route("/prepare", name="prepare")
-     */
-    public function prepareAction() {
-        $password = $this->generateRandomString();
-
-        $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
-        $user->setPlainPassword($password);
-        $this->get('fos_user.user_manager')->updateUser($user);
-
-        $message = \Swift_Message::newInstance()
-                ->setSubject('Bienvenido al sistema de turnos online')
-                ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-                ->setTo(array("sebastian.portesi@outlook.com"))
-                ->setBody("Password: " . $password);
-        $this->get('mailer')->send($message);
-
-        return new Response('<html><body></body></html>');
-    }
-
     private function notifyChange($alumno, $piloto, $turno, $fecha) {
         $emailArray = array();
         if (is_object($alumno)) {
@@ -233,16 +213,6 @@ class TurnoController extends Controller {
                 ->setBody('Su turno de la fecha ' . $turno->getFecha()->format('d-m-Y H:i') . " se cambio de horario.\n"
                 . "El nuevo horario es a las " . $nuevaFecha->format('H:i') . " el dia " . $nuevaFecha->format('d-m-Y'));
         $this->get('mailer')->send($message);
-    }
-
-    function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
     }
 
 }

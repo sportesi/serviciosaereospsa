@@ -28,5 +28,24 @@
             </div>
         </div>
     </div>
+    {% if resetForm is defined %}
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="panel-body">
+                    {{ form_start(resetForm) }}
+                    {{ form_widget(resetForm) }}
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">Reiniciar Contrase&ntilde;a</button>
+                        </div>
+                    </div>
+                    {{ form_end(resetForm) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}
