@@ -54,6 +54,7 @@ class AlumnoController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $um = $this->get('fos_user.user_manager');
             
             $password = $this->generateRandomString();
             $user = $um->createUser();
