@@ -92,6 +92,7 @@ class TurnoController extends Controller {
                     }
                     return $this->redirectToRoute('BackendHomepage');
                 } else {
+                    $notify = false;
                     foreach ($aviones as $item) {
                         if ($item->getId() == $postTurno['avion']) {
                             $turno->setAvion($item);
@@ -99,7 +100,7 @@ class TurnoController extends Controller {
                     }
                     foreach ($horarios as $item) {
                         if ($item->getId() == $postTurno['horario']) {
-                            if ($turno->getHorario() !== $item) {
+                            if ($turno->getHorario() !== $item && $turno->getId()) {
                                 $notify = true;
                             }
                             $turno->setHorario($item);
@@ -107,7 +108,7 @@ class TurnoController extends Controller {
                     }
                     foreach ($dias as $item) {
                         if ($item->getId() == $postTurno['dia']) {
-                            if ($turno->getDia() !== $item) {
+                            if ($turno->getDia() !== $item && $turno->getId()) {
                                 $notify = true;
                             }
                             $turno->setDia($item);
@@ -198,11 +199,14 @@ class TurnoController extends Controller {
 
     private function notifyChange($alumno, $piloto, $turno, $fecha) {
         $emailArray = array();
+        $nombre = '';
         if (is_object($alumno)) {
             array_push($emailArray, $alumno->getEmail());
+            $nombre = $alumno->getNombre();
         }
         if (is_object($piloto)) {
             array_push($emailArray, $piloto->getEmail());
+            $nombre = $piloto->getNombre();
         }
         $nuevaFecha = new DateTime($fecha);
 
@@ -210,8 +214,14 @@ class TurnoController extends Controller {
                 ->setSubject('Aviso de cambio de turno')
                 ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                 ->setTo($emailArray)
-                ->setBody('Su turno de la fecha ' . $turno->getFecha()->format('d-m-Y H:i') . " se cambio de horario.\n"
-                . "El nuevo horario es a las " . $nuevaFecha->format('H:i') . " el dia " . $nuevaFecha->format('d-m-Y'));
+                ->setBody($this->renderView(
+                            'Emails/change.html.twig', array(
+                                'nombre' => strtolower($nombre),
+                                'fechaVieja' => $turno->getFecha()->format('d-m-Y H:i'),
+                                'horaNueva' => $nuevaFecha->format('H:i'),
+                                'fechaNueva' => $nuevaFecha->format('d-m-Y'),
+                            )
+                    ), 'text/html');
         $this->get('mailer')->send($message);
     }
 
