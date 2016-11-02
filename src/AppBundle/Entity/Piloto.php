@@ -56,7 +56,7 @@ class Piloto
 
     /**
      * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $usuario;
 
