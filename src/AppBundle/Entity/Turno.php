@@ -43,13 +43,13 @@ class Turno
 
     /**
      * @ORM\ManyToOne(targetEntity="Piloto")
-     * @ORM\JoinColumn(name="piloto", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="piloto", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $piloto;
 
     /**
      * @ORM\ManyToOne(targetEntity="Alumno")
-     * @ORM\JoinColumn(name="alumno", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="alumno", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $alumno;
 
