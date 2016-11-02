@@ -35,10 +35,15 @@ class AlumnoController extends Controller {
                 ->setAction($this->generateUrl("alumnoResetPassword", array("id" => $alumno->getId())))
                 ->setMethod("POST")
                 ->getForm();
+        $deleteForm = $this->createFormBuilder()
+                ->setAction($this->generateUrl("alumnoDelete", array("id" => $alumno->getId())))
+                ->setMethod("DELETE")
+                ->getForm();
         $alumnoForm = $this->createForm(AlumnoType::class, $alumno);
         $pageParameters = array(
             'form' => $alumnoForm->createView(),
             'resetForm' => $resetPasswordForm->createView(),
+            'deleteForm' => $deleteForm->createView(),
         );
         return $this->render("BackendBundle:AlumnoViews:edit.html.twig", $pageParameters);
     }
@@ -55,12 +60,14 @@ class AlumnoController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $um = $this->get('fos_user.user_manager');
-            
+
             $password = $this->generateRandomString();
             $user = $um->createUser();
             $user->setUsername($alumno->getEmail());
             $user->setEmail($alumno->getEmail());
             $user->setPlainPassword($password);
+            $user->addRole("ROLE_ALUMN");
+            $user->setEnabled(true);
             $um->updateUser($user);
 
             $message = \Swift_Message::newInstance()
@@ -70,8 +77,11 @@ class AlumnoController extends Controller {
                     ->setBody("Su Contraseña: " . $password);
             $this->get('mailer')->send($message);
 
+            $alumno->setUsuario($user);
+
             $em->persist($alumno);
             $em->flush();
+            return $this->redirectToRoute("BackendAlumnoEdit", array("id" => $alumno->getId()));
         }
 
         return $this->render("BackendBundle:AlumnoViews:edit.html.twig", array(
@@ -116,19 +126,22 @@ class AlumnoController extends Controller {
      */
     public function resetPasswordAction(Request $request, Alumno $alumno) {
         $password = $this->generateRandomString();
+        $em = $this->getDoctrine()->getManager();
 
-        $user = $this->get('fos_user.user_manager')->findUserByEmail('sebastian.portesi@outlook.com');
+        $user = $this->get('fos_user.user_manager')->findUserByEmail($alumno->getEmail());
         $user->setPlainPassword($password);
         $this->get('fos_user.user_manager')->updateUser($user);
 
         $message = \Swift_Message::newInstance()
                 ->setSubject('Reinicio de Contraseña')
                 ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-                ->setTo(array("sebastian.portesi@outlook.com"))
+                ->setTo(array($alumno->getEmail()))
                 ->setBody("Password: " . $password);
         $this->get('mailer')->send($message);
 
-        return new Response('<html><body></body></html>');
+        $em->flush();
+
+        return $this->redirectToRoute("BackendAlumnoEdit", array("id" => $alumno->getId()));
     }
 
     function generateRandomString($length = 10) {
@@ -139,6 +152,19 @@ class AlumnoController extends Controller {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+    
+    /**
+     * @Route("/delete/{id}", name="alumnoDelete")
+     * @param Alumno $alumno
+     * @Method({"DELETE"})
+     */
+    public function deleteAction(Alumno $alumno) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->find($alumno->getUsuario()->getId());
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute("BackendAlumnoHomepage");
     }
 
 }

@@ -10,7 +10,10 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><i class="fa fa-pencil fa-fw"></i> Editar Alumno</h1>
+            <h1 class="page-header">
+                <i class="fa fa-pencil fa-fw"></i> Editar Alumno
+                <a href="{{ path("BackendAlumnoHomepage") }}" class="btn btn-primary pull-right">Volver al listado</a>
+            </h1>
         </div>
     </div>
 
@@ -35,14 +38,18 @@
                     <h4>Opciones</h4>
                 </div>
                 <div class="panel-body">
-                    {{ form_start(resetForm) }}
-                    {{ form_widget(resetForm) }}
                     <div class="form-group">
                         <div class="col-sm-12">
+                            {{ form_start(resetForm, { attr: { class: 'pull-left', style: "margin-right: 10px;" } }) }}
+                            {{ form_widget(resetForm) }}
                             <button type="submit" class="btn btn-primary">Reiniciar Contrase&ntilde;a</button>
+                            {{ form_end(resetForm) }}
+                            {{ form_start(deleteForm, { attr: { class: 'pull-left' } }) }}
+                            {{ form_widget(deleteForm) }}
+                            <button type="submit" class="btn btn-danger">Eliminar Alumno</button>
+                            {{ form_end(deleteForm) }}
                         </div>
                     </div>
-                    {{ form_end(resetForm) }}
                 </div>
             </div>
         </div>
