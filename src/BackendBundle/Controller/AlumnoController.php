@@ -74,7 +74,12 @@ class AlumnoController extends Controller {
                     ->setSubject('Bienvenido al sistema de turnos')
                     ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                     ->setTo(array($alumno->getEmail()))
-                    ->setBody("Su Contraseña: " . $password);
+                    ->setBody($this->renderView(
+                            'Emails/welcome.html.twig', array(
+                                'nombre' => strtolower($alumno->getNombre()),
+                                'password' => $password,
+                            )
+                    ), 'text/html');
             $this->get('mailer')->send($message);
 
             $alumno->setUsuario($user);
@@ -136,7 +141,12 @@ class AlumnoController extends Controller {
                 ->setSubject('Reinicio de Contraseña')
                 ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                 ->setTo(array($alumno->getEmail()))
-                ->setBody("Password: " . $password);
+                ->setBody($this->renderView(
+                            'Emails/reset.html.twig', array(
+                                'nombre' => strtolower($alumno->getNombre()),
+                                'password' => $password,
+                            )
+                    ), 'text/html');
         $this->get('mailer')->send($message);
 
         $em->flush();
@@ -153,7 +163,7 @@ class AlumnoController extends Controller {
         }
         return $randomString;
     }
-    
+
     /**
      * @Route("/delete/{id}", name="alumnoDelete")
      * @param Alumno $alumno

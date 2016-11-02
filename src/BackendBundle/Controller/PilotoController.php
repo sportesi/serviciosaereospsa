@@ -75,7 +75,12 @@ class PilotoController extends Controller {
                     ->setSubject('Bienvenido al sistema de turnos')
                     ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                     ->setTo(array($piloto->getEmail()))
-                    ->setBody("Su Contraseña: " . $password);
+                    ->setBody($this->renderView(
+                            'Emails/welcome.html.twig', array(
+                                'nombre' => strtolower($piloto->getNombre()),
+                                'password' => $password,
+                            )
+                    ), 'text/html');
             $this->get('mailer')->send($message);
 
             $piloto->setUsuario($user);
@@ -137,7 +142,12 @@ class PilotoController extends Controller {
                 ->setSubject('Reinicio de Contraseña')
                 ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                 ->setTo(array($piloto->getEmail()))
-                ->setBody("Password: " . $password);
+                ->setBody($this->renderView(
+                            'Emails/reset.html.twig', array(
+                                'nombre' => strtolower($piloto->getNombre()),
+                                'password' => $password,
+                            )
+                    ), 'text/html');
         $this->get('mailer')->send($message);
 
         $em->flush();
