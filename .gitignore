@@ -16,3 +16,8 @@
 /web/bundles/
 *~
 /nbproject/private/
+.bash_history
+.composer/
+.logs/
+.ssh/
+serviciosaereospsa/
