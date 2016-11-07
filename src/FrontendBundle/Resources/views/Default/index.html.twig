@@ -8,10 +8,12 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/frontend/css/reset.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/frontend/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
 
         <script type="text/javascript" src="{{ asset('/bundles/frontend/js/jquery.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/bundles/frontend/js/TimeCircles.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/bundles/frontend/js/backstretch.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/frontend/js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/bundles/frontend/js/main.js') }}"></script>
     </head>
     <body>
@@ -19,9 +21,18 @@
         <section class="content wrapper">
 
             <h1>Pr&oacute;ximamente Disponible</h1>
-            <p class="description">Si sos piloto o actualemente alumno de PSA te avisaremos!</p>
-
-            <div class="counter clear" data-date="2016-09-26 00:00:00"></div>
+            <p class="description">
+                Si actualemente sos piloto o alumno de PSA
+                <br />
+                comunicate con nosotros y &iexcl;pedi acceso al sistema de turnos!
+            </p>
+            <p>
+                Email: <a class="white-link" href="mailto:escuelapsa@gmail.com">escuelapsa@gmail.com</a>
+                <br />
+                Telefono: 11-6258-8919
+            </p>
+            <br />
+            <a href="{{ path("fos_user_security_login") }}" class="btn btn-primary btn-block text-bold text-uppercase">Acceder al sistema de turnos</a>
 
         </section>
 

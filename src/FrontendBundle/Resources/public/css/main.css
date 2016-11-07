@@ -18,9 +18,9 @@
     font-family: 'Aleo-Regular';
     src: url('../fonts/Aleo-Regular.eot');
     src: url('../fonts/Aleo-Regular.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Aleo-Regular.woff') format('woff'),
-         url('../fonts/Aleo-Regular.ttf') format('truetype'),
-         url('../fonts/Aleo-Regular.svg#Aleo-Regular') format('svg');
+        url('../fonts/Aleo-Regular.woff') format('woff'),
+        url('../fonts/Aleo-Regular.ttf') format('truetype'),
+        url('../fonts/Aleo-Regular.svg#Aleo-Regular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -31,9 +31,9 @@
     font-family: 'Aleo-Bold';
     src: url('../fonts/Aleo-Bold.eot');
     src: url('../fonts/Aleo-Bold.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Aleo-Bold.woff') format('woff'),
-         url('../fonts/Aleo-Bold.ttf') format('truetype'),
-         url('../fonts/Aleo-Bold.svg#Aleo-Bold') format('svg');
+        url('../fonts/Aleo-Bold.woff') format('woff'),
+        url('../fonts/Aleo-Bold.ttf') format('truetype'),
+        url('../fonts/Aleo-Bold.svg#Aleo-Bold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -44,9 +44,9 @@
     font-family: 'Lato-Regular';
     src: url('../fonts/Lato-Regular.eot');
     src: url('../fonts/Lato-Regular.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Lato-Regular.woff') format('woff'),
-         url('../fonts/Lato-Regular.ttf') format('truetype'),
-         url('../fonts/Lato-Regular.svg#Lato-Regular') format('svg');
+        url('../fonts/Lato-Regular.woff') format('woff'),
+        url('../fonts/Lato-Regular.ttf') format('truetype'),
+        url('../fonts/Lato-Regular.svg#Lato-Regular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -57,9 +57,9 @@
     font-family: 'Lato-Bold';
     src: url('../fonts/Lato-Bold.eot');
     src: url('../fonts/Lato-Bold.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Lato-Bold.woff') format('woff'),
-         url('../fonts/Lato-Bold.ttf') format('truetype'),
-         url('../fonts/Lato-Bold.svg#Lato-Bold') format('svg');
+        url('../fonts/Lato-Bold.woff') format('woff'),
+        url('../fonts/Lato-Bold.ttf') format('truetype'),
+        url('../fonts/Lato-Bold.svg#Lato-Bold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -90,7 +90,7 @@ h5, h6          { font-weight: bolder }
 .clearfix:after {  
     clear: both;  
 }  
- 
+
 .clearfix {  
     *zoom: 1;  
 }
@@ -100,16 +100,16 @@ h5, h6          { font-weight: bolder }
     margin: 0 auto;
 }
 
-
-
-
-
 .content{
     position: absolute;
     display: block;
     overflow: hidden;
     z-index: 9999;
     text-align: center;
+    background-color: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px -1px black;
 }
 
 .content H1{
@@ -175,22 +175,22 @@ h5, h6          { font-weight: bolder }
 
 .subscription_form form input[type=email]::-webkit-input-placeholder,
 .subscription_form form input[type=text]::-webkit-input-placeholder{
-   color: #e3cced;
+    color: #e3cced;
 }
 
 .subscription_form form input[type=email]::-moz-placeholder,
 .subscription_form form input[type=text]::-moz-placeholder{
-   color: #e3cced;
+    color: #e3cced;
 }
 
 .subscription_form form input[type=email]::-moz-placeholder,
 .subscription_form form input[type=text]::-moz-placeholder{
-   color: #e3cced;
+    color: #e3cced;
 }
 
 .subscription_form form input[type=email]::-ms-input-placeholder,  
 .subscription_form form input[type=text]::-ms-input-placeholder{  
-   color: #e3cced;
+    color: #e3cced;
 } 
 
 .subscription_form form button{
@@ -235,7 +235,7 @@ h5, h6          { font-weight: bolder }
     margin: 0px;
     padding: 0px;
     z-index: -9999;
-    background: #50cda7 url('../img/bg_img.jpg') no-repeat;
+    background: #50cda7 url('../img/bg_img4.jpg') no-repeat;
     background-position: center 0;
     overflow: hidden;
 
