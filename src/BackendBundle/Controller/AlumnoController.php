@@ -76,8 +76,8 @@ class AlumnoController extends Controller {
                     ->setTo(array($alumno->getEmail()))
                     ->setBody($this->renderView(
                             'Emails/welcome.html.twig', array(
-                                'nombre' => strtolower($alumno->getNombre()),
-                                'password' => $password,
+                        'nombre' => strtolower($alumno->getNombre()),
+                        'password' => $password,
                             )
                     ), 'text/html');
             $this->get('mailer')->send($message);
@@ -142,11 +142,11 @@ class AlumnoController extends Controller {
                 ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
                 ->setTo(array($alumno->getEmail()))
                 ->setBody($this->renderView(
-                            'Emails/reset.html.twig', array(
-                                'nombre' => strtolower($alumno->getNombre()),
-                                'password' => $password,
-                            )
-                    ), 'text/html');
+                        'Emails/reset.html.twig', array(
+                    'nombre' => strtolower($alumno->getNombre()),
+                    'password' => $password,
+                        )
+                ), 'text/html');
         $this->get('mailer')->send($message);
 
         $em->flush();
@@ -175,6 +175,33 @@ class AlumnoController extends Controller {
         $em->remove($user);
         $em->flush();
         return $this->redirectToRoute("BackendAlumnoHomepage");
+    }
+
+    /**
+     * @Route("/welcome/send/{id}")
+     */
+    public function sendWelcomeAction(Alumno $alumno) {
+        $password = $this->generateRandomString();
+        $user = $this->get('fos_user.user_manager')->findUserByEmail($alumno->getEmail());
+        $user->setPlainPassword($password);
+        $user->setEnabled(true);
+        $this->get('fos_user.user_manager')->updateUser($user);
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Bienvenido al sistema de turnos')
+                ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
+                ->setTo(array($alumno->getEmail()))
+                ->setBody($this->renderView(
+                        'Emails/welcome.html.twig', array(
+                    'nombre' => strtolower($alumno->getNombre()),
+                    'password' => $password,
+                        )
+                ), 'text/html');
+        $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute(
+                        "BackendAlumnoEdit", array("id" => $alumno->getId())
+        );
     }
 
 }

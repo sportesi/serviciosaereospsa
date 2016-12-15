@@ -40,6 +40,9 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="col-sm-12">
+                            <form class="pull-left form-horizontal" style="margin-right: 10px;">
+                                <a href="{{ path("backend_alumno_sendwelcome", { id: form.vars.value.id }) }}" class="btn btn-primary">Enviar bienvenida</a>    
+                            </form>
                             {{ form_start(resetForm, { attr: { class: 'pull-left', style: "margin-right: 10px;" } }) }}
                             {{ form_widget(resetForm) }}
                             <button type="submit" class="btn btn-primary">Reiniciar Contrase&ntilde;a</button>
