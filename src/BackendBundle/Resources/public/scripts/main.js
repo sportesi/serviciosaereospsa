@@ -97,7 +97,7 @@ function newEvent(data, cell) {
     $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
-    $('[name="turno[fecha]"]').val(data.fecha);
+    $('[name="turno[fecha]"]').val(moment(data.fecha).format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val("");
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
@@ -107,7 +107,8 @@ function newEvent(data, cell) {
     $('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change');
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
     $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
-    $('#newEvent').modal();
+    $('.move-turno').hide();
+    $('#newEvent').modal('show');
     $('#newEvent').on('hidden.bs.modal', function () {
         $('#newEvent').off('hidden.bs.modal');
         $(cell).removeClass('bg-info');
@@ -119,6 +120,7 @@ function newEvent(data, cell) {
 }
 
 function editEvent(data) {
+    console.log(data);
     $('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change');
     if (data.turno.alumno) {
         $('#newEvent .form-group-alumno select').val(data.turno.alumno.id).trigger('change');
@@ -131,11 +133,12 @@ function editEvent(data) {
     $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
-    $('[name="turno[fecha]"]').val(data.fecha);
+    $('[name="turno[fecha]"]').val(moment(data.fecha).format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val(data.turno.comentario);
     $('.form-delete-btn').data(data);
     $('#newEvent .modal-title, #newEvent .btn-success').hide();
     $('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show();
+    $('.move-turno').show();
     $('#newEvent').modal('show');
 }
 

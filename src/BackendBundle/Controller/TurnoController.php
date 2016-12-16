@@ -225,4 +225,12 @@ class TurnoController extends Controller {
         $this->get('mailer')->send($message);
     }
 
+    /**
+    * @Route("/turnos/move/{id}")
+    */
+    public function moveAction(Request $request, Turno $turno)
+    {
+        
+        return new Response();
+    }
 }
