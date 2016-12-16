@@ -204,4 +204,15 @@ class AlumnoController extends Controller {
         );
     }
 
+    /**
+     * @Route("/transfer/{id}")
+     */
+    public function transferAction(Alumno $alumno)
+    {
+        $piloto = new Piloto();
+        return $this->redirectToRoute(
+            "BackendAlumnoEdit", array("id" => $alumno->getId())
+        );
+    }
+
 }
