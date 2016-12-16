@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Piloto;
 
 /**
  * @Route("/alumno")
@@ -209,9 +210,22 @@ class AlumnoController extends Controller {
      */
     public function transferAction(Alumno $alumno)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $piloto = new Piloto();
+        $piloto->setApellido($alumno->getApellido());
+        $piloto->setDireccion($alumno->getDireccion());
+        $piloto->setEmail($alumno->getEmail());
+        $piloto->setNombre($alumno->getNombre());
+        $piloto->setTelefono($alumno->getTelefono());
+        $piloto->setUsuario($alumno->getUsuario());
+        
+        $em->persist($piloto);
+        $em->remove($alumno);
+        $em->flush();
+
         return $this->redirectToRoute(
-            "BackendAlumnoEdit", array("id" => $alumno->getId())
+            "BackendPilotoEdit", array("id" => $piloto->getId())
         );
     }
 
