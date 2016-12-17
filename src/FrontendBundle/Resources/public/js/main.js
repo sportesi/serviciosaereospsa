@@ -23,17 +23,6 @@ $(document).ready(function () {
         });
     }
 
-    //code for the background slider
-    $.backstretch([
-        "/bundles/frontend/img/bg_img.jpg",
-        "/bundles/frontend/img/bg_img2.jpg",
-        "/bundles/frontend/img/bg_img3.jpg"
-    ], {
-        fade: 750,
-        duration: 2500
-    });
-
-
     //code for the cerlces Countdouwn
     $(".counter").TimeCircles({
         "direction": "Clockwise",
@@ -290,18 +279,21 @@ function setClickEvent() {
             return x === dia;
         });
         if (isAlumno && match.length === 0) {
-            var data = {
-                dia: $(this).data('dia'),
-                horario: $(this).data('horario'),
-                avion: $(this).data('avion'),
-                updatedAt: $(this).data('updatedAt'),
-                fecha: $(this).data('fecha')
-            };
-            $(this).addClass('bg-info');
-            newEvent(data, this);
+            
         } else {
-            swal('Atencion', 'Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning');
+            if(isAlumno) {
+                swal('Atencion', 'Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias', 'warning');
+            }
         }
+        var data = {
+            dia: $(this).data('dia'),
+            horario: $(this).data('horario'),
+            avion: $(this).data('avion'),
+            updatedAt: $(this).data('updatedAt'),
+            fecha: $(this).data('fecha')
+        };
+        $(this).addClass('bg-info');
+        newEvent(data, this);
     } else {
         var data = {
             dia: $(this).data('dia'),

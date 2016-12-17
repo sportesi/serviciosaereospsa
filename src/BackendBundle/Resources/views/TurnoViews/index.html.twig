@@ -84,6 +84,7 @@
             <div class="pull-left">
                 <button type="button" onclick="switchMode();" class="btn btn-primary btn-modo-crear">Cambiar a modo "Mover turnos"</button>
                 <button type="button" onclick="switchMode();" class="btn btn-success btn-modo-mover" style="display: none;">Cambiar a modo "Crear turnos"</button>
+                <button class="btn btn-primary text-uppercase btn-instrucciones" data-toggle="modal" data-target="#modal-instrucciones">Instrucciones reserva de turnos</button>
             </div>
             <div class="btn-group pull-right">
                 <a href="{{ path('BackendHomepage', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
@@ -169,5 +170,6 @@
     </div>
 
     {% include 'BackendBundle:TurnoViews:modal.new.html.twig' %}
+    {% include 'BackendBundle:TurnoViews:modal.instrucciones.html.twig' %}
 
 {% endblock %}
