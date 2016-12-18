@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <form class="pull-left form-horizontal" style="margin-right: 10px;">
-                                <a href="{{ path("backend_alumno_sendwelcome", { id: form.vars.value.id }) }}" class="btn btn-primary">Enviar bienvenida</a>    
+                                <a href="{{ path("backend_alumno_sendwelcome", { id: form.vars.value.id, return: "true" }) }}" class="btn btn-primary">Enviar bienvenida</a>    
                             </form>
                             <form class="pull-left form-horizontal" style="margin-right: 10px;">
                                 <a href="{{ path("backend_alumno_transfer", { id: form.vars.value.id }) }}" class="btn btn-success">Pasar a piloto</a>    

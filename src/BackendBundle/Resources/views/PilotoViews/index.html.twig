@@ -39,7 +39,25 @@
                     sSortDescending: ": Activar para ordenar la columna de manera descendente"
                 }
             }
-        })
+        });
+        function sendWelcome(path, button){
+            $(button).prop('disabled', true);
+            $.ajax({
+                url: path,
+                type: 'GET',
+            })
+            .done(function() {
+                $(button).removeClass('btn-primary');
+                $(button).addClass('btn-success');
+                $(button).text("Enviada");
+            })
+            .fail(function() {
+                $(button).removeClass('btn-primary');
+                $(button).addClass('btn-danger');
+                $(button).text("Reenviar");
+                $(button).prop('disabled', false);
+            });
+        }
     </script>
 
 {% endblock %}
@@ -76,6 +94,9 @@
                                 <a href="{{ path("BackendPilotoEdit", { id: item.id }) }}" class="btn btn-primary btn-rounded btn-xs" > 
                                     <i class="fa fa-pencil"></i> Editar
                                 </a>
+                                <button onclick="sendWelcome('{{ path("backend_piloto_sendwelcome", { id: item.id, return: "false" }) }}', this)" class="btn btn-primary btn-rounded btn-xs">
+                                    <i class="fa fa-envelope"></i> Enviar bienvenida
+                                </button>
                             </td>
                         </tr>
                     {% else %}

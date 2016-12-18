@@ -178,4 +178,31 @@ class PilotoController extends Controller {
         return $this->redirectToRoute("BackendPilotoHomepage");
     }
 
+    /**
+     * @Route("/welcome/send/{id}")
+     */
+    public function sendWelcomeAction(Piloto $piloto) {
+        $password = $this->generateRandomString();
+        $user = $this->get('fos_user.user_manager')->findUserByEmail($piloto->getEmail());
+        $user->setPlainPassword($password);
+        $user->setEnabled(true);
+        $this->get('fos_user.user_manager')->updateUser($user);
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Bienvenido al sistema de turnos')
+                ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
+                ->setTo(array($piloto->getEmail()))
+                ->setBody($this->renderView(
+                        'Emails/welcome.html.twig', array(
+                    'nombre' => strtolower($piloto->getNombre()),
+                    'password' => $password,
+                        )
+                ), 'text/html');
+        $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute(
+                        "BackendPilotoEdit", array("id" => $piloto->getId())
+        );
+    }
+
 }

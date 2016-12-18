@@ -179,9 +179,9 @@ class AlumnoController extends Controller {
     }
 
     /**
-     * @Route("/welcome/send/{id}")
+     * @Route("/welcome/send/{id}/{return}")
      */
-    public function sendWelcomeAction(Alumno $alumno) {
+    public function sendWelcomeAction(Alumno $alumno, $return) {
         $password = $this->generateRandomString();
         $user = $this->get('fos_user.user_manager')->findUserByEmail($alumno->getEmail());
         $user->setPlainPassword($password);
@@ -200,9 +200,12 @@ class AlumnoController extends Controller {
                 ), 'text/html');
         $this->get('mailer')->send($message);
 
-        return $this->redirectToRoute(
-                        "BackendAlumnoEdit", array("id" => $alumno->getId())
-        );
+        if ($return == "true") {
+            return $this->redirectToRoute("BackendAlumnoEdit", array("id" => $alumno->getId()));
+        } else {
+            return $this->redirectToRoute("BackendAlumnoHomepage");
+        }
+
     }
 
     /**
