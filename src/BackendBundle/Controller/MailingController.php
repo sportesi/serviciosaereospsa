@@ -14,7 +14,7 @@ class MailingController extends Controller
 	/**
 	 * @Route("/alumnos")
 	 */
-	public function indexAction()
+	public function firstMailingAction()
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -57,7 +57,7 @@ class MailingController extends Controller
 	/**
 	 * @Route("/pilotos")
 	 */
-	public function indexAction()
+	public function secondMailingAction()
 	{
 		$em = $this->getDoctrine()->getManager();
 
