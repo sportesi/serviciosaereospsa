@@ -11,3 +11,7 @@ parameters:
     mailer_user: appmailer@serviciosaereospsa.esy.es
     mailer_password: C8zzVoyg9nnZ
     secret: abf904944281b1885789c63123d35d1c32bd8e61
+
+    # CREATE DATABASE u380789842_stag DEFAULT CHARACTER SET UTF8 DEFAULT COLLATE UTF8_BIN;
+    # GRANT ALL PRIVILEGES ON u380789842_stag.* TO u380789842_stag@'%' IDENTIFIED BY 'k5tlMKg30qbR';
+    # GRANT ALL PRIVILEGES ON u380789842_stag.* TO u380789842_stag@'localhost' IDENTIFIED BY 'k5tlMKg30qbR';

@@ -135,7 +135,8 @@
                                     <td>{{ itemAvion.matricula }}</td>
                                     {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' %}
                                         {% for itemHorario in horarios %}
-                                            {% if itemHorario.hora == '1300' %}
+                                            {% set summer = ['1300', '2400'] %}
+                                            {% if itemHorario.hora >= summer[0] and itemHorario.hora <= summer[1] %}
                                                 <td class="bg-disabled" data-hparsed="{{ itemHorario.hora }}"></td>
                                             {% else %}
                                                 <td class="clickable" 
