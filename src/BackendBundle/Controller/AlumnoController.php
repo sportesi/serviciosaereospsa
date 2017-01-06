@@ -167,7 +167,6 @@ class AlumnoController extends Controller {
 
     /**
      * @Route("/delete/{id}", name="alumnoDelete")
-     * @param Alumno $alumno
      * @Method({"DELETE"})
      */
     public function deleteAction(Alumno $alumno) {

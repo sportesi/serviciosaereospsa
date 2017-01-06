@@ -163,7 +163,7 @@ function initCalendar() {
                     cell.toggleClass('bg-success');
                     if (turno.alumno) {
                         cell.text(turno.alumno.apellido);
-                    } else {
+                    } else if (turno.piloto) {
                         cell.text(turno.piloto.apellido);
                     }
                     cell.data('turno', turno);
