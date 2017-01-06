@@ -35,7 +35,6 @@ function initCalendar() {
                     updatedAt: cell.data('updatedAt'),
                     fecha: cell.data('fecha')
                 };
-                cell.addClass('bg-info');
                 newEvent(data, this);
             } else {
                 var data = {
@@ -66,12 +65,12 @@ function initCalendar() {
                     var turno = response[i];
                     var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
                     if (turno.alumno) {
-                        cell.removeClass('bg-success');
-                        cell.addClass('bg-success');
+                        cell.removeClass('bg-alumno');
+                        cell.addClass('bg-alumno');
                         cell.find('div').text(turno.alumno.apellido);
                     } else if (turno.piloto) {
-                        cell.removeClass('bg-info');
-                        cell.addClass('bg-info');
+                        cell.removeClass('bg-piloto');
+                        cell.addClass('bg-piloto');
                         cell.find('div').text(turno.piloto.apellido);
                     }
                     if (turno.comentario) {
@@ -111,10 +110,10 @@ function newEvent(data, cell) {
     $('#newEvent').modal('show');
     $('#newEvent').on('hidden.bs.modal', function () {
         $('#newEvent').off('hidden.bs.modal');
-        $(cell).removeClass('bg-info');
+        $(cell).removeClass('bg-piloto');
         if ($(cell).text().trim() !== "") {
-            $(cell).removeClass('bg-success');
-            $(cell).addClass('bg-success');
+            $(cell).removeClass('bg-alumno');
+            $(cell).addClass('bg-alumno');
         }
     });
 }
@@ -182,7 +181,7 @@ function deleteTurno(turno) {
         $.ajax({
             url: '/backend/turnos/listado/delete/turnos',
             type: 'GET',
-            data: { 'ids': ids },
+            data: { 'ids': ids }
         })
         .done(function() {
             swal('Turnos eliminados', null, 'success');
@@ -198,91 +197,87 @@ var modo = 'crear';
 var selected;
 function switchMode() {
     modo = (modo === 'crear' ? 'mover' : 'crear');
+    var btnMover = $('.btn-modo-mover');
+    var btnCrear = $('.btn-modo-crear');
+    var tdClickable = $('td.clickable');
     switch (modo) {
         case 'crear':
-            // Habilita clicks para crear o editar turnos
-            $('.btn-modo-mover').hide();
-            $('.btn-modo-crear').show();
-            $('td.clickable').off('click');
-            $('td.clickable').on('click', function () {
-                if (!$(this).data('turno')) {
-                    var data = {
-                        dia: $(this).data('dia'),
-                        horario: $(this).data('horario'),
-                        avion: $(this).data('avion'),
-                        updatedAt: $(this).data('updatedAt'),
-                        fecha: $(this).data('fecha')
-                    };
-                    $(this).addClass('bg-info');
-                    newEvent(data, this);
-                } else {
-                    var data = {
-                        dia: $(this).data('dia'),
-                        horario: $(this).data('horario'),
-                        avion: $(this).data('avion'),
-                        updatedAt: $(this).data('updatedAt'),
-                        fecha: $(this).data('fecha'),
-                        turno: $(this).data('turno')
-                    };
-                    editEvent(data);
-                }
-            });
-            break
-        case 'mover':
-            // Deshabilita creacion y edicion de turnos, para habilitar traslado
-            $('.btn-modo-crear').hide();
-            $('.btn-modo-mover').show();
-            $('td.clickable').off('click');
-            $('td.clickable').on('click', function () {
-                var turno = $(this).data('turno');
-                if (turno) {
-                    selected = turno;
-                    $(this).addClass('bg-info');
-                    var cell = this;
-                    $('#newEvent').on('hidden.bs.modal', function () {
-                        $('#newEvent').off('hidden.bs.modal');
-                        $(cell).removeClass('bg-info');
-                        if ($(cell).text() !== "") {
-                            $(cell).removeClass('bg-success');
-                            $(cell).addClass('bg-success');
-                        }
-                    });
-                } else {
-                    if (selected) {
-                        var data = {
+            var data;
+            btnMover.hide();
+            btnCrear.show();
+            tdClickable
+                .off('click')
+                .on('click', function () {
+                    if (!$(this).data('turno')) {
+                        data = {
+                            dia: $(this).data('dia'),
+                            horario: $(this).data('horario'),
+                            avion: $(this).data('avion'),
+                            updatedAt: $(this).data('updatedAt'),
+                            fecha: $(this).data('fecha')
+                        };
+                        newEvent(data, this);
+                    } else {
+                        data = {
                             dia: $(this).data('dia'),
                             horario: $(this).data('horario'),
                             avion: $(this).data('avion'),
                             updatedAt: $(this).data('updatedAt'),
                             fecha: $(this).data('fecha'),
-                            turno: selected
+                            turno: $(this).data('turno')
                         };
                         editEvent(data);
-                        selected = null;
                     }
-                }
-            });
-            break
+                });
+            break;
+        case 'mover':
+
+            btnCrear.hide();
+            btnMover.show();
+            tdClickable
+                .off('click')
+                .on('click', function () {
+                    var turno = $(this).data('turno');
+                    if (turno) {
+                        selected = turno;
+                        $('#newEvent').on('hidden.bs.modal', function () {
+                            $('#newEvent').off('hidden.bs.modal');
+                        });
+                    } else {
+                        if (selected) {
+                            var data = {
+                                dia: $(this).data('dia'),
+                                horario: $(this).data('horario'),
+                                avion: $(this).data('avion'),
+                                updatedAt: $(this).data('updatedAt'),
+                                fecha: $(this).data('fecha'),
+                                turno: selected
+                            };
+                            editEvent(data);
+                            selected = null;
+                        }
+                    }
+                });
+            break;
     }
 
 }
 
 function setPopoverOn() {
-    $('td.bg-info div, td.bg-success div').off('mouseover');
-    $('td.bg-info div, td.bg-success div').on('mouseover', function () {
-        var div = $(this);
-        if (div.data('content')) {
-            div.popover({placement: 'top'});
-            div.popover('show');
-        }
-    });
-    $('td.bg-info div, td.bg-success div').off('mouseout');
-    $('td.bg-info div, td.bg-success div').on('mouseout', function () {
-        var div = $(this);
-        if (div.data('content')) {
-            div.popover('hide');
-        }
-    });
+    $('td.bg-piloto div, td.bg-alumno div')
+        .off('mouseover')
+        .on('mouseover', function () {
+            if ($(this).data('content')) {
+                $(this).popover({placement: 'top'});
+                $(this).popover('show');
+            }
+        })
+        .off('mouseout')
+        .on('mouseout', function () {
+            if ($(this).data('content')) {
+                $(this).popover('hide');
+            }
+        });
 }
 
 function DisableFoxtrotSierra() {

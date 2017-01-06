@@ -23,3 +23,11 @@
 .main-header .logo {
 	font-size: 14pt !important;
 }
+
+.bg-piloto {
+    background: #50c5ff;
+}
+
+.bg-alumno {
+    background: #90ff62;
+}

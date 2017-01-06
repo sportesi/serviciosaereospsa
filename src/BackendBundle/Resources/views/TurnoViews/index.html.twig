@@ -148,21 +148,14 @@
                             </tr>
                         {% endfor %}
                         {% if loop.index is even %}
-                        <thead>
-                        <tr>
-                            <th colspan="2">Hora</th>
-                            {% for itemHorario in horarios %}
-                                <th>{{ itemHorario.hora }}</th>
-                            {% endfor %}
-                        </tr>
-                        <tr>
-                            <th width="1%">D&iacute;a</th>
-                            <th>Mat</th>
-                            {% for itemHorario in horarios %}
-                                <th>Piloto</th>
-                            {% endfor %}
-                        </tr>
-                        </thead>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Hora</th>
+                                    {% for itemHorario in horarios %}
+                                        <th>{{ itemHorario.hora }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
                         {% endif %}
                         {% endfor %}
                         </tbody>
