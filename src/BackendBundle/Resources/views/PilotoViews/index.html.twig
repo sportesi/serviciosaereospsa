@@ -74,38 +74,44 @@
     </div>
 
     <div class="row">
-        <div class="dataTable_wrapper">
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Apellido</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in pilotos %}
-                        <tr>
-                            <td>{{ item.apellido }}</td>
-                            <td>{{ item.nombre }}</td>
-                            <td>{{ item.email }}</td>
-                            <td class="text-center">
-                                <a href="{{ path("BackendPilotoEdit", { id: item.id }) }}" class="btn btn-primary btn-rounded btn-xs" > 
-                                    <i class="fa fa-pencil"></i> Editar
-                                </a>
-                                <button onclick="sendWelcome('{{ path("backend_piloto_sendwelcome", { id: item.id, return: "false" }) }}', this)" class="btn btn-primary btn-rounded btn-xs">
-                                    <i class="fa fa-envelope"></i> Enviar bienvenida
-                                </button>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5"><b>No hay pilotos cargados</b></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-hover table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in pilotos %}
+                                <tr>
+                                    <td>{{ item.apellido }}</td>
+                                    <td>{{ item.nombre }}</td>
+                                    <td>{{ item.email }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ path("BackendPilotoEdit", { id: item.id }) }}" class="btn btn-primary btn-rounded btn-xs" >
+                                            <i class="fa fa-pencil"></i> Editar
+                                        </a>
+                                        <button onclick="sendWelcome('{{ path("backend_piloto_sendwelcome", { id: item.id, return: "false" }) }}', this)" class="btn btn-primary btn-rounded btn-xs">
+                                            <i class="fa fa-envelope"></i> Enviar bienvenida
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5"><b>No hay pilotos cargados</b></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

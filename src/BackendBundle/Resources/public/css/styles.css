@@ -4,8 +4,8 @@
 }
 
 .img-logo {
-	width: 100%;
-	display: none;
+	width: 57%;
+	vertical-align: top !important;
 }
 
 .clickable {
@@ -14,4 +14,8 @@
 
 .bg-disabled {
 	background: lightgrey;
+}
+
+.content {
+	min-height: 93vh !important;
 }

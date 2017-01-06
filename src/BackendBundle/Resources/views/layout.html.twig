@@ -1,98 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
         <title>Servicios A&eacute;reos PSA</title>
 
         <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.css") }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css") }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/font-awesome/css/font-awesome.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="{{ asset("/bundles/backend/css/AdminLTE.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("/bundles/backend/css/skins/skin-blue.min.css") }}">
         <link rel="stylesheet" href="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("bundles/backend/css/styles.css") }}" type="text/css">
 
-        {% block styles %}
-            
-        {% endblock %}
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        {% block styles %}{% endblock %}
     </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
 
-    <body>
-        <div id="wrapper">
-            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ path('BackendHomepage') }}" style="padding-left: 35px;">
-                        Sistema de Turnos Online
-                    </a>
-                </div>
-                <!-- start: Collapse items -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item dropdown">
-                        <a class="userData" data-toggle="dropdown" data-ripple>
-                            <!-- <span class="avatar">
-                                <img src="{{ asset("bundles/backend/img/small_avatar.jpg") }}" class="img-circle thumb-xxs">
-                                <i class="on bottom"></i>
-                            </span> -->
-                            <span class="hidden-phone">
-                                Bienvenido 
-                                {{ app.user.username }} 
-                                <i class="fa fa-angle-down"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu no-p no-m dropdown-alt pull-right">
-                            <!-- <li class="dropdown-item no-p-r-l">
-                                <a class="dropdown-item">
-                                    Mi Perfil
-                                </a>
-                            </li> -->
-                            <li class="m-b-5 dropdown-item no-p-r-l">
-                                <a href="{{ path("fos_user_security_logout") }}" class="dropdown-item">
-                                    Cerrar Sesi&oacute;n
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+            {% include('BackendBundle:CommonViews:header.html.twig') %}
 
-                {# include 'BackendBundle:CommonViews:toplinks.html.twig' #}
+            {% include('BackendBundle:CommonViews:sidebar.new.html.twig') %}
 
-                {% include 'BackendBundle:CommonViews:sidebar.html.twig' %}
-            </nav>
+            <div class="content-wrapper">
+                {#<section class="content-header">#}
+                    {#<h1>#}
+                        {#Dashboard#}
+                    {#</h1>#}
+                {#</section>#}
 
-            <div id="page-wrapper">
-                {% block body %}
-                    
-                {% endblock %}
+                <section class="content">
+                    {% block body %}
+
+                    {% endblock %}
+                </section>
             </div>
+
         </div>
+
         <script src="{{ asset("bundles/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script>
+            $.widget.bridge('uibutton', $.ui.button);
+            $('.sidebar-menu')
+                .find('a[href="'+window.location.pathname+'"]')
+                .parent()
+                .addClass('active');
+        </script>
         <script src="{{ asset("bundles/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
-        <script src="{{ asset("bundles/backend/bower_components/metisMenu/dist/metisMenu.min.js") }}"></script>
         <script src="{{ asset("bundles/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js") }}"></script>
-        <script src="{{ asset("bundles/backend/bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js") }}"></script>
+        <script src="{{ asset("/bundles/backend/scripts/app.min.js") }}"></script>
         <script src="{{ asset("bundles/backend/scripts/main.js") }}"></script>
 
-        {% block scripts %}
-            
-        {% endblock %}
+        {% block scripts %}{% endblock %}
 
     </body>
 </html>
