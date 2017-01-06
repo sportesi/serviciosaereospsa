@@ -69,7 +69,7 @@ function initCalendar() {
                         cell.removeClass('bg-success');
                         cell.addClass('bg-success');
                         cell.find('div').text(turno.alumno.apellido);
-                    } else {
+                    } else if (turno.piloto) {
                         cell.removeClass('bg-info');
                         cell.addClass('bg-info');
                         cell.find('div').text(turno.piloto.apellido);
