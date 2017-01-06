@@ -19,3 +19,7 @@
 .content {
 	min-height: 93vh !important;
 }
+
+.main-header .logo {
+	font-size: 14pt !important;
+}
