@@ -4,6 +4,7 @@ namespace BackendBundle\Controller;
 
 use AppBundle\Entity\Alumno;
 use AppBundle\Form\AlumnoType;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,6 +15,11 @@ use AppBundle\Entity\Piloto;
  * @Route("/alumno")
  */
 class AlumnoController extends Controller {
+
+    /**
+     * @var EntityManager
+     */
+    protected $doctrine;
 
     /**
      * @Route("/listado", name="BackendAlumnoHomepage")
@@ -212,7 +218,7 @@ class AlumnoController extends Controller {
      */
     public function transferAction(Alumno $alumno)
     {
-        $em = $this->getDoctrine()->getManager();
+        $this->doctrine = $this->getDoctrine()->getManager();
 
         $piloto = new Piloto();
         $piloto->setApellido($alumno->getApellido());
@@ -222,9 +228,21 @@ class AlumnoController extends Controller {
         $piloto->setTelefono($alumno->getTelefono());
         $piloto->setUsuario($alumno->getUsuario());
         
-        $em->persist($piloto);
-        $em->remove($alumno);
-        $em->flush();
+        $this->doctrine->persist($piloto);
+
+        $turnoRepo = $this->doctrine->getRepository('AppBundle:Turno');
+        
+        $turnosAlumno = $turnoRepo->findBy(['alumno' => $alumno->getId()]);
+
+        foreach ($turnosAlumno as $turno)
+        {
+            $turno->setPiloto($piloto);
+            $turno->setAlumno(null);
+            $this->doctrine->persist($turno);
+        }
+
+        $this->doctrine->remove($alumno);
+        $this->doctrine->flush();
 
         return $this->redirectToRoute(
             "BackendPilotoEdit", array("id" => $piloto->getId())
