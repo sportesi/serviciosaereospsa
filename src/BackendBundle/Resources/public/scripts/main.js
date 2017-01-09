@@ -63,6 +63,12 @@ function initCalendar() {
             $.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete}, function (response) {
                 for (var i = 0; i < response.length; i++) {
                     var turno = response[i];
+
+                    if (!turno.horario || !turno.dia || !turno.avion)
+                    {
+                        continue;
+                    }
+
                     var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
                     if (turno.alumno) {
                         cell.removeClass('bg-alumno');
