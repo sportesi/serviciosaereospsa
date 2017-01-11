@@ -9,5 +9,9 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
   app.request.listener:
     class: AppBundle\EventListener\RequestListener
+    arguments: [ "@app.log" ]
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+  app.log:
+    class: AppBundle\Services\LogService
+    arguments: [ "@doctrine.orm.entity_manager" ]

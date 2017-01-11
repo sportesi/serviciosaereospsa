@@ -8,11 +8,30 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Services\LogService;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class RequestListener
 {
-    public function onKernelRequest()
-    {
+    /**
+     * @var LogService
+     */
+    private $logService;
 
+    /**
+     * RequestListener constructor.
+     * @param LogService $logService
+     */
+    public function __construct(LogService $logService)
+    {
+        $this->logService = $logService;
+    }
+
+    /**
+     * @param GetResponseEvent $event
+     */
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        $this->logService->save($event->getRequest());
     }
 }
