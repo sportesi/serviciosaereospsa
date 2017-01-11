@@ -9,8 +9,8 @@
 namespace AppBundle\Services;
 
 
+use AppBundle\Entity\Log;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 
 class LogService
 {
@@ -29,14 +29,15 @@ class LogService
     }
 
     /**
-     * @param Request $request
+     * @param Log $log
      */
-    public function save(Request $request)
+    public function save(Log $log)
     {
-        echo $request->getRequestUri();
-        echo $request->getClientIp();
-        echo $request->get('_route');
-        echo $request->get('_controller');
-        echo $request->getMethod();
+        if ($log->getUser() == "anon." || $log->getMethod() == "GET")
+        {
+            return;
+        }
+        $this->manager->persist($log);
+        $this->manager->flush();
     }
 }

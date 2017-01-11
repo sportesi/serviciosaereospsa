@@ -9,7 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
   app.request.listener:
     class: AppBundle\EventListener\RequestListener
-    arguments: [ "@app.log" ]
+    arguments: [ "@app.log", "@security.token_storage" ]
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
   app.log:

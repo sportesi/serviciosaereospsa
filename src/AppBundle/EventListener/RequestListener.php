@@ -8,8 +8,10 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Log;
 use AppBundle\Services\LogService;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class RequestListener
 {
@@ -17,14 +19,20 @@ class RequestListener
      * @var LogService
      */
     private $logService;
+    /**
+     * @var TokenStorage
+     */
+    private $tokenStorage;
 
     /**
      * RequestListener constructor.
      * @param LogService $logService
+     * @param TokenStorage $tokenStorage
      */
-    public function __construct(LogService $logService)
+    public function __construct(LogService $logService, TokenStorage $tokenStorage)
     {
         $this->logService = $logService;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -32,6 +40,16 @@ class RequestListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $this->logService->save($event->getRequest());
+        $request = $event->getRequest();
+
+        $log = new Log(
+            $request->getRequestUri(),
+            $request->getClientIp(),
+            $request->get('_route'),
+            $request->get('_controller'),
+            $request->getMethod(),
+            $this->tokenStorage->getToken()->getUsername()
+        );
+        $this->logService->save($log);
     }
 }
