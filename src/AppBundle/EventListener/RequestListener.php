@@ -48,7 +48,8 @@ class RequestListener
             $request->get('_route'),
             $request->get('_controller'),
             $request->getMethod(),
-            $this->tokenStorage->getToken()->getUsername()
+            $this->tokenStorage->getToken()->getUsername(),
+            urldecode($request->getContent())
         );
         $this->logService->save($log);
     }

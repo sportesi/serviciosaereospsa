@@ -71,6 +71,12 @@ class Log
     private $user;
 
     /**
+     * @ORM\Column(name="content", type="text")
+     * @var string
+     */
+    private $content;
+
+    /**
      * Log constructor.
      * @param string $requestUri
      * @param string $clientIp
@@ -78,8 +84,9 @@ class Log
      * @param string $controller
      * @param string $method
      * @param string $user
+     * @param $content
      */
-    public function __construct($requestUri, $clientIp, $route, $controller, $method, $user)
+    public function __construct($requestUri, $clientIp, $route, $controller, $method, $user, $content)
     {
         $this->requestUri = $requestUri;
         $this->clientIp = $clientIp;
@@ -88,6 +95,7 @@ class Log
         $this->method = $method;
         $this->date = new \DateTime();
         $this->user = $user;
+        $this->content = $content;
     }
 
     /**
@@ -266,6 +274,24 @@ class Log
     public function getUser()
     {
         return $this->user;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
     }
 }
 
