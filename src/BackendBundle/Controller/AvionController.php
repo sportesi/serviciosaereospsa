@@ -2,13 +2,11 @@
 
 namespace BackendBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Avion;
 use AppBundle\Form\AvionType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AvionController extends Controller
 {
@@ -93,7 +91,7 @@ class AvionController extends Controller
 
 	/**
 	 * @Route("/avion/delete/{id}", name="BackendAvionDelete")
-	 * @Method("GET")
+	 * @Method("DELETE")
 	 */
 	public function deleteAction($id)
 	{

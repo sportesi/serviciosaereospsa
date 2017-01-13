@@ -5,8 +5,6 @@ namespace BackendBundle\Controller;
 use AppBundle\Entity\Turno;
 use DateTime;
 use Doctrine\DBAL\DBALException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -180,20 +178,20 @@ class TurnoController extends Controller {
 
     /**
      * @Route("/turnos/listado/delete/turnos", name="BackendTurnosDelete")
-     * @Method("GET")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request) {
-        $deleteIds = $request->query->get('ids');
+        $deleteIds = $request->request->get('ids');
         $em = $this->getDoctrine()->getManager();
+
         foreach ($deleteIds as $id) {
-            if ($id) {
-                $turno = $em->getRepository('AppBundle:Turno')->find($id);
-                if (is_object($turno)) {
-                    $em->remove($turno);
-                    $em->flush();
-                }
+            $turno = $em->getRepository('AppBundle:Turno')->find($id);
+            if (is_object($turno)) {
+                $em->remove($turno);
+                $em->flush();
             }
         }
+
         return new Response('');
     }
 
@@ -223,14 +221,5 @@ class TurnoController extends Controller {
                             )
                     ), 'text/html');
         $this->get('mailer')->send($message);
-    }
-
-    /**
-    * @Route("/turnos/move/{id}")
-    */
-    public function moveAction(Request $request, Turno $turno)
-    {
-        
-        return new Response();
     }
 }

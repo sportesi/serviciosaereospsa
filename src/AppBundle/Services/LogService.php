@@ -34,22 +34,9 @@ class LogService
      */
     public function save(Log $log)
     {
-        if ($log->getUser() == "anon." || $log->getMethod() == "GET")
-        {
-            return;
+        if ($log->getUser() != "anon.") {
+            $this->manager->persist($log);
+            $this->manager->flush();
         }
-        $this->manager->persist($log);
-        $this->manager->flush();
-    }
-
-    /**
-     * @param $logAction
-     * @param $method
-     * @return mixed
-     */
-    public function getLogAction($route, $method)
-    {
-        $logAction = new LogAction();
-        return $logAction->getAction($route, $method);
     }
 }

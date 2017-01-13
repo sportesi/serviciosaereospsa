@@ -40,17 +40,20 @@ class RequestListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
+        if ($this->tokenStorage->getToken())
+        {
+            $request = $event->getRequest();
 
-        $log = new Log(
-            $request->getRequestUri(),
-            $request->getClientIp(),
-            $request->get('_route'),
-            $request->get('_controller'),
-            $request->getMethod(),
-            $this->tokenStorage->getToken()->getUsername(),
-            urldecode($request->getContent())
-        );
-        $this->logService->save($log);
+            $log = new Log(
+                $request->getRequestUri(),
+                $request->getClientIp(),
+                $request->get('_route'),
+                $request->get('_controller'),
+                $request->getMethod(),
+                $this->tokenStorage->getToken()->getUsername(),
+                urldecode($request->getContent())
+            );
+            $this->logService->save($log);
+        }
     }
 }

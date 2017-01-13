@@ -186,7 +186,7 @@ function deleteTurno(turno) {
         }
         $.ajax({
             url: '/backend/turnos/listado/delete/turnos',
-            type: 'GET',
+            type: 'DELETE',
             data: { 'ids': ids }
         })
         .done(function() {
