@@ -11,5 +11,14 @@ namespace AppBundle\ValueObjects;
 
 class LogAction
 {
-    const turno = 'apa';
+    private $BackendHomepage = [
+        'POST' => 'Creación de turno',
+        'PUT' => 'Edición de turno',
+        'DELETE' => 'Borrado de turno'
+    ];
+
+    public function getAction($route, $method)
+    {
+        return $this->$route[$method];
+    }
 }

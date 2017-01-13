@@ -10,6 +10,7 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\Log;
+use AppBundle\ValueObjects\LogAction;
 use Doctrine\ORM\EntityManager;
 
 class LogService
@@ -39,5 +40,16 @@ class LogService
         }
         $this->manager->persist($log);
         $this->manager->flush();
+    }
+
+    /**
+     * @param $logAction
+     * @param $method
+     * @return mixed
+     */
+    public function getLogAction($route, $method)
+    {
+        $logAction = new LogAction();
+        return $logAction->getAction($route, $method);
     }
 }
