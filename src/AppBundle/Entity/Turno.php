@@ -22,12 +22,6 @@ class Turno
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Horario")
-     * @ORM\JoinColumn(name="horario", referencedColumnName="id")
-     */
-    private $horario;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
@@ -39,12 +33,6 @@ class Turno
      * @ORM\JoinColumn(name="id_avion", referencedColumnName="id")
      */
     private $avion;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Dia")
-     * @ORM\JoinColumn(name="dia", referencedColumnName="id")
-     */
-    private $dia;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime")
@@ -98,7 +86,6 @@ class Turno
         return $this->fecha;
     }
 
-
     /**
      * Set updatedAt
      *
@@ -121,78 +108,6 @@ class Turno
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set horario
-     *
-     * @param \AppBundle\Entity\Horario $horario
-     *
-     * @return Turno
-     */
-    public function setHorario(\AppBundle\Entity\Horario $horario = null)
-    {
-        $this->horario = $horario;
-
-        return $this;
-    }
-
-    /**
-     * Get horario
-     *
-     * @return \AppBundle\Entity\Horario
-     */
-    public function getHorario()
-    {
-        return $this->horario;
-    }
-
-    /**
-     * Set avion
-     *
-     * @param \AppBundle\Entity\Avion $avion
-     *
-     * @return Turno
-     */
-    public function setAvion(\AppBundle\Entity\Avion $avion = null)
-    {
-        $this->avion = $avion;
-
-        return $this;
-    }
-
-    /**
-     * Get avion
-     *
-     * @return \AppBundle\Entity\Avion
-     */
-    public function getAvion()
-    {
-        return $this->avion;
-    }
-
-    /**
-     * Set dia
-     *
-     * @param \AppBundle\Entity\Dia $dia
-     *
-     * @return Turno
-     */
-    public function setDia(\AppBundle\Entity\Dia $dia = null)
-    {
-        $this->dia = $dia;
-
-        return $this;
-    }
-
-    /**
-     * Get dia
-     *
-     * @return \AppBundle\Entity\Dia
-     */
-    public function getDia()
-    {
-        return $this->dia;
     }
 
     /**
@@ -220,18 +135,50 @@ class Turno
     }
 
     /**
-     * @return User
+     * Set avion
+     *
+     * @param \AppBundle\Entity\Avion $avion
+     *
+     * @return Turno
+     */
+    public function setAvion(\AppBundle\Entity\Avion $avion = null)
+    {
+        $this->avion = $avion;
+
+        return $this;
+    }
+
+    /**
+     * Get avion
+     *
+     * @return \AppBundle\Entity\Avion
+     */
+    public function getAvion()
+    {
+        return $this->avion;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Turno
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
     }
 }

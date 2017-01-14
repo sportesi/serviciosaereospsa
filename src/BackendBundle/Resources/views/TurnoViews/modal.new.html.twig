@@ -9,17 +9,13 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="turno[id]">
-					<input type="hidden" name="turno[dia]">
-					<input type="hidden" name="">
 					<input type="hidden" name="turno[avion]">
-					<input type="hidden" name="">
-					<input type="hidden" name="turno[updatedAt]">
 					<input type="hidden" name="turno[selected-dates]">
 					<input type="hidden" name="turno[multiple]">
 					<div class="form-group form-group-usuario">
-						<label for="inputPiloto" class="col-sm-2 control-label">Usuario:</label>
+						<label for="turno-user" class="col-sm-2 control-label">Usuario:</label>
 						<div class="col-sm-10">
-							<select name="turno[piloto]" id="inputPiloto" class="form-control" required="required" style="width: 100%">
+							<select name="turno[user]" id="turno-user" class="form-control" required="required" style="width: 100%">
 								<option value="">Seleccione usuario</option>
 								{% for user in users if user.userData is not null %}
                                     <option value="{{ user.id }}">
@@ -44,8 +40,8 @@
 							<div class="col-sm-6">
 								<select name="turno[horario]" id="turno-horario" class="form-control">
 									{% for itemHorario in horarios %}
-										{% if itemHorario.hora != '1300' %}
-											<option value="{{ itemHorario.id }}">{{ itemHorario.hora }}</option>
+										{% if itemHorario != '1300' %}
+											<option value="{{ itemHorario }}">{{ itemHorario }}</option>
 										{% endif %}
 									{% endfor %}
 								</select>

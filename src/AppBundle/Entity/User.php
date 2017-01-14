@@ -75,4 +75,14 @@ class User extends BaseUser
     {
         $this->turno->removeElement($turno);
     }
+
+    /**
+     * Get turno
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTurno()
+    {
+        return $this->turno;
+    }
 }

@@ -3,6 +3,8 @@
 namespace BackendBundle\Controller;
 
 use AppBundle\Entity\Turno;
+use AppBundle\ValueObjects\Dia;
+use AppBundle\ValueObjects\Horario;
 use DateTime;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,8 +26,6 @@ class TurnoController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
-        $horarios = $em->getRepository('AppBundle:Horario')->findAll();
-        $dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
         $users = $em->getRepository('AppBundle:User')->findAll();
 
         $day = date('w');
@@ -34,11 +34,11 @@ class TurnoController extends Controller {
 
         $pageData = array(
             'aviones' => $aviones,
-            'dias' => $dias,
-            'horarios' => $horarios,
             'week' => $week,
             'weekStart' => $week_start,
-            'users' => $users
+            'users' => $users,
+            'horarios' => Horario::getHorarios(),
+            'dias' => Dia::getDias(),
         );
 
         if ($request->isMethod('POST')) {
@@ -59,26 +59,7 @@ class TurnoController extends Controller {
                                 $turno->setAvion($item);
                             }
                         }
-                        foreach ($horarios as $item) {
-                            if ($item->getId() == $date->horario) {
-                                $turno->setHorario($item);
-                            }
-                        }
-                        foreach ($dias as $item) {
-                            if ($item->getId() == $date->dia) {
-                                $turno->setDia($item);
-                            }
-                        }
-                        foreach ($alumnos as $item) {
-                            if ($item->getId() == $postTurno['alumno']) {
-                                $turno->setAlumno($item);
-                            }
-                        }
-                        foreach ($pilotos as $item) {
-                            if ($item->getId() == $postTurno['piloto']) {
-                                $turno->setPiloto($item);
-                            }
-                        }
+
                         $turno->setFecha(new DateTime($date->fecha));
                         $turno->setUpdatedAt(new DateTime());
                         $turno->setConfirmado(true);
@@ -96,35 +77,11 @@ class TurnoController extends Controller {
                             $turno->setAvion($item);
                         }
                     }
-                    foreach ($horarios as $item) {
-                        if ($item->getId() == $postTurno['horario']) {
-                            if ($turno->getHorario() !== $item && $turno->getId()) {
-                                $notify = true;
-                            }
-                            $turno->setHorario($item);
-                        }
-                    }
-                    foreach ($dias as $item) {
-                        if ($item->getId() == $postTurno['dia']) {
-                            if ($turno->getDia() !== $item && $turno->getId()) {
-                                $notify = true;
-                            }
-                            $turno->setDia($item);
-                        }
-                    }
+
                     if ($notify) {
                         $this->notifyChange($turno->getAlumno(), $turno->getPiloto(), $turno, $postTurno['fecha']);
                     }
-                    foreach ($alumnos as $item) {
-                        if ($item->getId() == $postTurno['alumno']) {
-                            $turno->setAlumno($item);
-                        }
-                    }
-                    foreach ($pilotos as $item) {
-                        if ($item->getId() == $postTurno['piloto']) {
-                            $turno->setPiloto($item);
-                        }
-                    }
+
                     $turno->setFecha(new DateTime($postTurno['fecha']));
                     $turno->setUpdatedAt(new DateTime());
                     $turno->setConfirmado(true);
