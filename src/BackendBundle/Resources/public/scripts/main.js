@@ -6,6 +6,7 @@ String.prototype.capitalizeFirstLetter = function () {
 
 var selectedDates = [];
 var selectedDatesDelete = [];
+var turnos = null;
 
 function initCalendar() {
     $('td.clickable').on('click', function () {
@@ -61,6 +62,7 @@ function initCalendar() {
     jQuery(document).ready(function ($) {
         setTimeout(function () {
             $.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete}, function (response) {
+                turnos = response;
                 for (var i = 0; i < response.length; i++) {
                     var turno = response[i];
 
@@ -70,14 +72,13 @@ function initCalendar() {
                     }
 
                     var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
-                    if (turno.alumno) {
-                        cell.removeClass('bg-alumno');
-                        cell.addClass('bg-alumno');
-                        cell.find('div').text(turno.alumno.apellido);
-                    } else if (turno.piloto) {
-                        cell.removeClass('bg-piloto');
-                        cell.addClass('bg-piloto');
-                        cell.find('div').text(turno.piloto.apellido);
+                    if (turno.user) {
+                        if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
+                            cell.addClass('bg-piloto');
+                        } else {
+                            cell.addClass('bg-alumno');
+                        }
+                        cell.find('div').text(turno.user.userData.lastName);
                     }
                     if (turno.comentario) {
                         cell.find('div').data('content', turno.comentario);

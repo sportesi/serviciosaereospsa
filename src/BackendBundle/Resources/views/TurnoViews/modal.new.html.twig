@@ -16,24 +16,15 @@
 					<input type="hidden" name="turno[updatedAt]">
 					<input type="hidden" name="turno[selected-dates]">
 					<input type="hidden" name="turno[multiple]">
-					<div class="form-group form-group-piloto">
-						<label for="inputPiloto" class="col-sm-2 control-label">Piloto:</label>
+					<div class="form-group form-group-usuario">
+						<label for="inputPiloto" class="col-sm-2 control-label">Usuario:</label>
 						<div class="col-sm-10">
 							<select name="turno[piloto]" id="inputPiloto" class="form-control" required="required" style="width: 100%">
-								<option value="">Seleccione el/la piloto</option>
-								{% for itemPiloto in pilotos %}
-								    <option value="{{ itemPiloto.id }}">{{ itemPiloto.apellido ~ ', ' ~ itemPiloto.nombre }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					</div>
-					<div class="form-group  form-group-alumno">
-						<label for="inputAlumno" class="col-sm-2 control-label">Alumno:</label>
-						<div class="col-sm-10">
-							<select name="turno[alumno]" id="inputAlumno" class="form-control" required="required" style="width: 100%">
-								<option value="">Seleccione el/la alumno/a...</option>
-								{% for itemAlumno in alumnos %}
-								    <option value="{{ itemAlumno.id }}">{{ itemAlumno.apellido ~ ', ' ~ itemAlumno.nombre }}</option>
+								<option value="">Seleccione usuario</option>
+								{% for user in users if user.userData is not null %}
+                                    <option value="{{ user.id }}">
+										{{ (user.userData.lastName ~ ', ' ~ user.userData.name) | lower | title }}
+									</option>
 								{% endfor %}
 							</select>
 						</div>

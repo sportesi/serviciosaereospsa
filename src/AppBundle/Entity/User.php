@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user")
  */
 class User extends BaseUser
 {
@@ -18,9 +18,61 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="UserData", mappedBy="user")
+     * @var UserData
+     */
+    private $userData;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Turno", mappedBy="user")
+     * @var Turno
+     */
+    private $turno;
+
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+    }
+
+    /**
+     * @return UserData
+     */
+    public function getUserData()
+    {
+        return $this->userData;
+    }
+
+    /**
+     * @param UserData $userData
+     */
+    public function setUserData(UserData $userData)
+    {
+        $this->userData = $userData;
+    }
+
+
+    /**
+     * Add turno
+     *
+     * @param \AppBundle\Entity\Turno $turno
+     *
+     * @return User
+     */
+    public function addTurno(\AppBundle\Entity\Turno $turno)
+    {
+        $this->turno[] = $turno;
+
+        return $this;
+    }
+
+    /**
+     * Remove turno
+     *
+     * @param \AppBundle\Entity\Turno $turno
+     */
+    public function removeTurno(\AppBundle\Entity\Turno $turno)
+    {
+        $this->turno->removeElement($turno);
     }
 }

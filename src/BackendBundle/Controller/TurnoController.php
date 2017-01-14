@@ -26,8 +26,7 @@ class TurnoController extends Controller {
         $aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
         $horarios = $em->getRepository('AppBundle:Horario')->findAll();
         $dias = $em->getRepository('AppBundle:Dia')->findBy(array(), array('id' => 'ASC'));
-        $alumnos = $em->getRepository('AppBundle:Alumno')->findBy(array(), array('apellido' => 'ASC'));
-        $pilotos = $em->getRepository('AppBundle:Piloto')->findBy(array(), array('apellido' => 'ASC'));
+        $users = $em->getRepository('AppBundle:User')->findAll();
 
         $day = date('w');
         $day = intval($day) - 1;
@@ -38,9 +37,8 @@ class TurnoController extends Controller {
             'dias' => $dias,
             'horarios' => $horarios,
             'week' => $week,
-            'alumnos' => $alumnos,
-            'pilotos' => $pilotos,
             'weekStart' => $week_start,
+            'users' => $users
         );
 
         if ($request->isMethod('POST')) {
@@ -158,14 +156,18 @@ class TurnoController extends Controller {
      */
     public function getJsonAction(Request $request) {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
+        $normalizer = new ObjectNormalizer();
 
-        $serializer = new Serializer($normalizers, $encoders);
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+
+        $serializer = new Serializer([$normalizer], $encoders);
 
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select(array('t'))
+        $qb->select(['t'])
                 ->from('AppBundle:Turno', 't');
 
         $qb->where('t.fecha BETWEEN :start AND :end')

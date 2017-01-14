@@ -294,4 +294,3 @@ class Log
         $this->content = $content;
     }
 }
-

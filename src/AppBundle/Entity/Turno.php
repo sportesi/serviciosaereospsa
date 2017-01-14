@@ -35,25 +35,6 @@ class Turno
     private $fecha;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="confirmado", type="boolean", nullable=true)
-     */
-    private $confirmado;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Piloto")
-     * @ORM\JoinColumn(name="piloto", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    private $piloto;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Alumno")
-     * @ORM\JoinColumn(name="alumno", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    private $alumno;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Avion")
      * @ORM\JoinColumn(name="id_avion", referencedColumnName="id")
      */
@@ -76,9 +57,11 @@ class Turno
     private $comentario;
 
     /**
-     * @ORM\Column(name="cancelado", type="boolean", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="turno")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
      */
-    private $cancelado;
+    private $user;
     
 
     /**
@@ -115,29 +98,6 @@ class Turno
         return $this->fecha;
     }
 
-    /**
-     * Set confirmado
-     *
-     * @param boolean $confirmado
-     *
-     * @return Turno
-     */
-    public function setConfirmado($confirmado)
-    {
-        $this->confirmado = $confirmado;
-
-        return $this;
-    }
-
-    /**
-     * Get confirmado
-     *
-     * @return boolean
-     */
-    public function getConfirmado()
-    {
-        return $this->confirmado;
-    }
 
     /**
      * Set updatedAt
@@ -185,54 +145,6 @@ class Turno
     public function getHorario()
     {
         return $this->horario;
-    }
-
-    /**
-     * Set piloto
-     *
-     * @param \AppBundle\Entity\Piloto $piloto
-     *
-     * @return Turno
-     */
-    public function setPiloto(\AppBundle\Entity\Piloto $piloto = null)
-    {
-        $this->piloto = $piloto;
-
-        return $this;
-    }
-
-    /**
-     * Get piloto
-     *
-     * @return \AppBundle\Entity\Piloto
-     */
-    public function getPiloto()
-    {
-        return $this->piloto;
-    }
-
-    /**
-     * Set alumno
-     *
-     * @param \AppBundle\Entity\Alumno $alumno
-     *
-     * @return Turno
-     */
-    public function setAlumno(\AppBundle\Entity\Alumno $alumno = null)
-    {
-        $this->alumno = $alumno;
-
-        return $this;
-    }
-
-    /**
-     * Get alumno
-     *
-     * @return \AppBundle\Entity\Alumno
-     */
-    public function getAlumno()
-    {
-        return $this->alumno;
     }
 
     /**
@@ -308,26 +220,18 @@ class Turno
     }
 
     /**
-     * Set cancelado
-     *
-     * @param boolean $cancelado
-     *
-     * @return Turno
+     * @return User
      */
-    public function setCancelado($cancelado)
+    public function getUser()
     {
-        $this->cancelado = $cancelado;
-
-        return $this;
+        return $this->user;
     }
 
     /**
-     * Get cancelado
-     *
-     * @return boolean
+     * @param User $user
      */
-    public function getCancelado()
+    public function setUser($user)
     {
-        return $this->cancelado;
+        $this->user = $user;
     }
 }
