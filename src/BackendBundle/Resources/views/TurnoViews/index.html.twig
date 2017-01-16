@@ -3,7 +3,7 @@
 {% block styles %}
     <style type="text/css">
         th{
-            text-align: center !important; 
+            text-align: center !important;
         }
         .rotate{
             transform: rotate(-90deg);
@@ -15,6 +15,9 @@
         }
         tbody td{
             text-align: center;
+        }
+        .clickable {
+            text-transform: capitalize;
         }
     </style>
 {% endblock %}
@@ -117,7 +120,12 @@
                                                 {% if itemHorario >= summer[0] and itemHorario <= summer[1] %}
                                                     <td class="bg-disabled"></td>
                                                 {% else %}
-                                                    <td class="clickable" data-avion="{{ itemAvion.id }}" data-fecha="{{ fechaDia }}">
+                                                    <td class="clickable"
+                                                        data-avion="{{ itemAvion.id }}"
+                                                        data-fecha="{{ fechaDia }}"
+                                                        data-horario="{{ itemHorario }}"
+                                                        id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}"
+                                                    >
                                                         <div></div>
                                                     </td>
                                                 {% endif %}

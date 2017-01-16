@@ -62,19 +62,14 @@ function initCalendar() {
                 for (var i = 0; i < response.length; i++) {
                     var turno = response[i];
 
-                    if (!turno.horario || !turno.dia || !turno.avion)
-                    {
-                        continue;
-                    }
-
-                    var cell = $('td[data-dia=' + turno.dia.id + '][data-avion=' + turno.avion.id + '][data-horario=' + turno.horario.id + ']');
+                    var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('DDMMYYYYHHmm'));
                     if (turno.user) {
                         if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
                             cell.addClass('bg-piloto');
                         } else {
                             cell.addClass('bg-alumno');
                         }
-                        cell.find('div').text(turno.user.userData.lastName);
+                        cell.find('div').text(turno.user.userData.lastName.toLowerCase());
                     }
                     if (turno.comentario) {
                         cell.find('div').data('content', turno.comentario);
