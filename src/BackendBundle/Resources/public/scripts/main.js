@@ -11,10 +11,11 @@ var turnos = null;
 function initCalendar() {
     $('td.clickable').on('click', function () {
         var cell = $(this);
+        var data = null;
         if (window.event.ctrlKey) {
             if (!cell.data('turno')) {
                 cell.toggleClass('bg-primary');
-                var data = $(this).data();
+                data = $(this).data();
                 selectedDates = _.uniqBy(selectedDates, 'fecha');
                 if (cell.hasClass('bg-primary')) {
                     selectedDates.push(data);
@@ -23,26 +24,21 @@ function initCalendar() {
                 }
             } else {
                 cell.toggleClass('bg-danger');
-                var data = $(this).data();
+                data = $(this).data();
                 selectedDatesDelete = _.uniqBy(selectedDatesDelete, 'turno');
                 selectedDatesDelete.push(data);
             }
         } else {
             if (!cell.data('turno')) {
-                var data = {
-                    dia: cell.data('dia'),
-                    horario: cell.data('horario'),
+                data = {
                     avion: cell.data('avion'),
                     updatedAt: cell.data('updatedAt'),
                     fecha: cell.data('fecha')
                 };
                 newEvent(data, this);
             } else {
-                var data = {
-                    dia: cell.data('dia'),
-                    horario: cell.data('horario'),
+                data = {
                     avion: cell.data('avion'),
-                    updatedAt: cell.data('updatedAt'),
                     fecha: cell.data('fecha'),
                     turno: cell.data('turno')
                 };
@@ -61,7 +57,7 @@ function initCalendar() {
     ShowLoading();
     jQuery(document).ready(function ($) {
         setTimeout(function () {
-            $.getJSON('/backend/turnos/listado/get/json', {start: startComplete, end: endComplete}, function (response) {
+            $.getJSON('/backend/turno/json', {start: startComplete, end: endComplete}, function (response) {
                 turnos = response;
                 for (var i = 0; i < response.length; i++) {
                     var turno = response[i];
@@ -99,11 +95,9 @@ function initCalendar() {
 function newEvent(data, cell) {
     console.log(data);
     $('[name="turno[id]"]').val(0);
-    $('[name="turno[dia]"]').val(data.dia);
-    $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
-    $('[name="turno[fecha]"]').val(moment(data.fecha).format("YYYY-MM-DD"));
+    $('[name="turno[fecha]"]').val(moment(data.fecha, 'DD-MM-YYYY').format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val("");
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);

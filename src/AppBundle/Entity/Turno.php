@@ -50,7 +50,7 @@ class Turno
      * @var User
      */
     private $user;
-    
+
 
     /**
      * Get id

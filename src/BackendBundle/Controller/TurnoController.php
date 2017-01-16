@@ -3,9 +3,11 @@
 namespace BackendBundle\Controller;
 
 use AppBundle\Entity\Turno;
+use AppBundle\Form\TurnoType;
 use AppBundle\ValueObjects\Dia;
 use AppBundle\ValueObjects\Horario;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,24 +18,37 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Date;
 
+/**
+ * Class TurnoController
+ * @package BackendBundle\Controller
+ * @Route("/turno")
+ */
 class TurnoController extends Controller {
 
     /**
-     * @Route("/turnos/listado/{week}", defaults={"week" = 0}, name="BackendHomepage")
+     * @var ArrayCollection
      */
-    public function indexAction(Request $request, $week) {
+    private $aviones;
+
+    /**
+     * @Route("/")
+     * @Method("GET")
+     */
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
+        $this->aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
         $users = $em->getRepository('AppBundle:User')->findAll();
 
+        $week = intval($request->query->get('week'));
         $day = date('w');
         $day = intval($day) - 1;
         $week_start = date('d-m-Y', strtotime('-' . $day . ' days'));
 
         $pageData = array(
-            'aviones' => $aviones,
+            'aviones' => $this->aviones,
             'week' => $week,
             'weekStart' => $week_start,
             'users' => $users,
@@ -41,75 +56,38 @@ class TurnoController extends Controller {
             'dias' => Dia::getDias(),
         );
 
-        if ($request->isMethod('POST')) {
-            $postTurno = $request->request->get('turno');
-
-            if ($postTurno['id']) {
-                $turno = $em->getRepository('AppBundle:Turno')->find($postTurno['id']);
-            } else {
-                $turno = new Turno();
-            }
-
-            try {
-                if ($postTurno['multiple'] == 'true' && true) {
-                    $selectedDates = json_decode($postTurno['selected-dates']);
-                    foreach ($selectedDates as $date) {
-                        foreach ($aviones as $item) {
-                            if ($item->getId() == $date->avion) {
-                                $turno->setAvion($item);
-                            }
-                        }
-
-                        $turno->setFecha(new DateTime($date->fecha));
-                        $turno->setUpdatedAt(new DateTime());
-                        $turno->setConfirmado(true);
-                        $turno->setComentario($postTurno['comentario']);
-
-                        $em->persist($turno);
-                        $em->flush();
-                        $turno = new Turno();
-                    }
-                    return $this->redirectToRoute('BackendHomepage');
-                } else {
-                    $notify = false;
-                    foreach ($aviones as $item) {
-                        if ($item->getId() == $postTurno['avion']) {
-                            $turno->setAvion($item);
-                        }
-                    }
-
-                    if ($notify) {
-                        $this->notifyChange($turno->getAlumno(), $turno->getPiloto(), $turno, $postTurno['fecha']);
-                    }
-
-                    $turno->setFecha(new DateTime($postTurno['fecha']));
-                    $turno->setUpdatedAt(new DateTime());
-                    $turno->setConfirmado(true);
-                    $turno->setComentario($postTurno['comentario']);
-
-                    $em->persist($turno);
-                    $em->flush();
-                }
-                $creado = true;
-            } catch (DBALException $e) {
-                $creado = false;
-            }
-
-            $pageData['creado'] = $creado;
-        }
-
         return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
     }
 
     /**
-     * @Route("/", name="DefaultBackend")
+     * @Route("/create")
+     * @Method("POST")
+     * @param Request $request
+     * @return Response
      */
-    public function defaultAction() {
-        return $this->redirectToRoute('BackendHomepage');
+    public function createAction(Request $request)
+    {
+        $turno = new Turno();
+        $turnoForm = $this->createForm(TurnoType::class, $turno);
+        $turnoForm->handleRequest($request);
+        $fecha = $request->request->get('turno')['fecha'];
+        $horario = $request->request->get('turno')['horario'];
+        $datetime = DateTime::createFromFormat('Y-m-d', $fecha);
+        /* Le sumo tres por la zona horaria */
+        $datetime->setTime((intval($horario) / 100) + 3, 00);
+        $turno->setFecha($datetime);
+        $turno->setUpdatedAt(new DateTime());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($turno);
+        $em->flush();
+
+        return new Response('');
     }
 
     /**
-     * @Route("/turnos/listado/get/json", name="BackendTurnosGetJson")
+     * @Route("/json")
+     * @Method("GET")
      */
     public function getJsonAction(Request $request) {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
