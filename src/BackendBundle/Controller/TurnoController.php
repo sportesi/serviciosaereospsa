@@ -69,22 +69,47 @@ class TurnoController extends Controller {
      */
     public function createAction(Request $request)
     {
-        $turno = new Turno();
-        $turnoForm = $this->createForm(TurnoType::class, $turno);
-        $turnoForm->handleRequest($request);
-        $fecha = $request->request->get('turno')['fecha'];
-        $horario = $request->request->get('turno')['horario'];
+        $turnoRequest = $request->request->get('turno');
+        if ($turnoRequest['multiple']) {
+            $multiple = json_decode($turnoRequest['selected-dates']);
+            foreach ($multiple as $item) {
+                $turno = $this->parseTurnoRequest($request);
+                $this->createTurno($turno, $item->fecha, $item->horario);
+            }
+        } else {
+            $turno = $this->parseTurnoRequest($request);
+            $this->createTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
+        }
+
+        return new Response('');
+    }
+
+    /**
+     * @param Turno $turno
+     * @param $fecha
+     * @param $horario
+     */
+    private function createTurno(Turno $turno, $fecha, $horario)
+    {
         $datetime = DateTime::createFromFormat('Y-m-d', $fecha);
-        /* Le sumo tres por la zona horaria */
         $datetime->setTime((intval($horario) / 100) + 3, 00);
         $turno->setFecha($datetime);
         $turno->setUpdatedAt(new DateTime());
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($turno);
         $em->flush();
+    }
 
-        return new Response('');
+    /**
+     * @param Request $request
+     * @return Turno
+     */
+    private function parseTurnoRequest(Request $request)
+    {
+        $turno = new Turno();
+        $turnoForm = $this->createForm(TurnoType::class, $turno);
+        $turnoForm->handleRequest($request);
+        return $turno;
     }
 
     /**

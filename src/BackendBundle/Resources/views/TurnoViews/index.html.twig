@@ -101,7 +101,7 @@
                         </thead>
                         <tbody>
                             {% for itemDia in dias %}
-                                {% set fechaDia = weekStart | date_modify('+' ~ (loop.index - 1) ~ ' day') | date_modify('+' ~ week | number_format ~ ' week') | date('d-m-Y') %}
+                                {% set fechaDia = weekStart | date_modify('+' ~ (loop.index - 1) ~ ' day') | date_modify('+' ~ week | number_format ~ ' week') | date('Y-m-d') %}
                                 <tr>
                                     <td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ loop.index }}" class="rotate">{{ itemDia }}<br><b></b></td>
                                 </tr>

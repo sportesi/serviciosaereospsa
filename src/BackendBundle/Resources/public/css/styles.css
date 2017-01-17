@@ -25,11 +25,15 @@
 }
 
 .bg-piloto {
-    background: #50c5ff;
+    background-color: #50c5ff;
 }
 
 .bg-alumno {
-    background: #90ff62;
+    background-color: #90ff62;
+}
+
+.bg-delete {
+    background-color: #ff0c0c !important;
 }
 
 .td-avion {

@@ -11,89 +11,43 @@ var modo = 'crear';
 var selected;
 
 function initCalendar() {
-    $('td.clickable').on('click', function () {
-        var cell = $(this);
-        var data = null;
-        if (window.event.ctrlKey) {
-            if (!cell.data('turno')) {
-                cell.toggleClass('bg-primary');
-                data = $(this).data();
-                selectedDates = _.uniqBy(selectedDates, 'fecha');
-                if (cell.hasClass('bg-primary')) {
-                    selectedDates.push(data);
-                } else {
-                    _.remove(selectedDates, data);
-                }
-            } else {
-                cell.toggleClass('bg-danger');
-                data = $(this).data();
-                selectedDatesDelete = _.uniqBy(selectedDatesDelete, 'turno');
-                selectedDatesDelete.push(data);
-            }
-        } else {
-            if (!cell.data('turno')) {
-                data = {
-                    avion: cell.data('avion'),
-                    updatedAt: cell.data('updatedAt'),
-                    fecha: cell.data('fecha')
-                };
-                newEvent(data, this);
-            } else {
-                data = {
-                    avion: cell.data('avion'),
-                    fecha: cell.data('fecha'),
-                    turno: cell.data('turno')
-                };
-                editEvent(data);
-            }
-        }
-    });
-
+    setClickEvent();
     showLoading();
+
     jQuery(document).ready(function ($) {
         setTimeout(function () {
             loadEvents();
         }, 1000);
     });
-
 }
 
-function newEvent(data, cell) {
+function newEvent(data) {
     $('[name="turno[id]"]').val(0);
     $('[name="turno[avion]"]').val(data.avion);
-    $('[name="turno[updatedAt]"]').val(data.updatedAt);
     $('[name="turno[fecha]"]').val(moment(data.fecha, 'DD-MM-YYYY').format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val("");
+    $('[name="turno[horario]"]').val(data.horario);
+    $('[name="turno[user]"]').val('').trigger('change');
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
     }
-    
 
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
     $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
     $('.move-turno').hide();
 
     $('#newEvent').modal('show');
-    $('#newEvent').on('hidden.bs.modal', function () {
-        $('#newEvent').off('hidden.bs.modal');
-        $(cell).removeClass('bg-piloto');
-        if ($(cell).text().trim() !== "") {
-            $(cell).removeClass('bg-alumno');
-            $(cell).addClass('bg-alumno');
-        }
-    });
 }
 
 function editEvent(data) {
-    console.log(data);
-
     $('[name="turno[id]"]').val(data.turno.id);
     $('[name="turno[avion]"]').val(data.avion);
-    $('[name="turno[updatedAt]"]').val(data.updatedAt);
-    $('[name="turno[fecha]"]').val(moment(data.fecha).format("YYYY-MM-DD"));
+    $('[name="turno[fecha]"]').val(moment.unix(data.turno.fecha.timestamp).format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val(data.turno.comentario);
-    $('.form-delete-btn').data(data);
+    $('[name="turno[user]"]').val(data.turno.user.id).trigger('change');
+    $('[name="turno[horario]"]').val(data.horario);
+
     $('#newEvent .modal-title, #newEvent .btn-success').hide();
     $('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show();
     $('.move-turno').show();
@@ -278,7 +232,7 @@ function loadEvents() {
         for (var i = 0; i < response.length; i++) {
             var turno = response[i];
 
-            var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('DDMMYYYYHHmm'));
+            var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('YYYYMMDDHHmm'));
             if (turno.user) {
                 if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
                     cell.addClass('bg-piloto');
@@ -311,12 +265,48 @@ function getSelected(){
 }
 
 function cleanGrid(){
-    $('td.clickable.bg-piloto')
+    $('td.clickable')
+        .removeData('turno')
         .removeClass('bg-piloto')
-        .find('div')
-        .text('');
-    $('td.clickable.bg-alumno')
         .removeClass('bg-alumno')
+        .removeClass('bg-delete')
+        .removeClass('bg-primary')
         .find('div')
         .text('');
+}
+
+function setClickEvent() {
+    $('td.clickable').on('click', function () {
+        var cell = $(this);
+        var data = null;
+        if (window.event.ctrlKey) {
+            if (!cell.data('turno')) {
+                cell.toggleClass('bg-primary');
+                data = $(this).data();
+                data.id = $(this).attr('id');
+                if (cell.hasClass('bg-primary')) {
+                    selectedDates.push(data);
+                } else {
+                    _.remove(selectedDates, data);
+                }
+                selectedDates = _.uniqBy(selectedDates, 'id');
+            } else {
+                cell.toggleClass('bg-delete');
+                data = $(this).data();
+                data.id = $(this).attr('id');
+                if (cell.hasClass('bg-delete')) {
+                    selectedDatesDelete.push(data);
+                } else {
+                    _.remove(selectedDatesDelete, data);
+                }
+                selectedDatesDelete = _.uniqBy(selectedDatesDelete, 'id');
+            }
+        } else {
+            if (!cell.data('turno')) {
+                newEvent(cell.data());
+            } else {
+                editEvent(cell.data());
+            }
+        }
+    });
 }
