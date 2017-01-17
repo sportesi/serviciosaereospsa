@@ -3,13 +3,10 @@
 namespace BackendBundle\Controller;
 
 use AppBundle\Entity\Turno;
-use AppBundle\Entity\User;
 use AppBundle\Form\TurnoType;
 use AppBundle\ValueObjects\Dia;
 use AppBundle\ValueObjects\Horario;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +17,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class TurnoController

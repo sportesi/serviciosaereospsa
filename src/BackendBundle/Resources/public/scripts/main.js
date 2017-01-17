@@ -86,6 +86,12 @@ function saveEvent(edit) {
     var parameters = form.serialize();
     var urlCreate = '/backend/turno/create';
     var urlUpdate = '/backend/turno/update/' + form.find('#turno-id').val();
+
+    if (!form.find('#turno-user').val()) {
+        swal('', 'Debe seleccionar un usuario', 'error');
+        return;
+    }
+
     $.post((edit ? urlUpdate : urlCreate), parameters, function(){
         $('#newEvent').modal('hide');
         selectedDates = [];
