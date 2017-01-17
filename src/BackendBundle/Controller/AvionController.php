@@ -10,108 +10,107 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+/**
+ * Class AvionController
+ * @package BackendBundle\Controller
+ * @Route("/avion")
+ */
 class AvionController extends Controller
 {
 	/**
-	 * @Route("/avion/listado", name="BackendAvionHomepage")
+	 * @Route("/")
 	 * @Method("GET")
-	 */
+     * @return Response
+     */
 	public function indexAction()
 	{
 		$em = $this->getDoctrine()->getManager();
-		$aviones = $em->getRepository('AppBundle:Avion')->findBy(array(), array('avionOrder' => 'ASC'));
-		$avion = new Avion();
-		
-		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost')));
+		$aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
 
-		$pageData = array(
-			'aviones' => $aviones, 
-			'form' => $form->createView(),
-			'editar' => false,
-		);
+		$pageData = [
+            'aviones' => $aviones,
+            'form' => $this->getAvionForm(new Avion())->createView(),
+            'editar' => false,
+        ];
 
 	    return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
 	}
 
-	/**
-	 * @Route("/avion/post/{id}", defaults={"id" = 0}, name="BackendAvionPost")
-	 * @Method("POST")
-	 */
-	public function postAction(Request $request, $id)
+    /**
+     * @Route("/create")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+	public function postAction(Request $request)
 	{
-	    $em = $this->getDoctrine()->getManager();
-		if ($id) {
-			$avion = $em->getRepository('AppBundle:Avion')->find($id);
-		} else {
-			$avion = new Avion();
-		}
-		
-		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost', array('id' => $id))));
+	    $avion = $this->parseAvionRequest($request, new Avion());
+	    $this->persistAvion($avion);
 
-		$form->handleRequest($request);
-
-		if ($form->isValid()) {
-			if (!$id) {
-				$em->persist($avion);
-			}
-			$em->flush();
-		}
-		
-		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
-
-		$pageData = array(
-			'aviones' => $aviones, 
-			'form' => $form->createView(),
-			'editar' => false,
-		);
-
-	    // return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
-	    return $this->redirect($this->generateUrl('BackendAvionEdit', array('id' => $id)));
+	    return $this->redirect(
+	        $this->generateUrl(
+	            'backend_avion_edit',
+                [
+                    'id' => $avion->getId(),
+                ]
+            )
+        );
 	}
 
-	/**
-	 * @Route("/avion/edit/{id}", name="BackendAvionEdit")
-	 * @Method("GET")
-	 */
-	public function editAction($id)
+    /**
+     * @Route("/edit/{id}")
+     * @Method("GET")
+     * @param Avion $avion
+     * @return Response
+     */
+	public function editAction(Avion $avion)
 	{
 	    $em = $this->getDoctrine()->getManager();
 		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
-		$avion = $em->getRepository('AppBundle:Avion')->find($id);
-		
-		$form = $this->createForm(AvionType::class, $avion, array('action' => $this->generateUrl('BackendAvionPost', array('id' => $id))));
 
-		$pageData = array(
-			'aviones' => $aviones, 
-			'form' => $form->createView(),
-			'editar' => true,
-			'avionId' => $id,
-		);
+		$pageData = [
+            'aviones' => $aviones,
+            'form' => $this->getAvionForm($avion, true)->createView(),
+            'editar' => true,
+        ];
 
 		return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
 	}
 
-	/**
-	 * @Route("/avion/delete/{id}", name="BackendAvionDelete")
-	 * @Method("DELETE")
-	 */
-	public function deleteAction($id)
-	{
-	    $em = $this->getDoctrine()->getManager();
-	    $avion = $em->getRepository('AppBundle:Avion')->find($id);
-
-	    if (is_object($avion)) {
-	    	$em->remove($avion);
-	    	$em->flush();
-	    }
-
-    	return $this->redirectToRoute('BackendAvionHomepage');
+    /**
+     * @Route("/update/{id}")
+     * @param Request $request
+     * @param Avion $avion
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function updateAction(Request $request, Avion $avion)
+    {
+        $avion = $this->parseAvionRequest($request, $avion);
+        $this->persistAvion($avion);
+        return $this->redirectToRoute('backend_avion_edit', ['id' => $avion->getId()]);
 	}
 
-	/**
-	 * @Route("/avion/order/set", name="BackendAvionOrderSet")
-	 * @Method("POST")
-	 */
+    /**
+     * @Route("/delete/{id}")
+     * @Method("DELETE")
+     * @param Avion $avion
+     * @return Response
+     */
+	public function deleteAction(Avion $avion)
+	{
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($avion);
+        $em->flush();
+
+    	return new Response('');
+	}
+
+    /**
+     * @Route("/order")
+     * @Method("POST")
+     * @param Request $request
+     * @return Response
+     */
 	public function setOrderAction(Request $request)
 	{
 		$avionOrder = $request->request->get('order');
@@ -132,5 +131,43 @@ class AvionController extends Controller
 	    return new Response();
 	}
 
+    /**
+     * @param Request $request
+     * @param Avion $avion
+     * @return Avion
+     */
+    private function parseAvionRequest(Request $request, Avion $avion)
+    {
+        $this->getAvionForm($avion)->handleRequest($request);
+        return $avion;
+    }
 
+    /**
+     * @param Avion $avion
+     * @param null $edit
+     * @return \Symfony\Component\Form\Form
+     */
+    private function getAvionForm(Avion $avion, $edit = null)
+    {
+        $formAction = $edit ?
+            $this->generateUrl('backend_avion_update', ['id' => $avion->getId()]) :
+            $this->generateUrl('backend_avion_post');
+        return $this->createForm(
+            AvionType::class,
+            $avion,
+            [
+                'action' => $formAction,
+            ]
+        );
+    }
+
+    /**
+     * @param Avion $avion
+     */
+    private function persistAvion(Avion $avion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($avion);
+        $em->flush();
+    }
 }

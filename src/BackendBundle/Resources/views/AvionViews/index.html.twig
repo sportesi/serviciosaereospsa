@@ -24,7 +24,7 @@
         $('.table-aviones tbody').sortable({
             stop: function( event, ui ) {
                 var data = $('.table tbody').sortable('toArray', { attribute : 'data-id' });
-                $.post('/backend/avion/order/set', { 'order' : data });
+                $.post('/backend/avion/order', { 'order' : data });
             }
         });
 
@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                             {% for item in aviones %}
-                                <tr onclick="window.location.href = '{{ path('BackendAvionEdit', { 'id' : item.id }) }}'" data-id="{{ item.id }}">
+                                <tr onclick="window.location.href = '{{ path('backend_avion_edit', { 'id' : item.id }) }}'" data-id="{{ item.id }}">
                                     <td>{{ item.matricula }}</td>
                                     <td>{{ item.servicio ? 'No' : 'Si' }}</td>
                                 </tr>
@@ -136,7 +136,7 @@
                                 <div class="center-block text-center">
                                     {% if editar %}
                                         <button type="submit" class="btn btn-success"><i class="fa fa-save fw"></i> Guardar</button>
-                                        <a href="{{ path('BackendAvionHomepage') }}" class="btn btn-warning"><i class="fa fa-reply fw"></i> Cancelar</a>
+                                        <a href="{{ path('backend_avion_index') }}" class="btn btn-warning"><i class="fa fa-reply fw"></i> Cancelar</a>
                                         <button type="button" onclick="deleteAvion()" class="btn btn-danger"><i class="fa fa-trash fw"></i> Eliminar</button>
                                     {% else %}
                                         <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-save fw"></i> Agregar</button>
@@ -152,7 +152,7 @@
 
     <script type="text/javascript">
         function deleteAvion() {
-            var href = "{{ path('BackendAvionDelete', {'id' : avionId is defined ? avionId : 0 }) }}";
+            var url = "{{ path('backend_avion_delete', {'id' : form.vars.value.id ? form.vars.value.id : 0 }) }}";
             swal({
                 title: 'Estas seguro?',
                 text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
@@ -160,8 +160,21 @@
                 showCancelButton: true,
                 cancelButtonText: 'Cancelar'
             }, function(){
-                window.location.href = href
-            })
+                $.ajax({
+                    url: url,
+                    type: 'DELETE'
+                }).done(function () {
+                    swal({
+                        title: '',
+                        text: 'Avion eliminado.',
+                        type: 'success'
+                    }, function () {
+                        window.location.href = "/backend/avion"
+                    });
+                }).fail(function () {
+                    swal('', 'Vuelva a intentarlo.', 'warning');
+                });
+            });
         }
     </script>
 
