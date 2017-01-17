@@ -25,12 +25,8 @@ use Symfony\Component\Validator\Constraints\Date;
  * @package BackendBundle\Controller
  * @Route("/turno")
  */
-class TurnoController extends Controller {
-
-    /**
-     * @var ArrayCollection
-     */
-    private $aviones;
+class TurnoController extends Controller
+{
 
     /**
      * @Route("/")
@@ -38,10 +34,11 @@ class TurnoController extends Controller {
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
-        $this->aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
+        $aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
         $users = $em->getRepository('AppBundle:User')->findAll();
 
         $week = intval($request->query->get('week'));
@@ -49,14 +46,14 @@ class TurnoController extends Controller {
         $day = intval($day) - 1;
         $week_start = date('d-m-Y', strtotime('-' . $day . ' days'));
 
-        $pageData = array(
-            'aviones' => $this->aviones,
+        $pageData = [
+            'aviones' => $aviones,
             'week' => $week,
             'weekStart' => $week_start,
             'users' => $users,
             'horarios' => Horario::getHorarios(),
             'dias' => Dia::getDias(),
-        );
+        ];
 
         return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
     }
@@ -80,6 +77,44 @@ class TurnoController extends Controller {
             $turno = $this->parseTurnoRequest($request, new Turno());
             $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
         }
+
+        return new Response('');
+    }
+
+    /**
+     * @Route("/delete", name="BackendTurnosDelete")
+     * @Method("DELETE")
+     * @param Request $request
+     * @return Response
+     */
+    public function deleteAction(Request $request)
+    {
+        $deleteIds = $request->request->get('ids');
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($deleteIds as $id) {
+            $turno = $em->getRepository('AppBundle:Turno')->find($id);
+            if (is_object($turno)) {
+                $em->remove($turno);
+                $em->flush();
+            }
+        }
+
+        return new Response('');
+    }
+
+    /**
+     * @Route("/update/{id}")
+     * @Method("POST")
+     * @param Request $request
+     * @param Turno $turno
+     * @return Response
+     */
+    public function updateAction(Request $request, Turno $turno)
+    {
+        $turnoRequest = $request->request->get('turno');
+        $turnoUpdate = $this->parseTurnoRequest($request, $turno);
+        $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
 
         return new Response('');
     }
@@ -126,7 +161,8 @@ class TurnoController extends Controller {
      * @param Request $request
      * @return Response
      */
-    public function getJsonAction(Request $request) {
+    public function getJsonAction(Request $request)
+    {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizer = new ObjectNormalizer();
 
@@ -140,11 +176,11 @@ class TurnoController extends Controller {
         $qb = $em->createQueryBuilder();
 
         $qb->select(['t'])
-                ->from('AppBundle:Turno', 't');
+            ->from('AppBundle:Turno', 't');
 
         $qb->where('t.fecha BETWEEN :start AND :end')
-                ->setParameter('start', $request->query->get('start'))
-                ->setParameter('end', $request->query->get('end'));
+            ->setParameter('start', $request->query->get('start'))
+            ->setParameter('end', $request->query->get('end'));
 
         $turnos = $qb->getQuery()->getResult();
 
@@ -153,43 +189,13 @@ class TurnoController extends Controller {
     }
 
     /**
-     * @Route("/delete", name="BackendTurnosDelete")
-     * @Method("DELETE")
-     * @param Request $request
-     * @return Response
+     * @param $alumno
+     * @param $piloto
+     * @param $turno
+     * @param $fecha
      */
-    public function deleteAction(Request $request) {
-        $deleteIds = $request->request->get('ids');
-        $em = $this->getDoctrine()->getManager();
-
-        foreach ($deleteIds as $id) {
-            $turno = $em->getRepository('AppBundle:Turno')->find($id);
-            if (is_object($turno)) {
-                $em->remove($turno);
-                $em->flush();
-            }
-        }
-
-        return new Response('');
-    }
-
-    /**
-     * @Route("/update/{id}")
-     * @Method("POST")
-     * @param Request $request
-     * @param Turno $turno
-     * @return Response
-     */
-    public function updateAction(Request $request, Turno $turno)
+    private function notifyChange($alumno, $piloto, $turno, $fecha)
     {
-        $turnoRequest = $request->request->get('turno');
-        $turnoUpdate = $this->parseTurnoRequest($request, $turno);
-        $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
-
-        return new Response('');
-    }
-
-    private function notifyChange($alumno, $piloto, $turno, $fecha) {
         $emailArray = array();
         $nombre = '';
         if (is_object($alumno)) {
@@ -203,17 +209,17 @@ class TurnoController extends Controller {
         $nuevaFecha = new DateTime($fecha);
 
         $message = \Swift_Message::newInstance()
-                ->setSubject('Aviso de cambio de turno')
-                ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-                ->setTo($emailArray)
-                ->setBody($this->renderView(
-                            'Emails/change.html.twig', array(
-                                'nombre' => strtolower($nombre),
-                                'fechaVieja' => $turno->getFecha()->format('d-m-Y H:i'),
-                                'horaNueva' => $nuevaFecha->format('H:i'),
-                                'fechaNueva' => $nuevaFecha->format('d-m-Y'),
-                            )
-                    ), 'text/html');
+            ->setSubject('Aviso de cambio de turno')
+            ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
+            ->setTo($emailArray)
+            ->setBody($this->renderView(
+                'Emails/change.html.twig', array(
+                    'nombre' => strtolower($nombre),
+                    'fechaVieja' => $turno->getFecha()->format('d-m-Y H:i'),
+                    'horaNueva' => $nuevaFecha->format('H:i'),
+                    'fechaNueva' => $nuevaFecha->format('d-m-Y'),
+                )
+            ), 'text/html');
         $this->get('mailer')->send($message);
     }
 }

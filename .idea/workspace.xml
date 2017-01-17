@@ -4,8 +4,6 @@
     <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php" afterPath="$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts/main.js" afterPath="$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/modal.new.html.twig" afterPath="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/modal.new.html.twig" />
     </list>
     <ignored path=".idea/inspectionProfiles/Project_Default.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,18 +49,18 @@
       <file leaf-file-name="TurnoController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="668">
-              <caret line="68" column="7" lean-forward="true" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
+            <state relative-caret-position="16">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
                 <element signature="e#44#71#0#PHP" expanded="true" />
-                <element signature="e#1120#1929#0#PHP" expanded="false" />
-                <element signature="e#2054#2722#0#PHP" expanded="false" />
-                <element signature="e#2841#3360#0#PHP" expanded="false" />
-                <element signature="e#3461#3673#0#PHP" expanded="false" />
-                <element signature="e#3795#4664#0#PHP" expanded="false" />
-                <element signature="e#4819#5247#0#PHP" expanded="false" />
-                <element signature="e#5404#5727#0#PHP" expanded="false" />
-                <element signature="e#5733#6962#0#PHP" expanded="false" />
+                <element signature="e#1053#1849#0#PHP" expanded="false" />
+                <element signature="e#1974#2642#0#PHP" expanded="false" />
+                <element signature="e#2797#3229#0#PHP" expanded="false" />
+                <element signature="e#3386#3709#0#PHP" expanded="false" />
+                <element signature="e#3828#4347#0#PHP" expanded="false" />
+                <element signature="e#4448#4660#0#PHP" expanded="false" />
+                <element signature="e#4782#5643#0#PHP" expanded="false" />
+                <element signature="e#5751#6888#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -179,9 +177,9 @@
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/public/css/styles.css" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Turno.php" />
-        <option value="$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts/main.js" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/modal.new.html.twig" />
+        <option value="$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php" />
       </list>
     </option>
   </component>
@@ -343,7 +341,7 @@
       <workItem from="1484608952346" duration="3870000" />
       <workItem from="1484655268358" duration="3790000" />
       <workItem from="1484664769695" duration="694000" />
-      <workItem from="1484665548614" duration="2139000" />
+      <workItem from="1484665548614" duration="2301000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -471,11 +469,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484665385604</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Changed stuff">
+      <created>1484667862320</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1484667862320</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51476000" />
+    <option name="totallyTimeSpent" value="51638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -896,18 +901,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/TurnoController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="68" column="7" lean-forward="true" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
+        <state relative-caret-position="16">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
             <element signature="e#44#71#0#PHP" expanded="true" />
-            <element signature="e#1120#1929#0#PHP" expanded="false" />
-            <element signature="e#2054#2722#0#PHP" expanded="false" />
-            <element signature="e#2841#3360#0#PHP" expanded="false" />
-            <element signature="e#3461#3673#0#PHP" expanded="false" />
-            <element signature="e#3795#4664#0#PHP" expanded="false" />
-            <element signature="e#4819#5247#0#PHP" expanded="false" />
-            <element signature="e#5404#5727#0#PHP" expanded="false" />
-            <element signature="e#5733#6962#0#PHP" expanded="false" />
+            <element signature="e#1053#1849#0#PHP" expanded="false" />
+            <element signature="e#1974#2642#0#PHP" expanded="false" />
+            <element signature="e#2797#3229#0#PHP" expanded="false" />
+            <element signature="e#3386#3709#0#PHP" expanded="false" />
+            <element signature="e#3828#4347#0#PHP" expanded="false" />
+            <element signature="e#4448#4660#0#PHP" expanded="false" />
+            <element signature="e#4782#5643#0#PHP" expanded="false" />
+            <element signature="e#5751#6888#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
