@@ -41,6 +41,7 @@ function newEvent(data) {
 }
 
 function editEvent(data) {
+    console.log(data);
     $('[name="turno[id]"]').val(data.turno.id);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[fecha]"]').val(moment.unix(data.turno.fecha.timestamp).format("YYYY-MM-DD"));
@@ -79,11 +80,13 @@ function deleteEvent() {
     });
 }
 
-function saveEvent() {
+function saveEvent(edit) {
     showLoading();
-    var url = '/backend/turno/create';
-    var parameters = $('.form-new-event').serialize();
-    $.post(url, parameters, function(){
+    var form = $('.form-new-event');
+    var parameters = form.serialize();
+    var urlCreate = '/backend/turno/create';
+    var urlUpdate = '/backend/turno/update/' + form.find('#turno-id').val();
+    $.post((edit ? urlUpdate : urlCreate), parameters, function(){
         $('#newEvent').modal('hide');
         selectedDates = [];
         loadEvents();
@@ -114,36 +117,11 @@ function switchMode() {
     var tdClickable = $('td.clickable');
     switch (modo) {
         case 'crear':
-            var data;
             btnMover.hide();
             btnCrear.show();
-            tdClickable
-                .off('click')
-                .on('click', function () {
-                    if (!$(this).data('turno')) {
-                        data = {
-                            dia: $(this).data('dia'),
-                            horario: $(this).data('horario'),
-                            avion: $(this).data('avion'),
-                            updatedAt: $(this).data('updatedAt'),
-                            fecha: $(this).data('fecha')
-                        };
-                        newEvent(data, this);
-                    } else {
-                        data = {
-                            dia: $(this).data('dia'),
-                            horario: $(this).data('horario'),
-                            avion: $(this).data('avion'),
-                            updatedAt: $(this).data('updatedAt'),
-                            fecha: $(this).data('fecha'),
-                            turno: $(this).data('turno')
-                        };
-                        editEvent(data);
-                    }
-                });
+            setClickEvent();
             break;
         case 'mover':
-
             btnCrear.hide();
             btnMover.show();
             tdClickable
@@ -157,14 +135,9 @@ function switchMode() {
                         });
                     } else {
                         if (selected) {
-                            var data = {
-                                dia: $(this).data('dia'),
-                                horario: $(this).data('horario'),
-                                avion: $(this).data('avion'),
-                                updatedAt: $(this).data('updatedAt'),
-                                fecha: $(this).data('fecha'),
-                                turno: selected
-                            };
+                            var data = $(this).data();
+                            data.turno = selected;
+                            data.turno.fecha.timestamp = moment(data.fecha).hour(parseInt(data.horario) / 100).unix();
                             editEvent(data);
                             selected = null;
                         }
@@ -278,7 +251,7 @@ function cleanGrid(){
 }
 
 function setClickEvent() {
-    $('td.clickable').on('click', function () {
+    $('td.clickable').off('click').on('click', function () {
         var cell = $(this);
         var data = null;
         if (window.event.ctrlKey) {

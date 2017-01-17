@@ -73,12 +73,12 @@ class TurnoController extends Controller {
         if ($turnoRequest['multiple']) {
             $multiple = json_decode($turnoRequest['selected-dates']);
             foreach ($multiple as $item) {
-                $turno = $this->parseTurnoRequest($request);
-                $this->createTurno($turno, $item->fecha, $item->horario, $item->avion);
+                $turno = $this->parseTurnoRequest($request, new Turno());
+                $this->persistTurno($turno, $item->fecha, $item->horario, $item->avion);
             }
         } else {
-            $turno = $this->parseTurnoRequest($request);
-            $this->createTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
+            $turno = $this->parseTurnoRequest($request, new Turno());
+            $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
         }
 
         return new Response('');
@@ -90,7 +90,7 @@ class TurnoController extends Controller {
      * @param $horario
      * @param null $avion
      */
-    private function createTurno(Turno $turno, $fecha, $horario, $avion = null)
+    private function persistTurno(Turno $turno, $fecha, $horario, $avion = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -110,11 +110,11 @@ class TurnoController extends Controller {
 
     /**
      * @param Request $request
+     * @param Turno $turno
      * @return Turno
      */
-    private function parseTurnoRequest(Request $request)
+    private function parseTurnoRequest(Request $request, Turno $turno)
     {
-        $turno = new Turno();
         $turnoForm = $this->createForm(TurnoType::class, $turno);
         $turnoForm->handleRequest($request);
         return $turno;
@@ -169,6 +169,22 @@ class TurnoController extends Controller {
                 $em->flush();
             }
         }
+
+        return new Response('');
+    }
+
+    /**
+     * @Route("/update/{id}")
+     * @Method("POST")
+     * @param Request $request
+     * @param Turno $turno
+     * @return Response
+     */
+    public function updateAction(Request $request, Turno $turno)
+    {
+        $turnoRequest = $request->request->get('turno');
+        $turnoUpdate = $this->parseTurnoRequest($request, $turno);
+        $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
 
         return new Response('');
     }
