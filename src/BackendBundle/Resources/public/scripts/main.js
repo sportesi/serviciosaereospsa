@@ -7,6 +7,8 @@ String.prototype.capitalizeFirstLetter = function () {
 var selectedDates = [];
 var selectedDatesDelete = [];
 var turnos = null;
+var modo = 'crear';
+var selected;
 
 function initCalendar() {
     $('td.clickable').on('click', function () {
@@ -47,48 +49,16 @@ function initCalendar() {
         }
     });
 
-    $('.form-group-alumno select').on('change', function () {
-        $('.form-group-piloto select').prop('required', $(this).val() === "");
-    });
-    $('.form-group-piloto select').on('change', function () {
-        $('.form-group-alumno select').prop('required', $(this).val() === "");
-    });
-
-    ShowLoading();
+    showLoading();
     jQuery(document).ready(function ($) {
         setTimeout(function () {
-            $.getJSON('/backend/turno/json', {start: startComplete, end: endComplete}, function (response) {
-                turnos = response;
-                for (var i = 0; i < response.length; i++) {
-                    var turno = response[i];
-
-                    var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('DDMMYYYYHHmm'));
-                    if (turno.user) {
-                        if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
-                            cell.addClass('bg-piloto');
-                        } else {
-                            cell.addClass('bg-alumno');
-                        }
-                        cell.find('div').text(turno.user.userData.lastName.toLowerCase());
-                    }
-                    if (turno.comentario) {
-                        cell.find('div').data('content', turno.comentario);
-                    }
-                    cell.data('turno', turno);
-                }
-                DisableFoxtrotSierra();
-                setPopoverOn();
-                HideLoading();
-            }).fail(function () {
-                swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
-            });
+            loadEvents();
         }, 1000);
     });
 
 }
 
 function newEvent(data, cell) {
-    console.log(data);
     $('[name="turno[id]"]').val(0);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
@@ -99,10 +69,11 @@ function newEvent(data, cell) {
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
     }
     
-    $('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change');
+
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
     $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
     $('.move-turno').hide();
+
     $('#newEvent').modal('show');
     $('#newEvent').on('hidden.bs.modal', function () {
         $('#newEvent').off('hidden.bs.modal');
@@ -116,16 +87,8 @@ function newEvent(data, cell) {
 
 function editEvent(data) {
     console.log(data);
-    $('#newEvent .form-group-alumno select, #newEvent .form-group-piloto select').val('').trigger('change');
-    if (data.turno.alumno) {
-        $('#newEvent .form-group-alumno select').val(data.turno.alumno.id).trigger('change');
-    }
-    if (data.turno.piloto) {
-        $('#newEvent .form-group-piloto select').val(data.turno.piloto.id).trigger('change');
-    }
+
     $('[name="turno[id]"]').val(data.turno.id);
-    $('[name="turno[dia]"]').val(data.dia);
-    $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[updatedAt]"]').val(data.updatedAt);
     $('[name="turno[fecha]"]').val(moment(data.fecha).format("YYYY-MM-DD"));
@@ -137,12 +100,7 @@ function editEvent(data) {
     $('#newEvent').modal('show');
 }
 
-
-/**
- * Prototipo de loader para reemplazar el existente
- * Se cierra con swal.close()
- */
-function ShowLoading() {
+function showLoading() {
     swal({
         imageUrl: '/bundles/backend/img/loader.gif',
         title: 'Cargando',
@@ -152,36 +110,28 @@ function ShowLoading() {
         imageSize: '80x80'
     });
 }
-function HideLoading() {
+
+function hideLoading() {
     swal.close();
 }
 
-
-function deleteTurno(turno) {
-    var data = $(turno).data();
+function deleteEvent() {
     swal({
         title: 'Atencion!',
         text: 'Estas a punto de eliminar un turno. \nEsta accion no puede deshacerse',
         type: 'warning',
         showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        closeOnConfirm: false,
-        showLoaderOnConfirm: true
+        cancelButtonText: 'Cancelar'
     }, function () {
-        var ids = [];
-        if (selectedDatesDelete.length === 0) {
-            ids.push(data.turno.id);
-        } else {
-            ids = _.map(_.map(selectedDatesDelete, 'turno'), 'id');
-        }
+        showLoading();
         $.ajax({
-            url: '/backend/turnos/listado/delete/turnos',
+            url: '/backend/turno/delete',
             type: 'DELETE',
-            data: { 'ids': ids }
+            data: { 'ids': getSelected() }
         })
         .done(function() {
-            swal('Turnos eliminados', null, 'success');
-            window.location.reload();
+            $('#newEvent').modal('hide');
+            loadEvents();
         })
         .fail(function() {
             swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
@@ -189,8 +139,6 @@ function deleteTurno(turno) {
     });
 }
 
-var modo = 'crear';
-var selected;
 function switchMode() {
     modo = (modo === 'crear' ? 'mover' : 'crear');
     var btnMover = $('.btn-modo-mover');
@@ -276,7 +224,7 @@ function setPopoverOn() {
         });
 }
 
-function DisableFoxtrotSierra() {
+function disableFoxtrotSierra() {
     $('tr[data-fsd]').each(function() {
         var data = $(this).data();
         if (data.fsd) {
@@ -309,4 +257,66 @@ function DisableFoxtrotSierra() {
             }
         }
     });
+}
+
+function saveEvent() {
+    showLoading();
+    var url = '/backend/turno/create';
+    var parameters = $('.form-new-event').serialize();
+    $.post(url, parameters, function(){
+        $('#newEvent').modal('hide');
+        loadEvents();
+    }).fail(function(response){
+        swal('Atención', response, 'warning');
+    });
+}
+
+function loadEvents() {
+    $.getJSON('/backend/turno/json', {start: startComplete, end: endComplete}, function (response) {
+        cleanGrid();
+        turnos = response;
+        for (var i = 0; i < response.length; i++) {
+            var turno = response[i];
+
+            var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('DDMMYYYYHHmm'));
+            if (turno.user) {
+                if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
+                    cell.addClass('bg-piloto');
+                } else {
+                    cell.addClass('bg-alumno');
+                }
+                cell.find('div').text(turno.user.userData.lastName.toLowerCase());
+            }
+            if (turno.comentario) {
+                cell.find('div').data('content', turno.comentario);
+            }
+            cell.data('turno', turno);
+        }
+        disableFoxtrotSierra();
+        setPopoverOn();
+        hideLoading();
+    }).fail(function () {
+        swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
+    });
+}
+
+function getSelected(){
+    var idArray = [];
+    if (selectedDatesDelete.length === 0) {
+        idArray.push($('[name="turno[id]"]').val());
+    } else {
+        idArray = _.map(_.map(selectedDatesDelete, 'turno'), 'id');
+    }
+    return idArray;
+}
+
+function cleanGrid(){
+    $('td.clickable.bg-piloto')
+        .removeClass('bg-piloto')
+        .find('div')
+        .text('');
+    $('td.clickable.bg-alumno')
+        .removeClass('bg-alumno')
+        .find('div')
+        .text('');
 }

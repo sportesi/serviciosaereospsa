@@ -31,3 +31,7 @@
 .bg-alumno {
     background: #90ff62;
 }
+
+.td-avion {
+    border-left: 1px solid #f4f4f4 !important;
+}

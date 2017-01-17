@@ -15,7 +15,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('BackendHomepage');
+            return $this->redirectToRoute('backend_turno_index');
         }
         if ($this->isGranted('ROLE_PILOT')) {
             return $this->redirectToRoute('FrontendTurnoHomepage');

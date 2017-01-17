@@ -35,6 +35,8 @@ class TurnoController extends Controller {
     /**
      * @Route("/")
      * @Method("GET")
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -88,6 +90,8 @@ class TurnoController extends Controller {
     /**
      * @Route("/json")
      * @Method("GET")
+     * @param Request $request
+     * @return Response
      */
     public function getJsonAction(Request $request) {
         $encoders = array(new XmlEncoder(), new JsonEncoder());
@@ -116,8 +120,10 @@ class TurnoController extends Controller {
     }
 
     /**
-     * @Route("/turnos/listado/delete/turnos", name="BackendTurnosDelete")
+     * @Route("/delete", name="BackendTurnosDelete")
      * @Method("DELETE")
+     * @param Request $request
+     * @return Response
      */
     public function deleteAction(Request $request) {
         $deleteIds = $request->request->get('ids');
