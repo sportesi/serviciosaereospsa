@@ -24,7 +24,7 @@ function initCalendar() {
 function newEvent(data) {
     $('[name="turno[id]"]').val(0);
     $('[name="turno[avion]"]').val(data.avion);
-    $('[name="turno[fecha]"]').val(moment(data.fecha, 'DD-MM-YYYY').format("YYYY-MM-DD"));
+    $('[name="turno[fecha]"]').val(moment(data.fecha, 'YYYY-MM-DD').format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val("");
     $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[user]"]').val('').trigger('change');

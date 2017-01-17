@@ -3,6 +3,7 @@
 namespace BackendBundle\Controller;
 
 use AppBundle\Entity\Turno;
+use AppBundle\Entity\User;
 use AppBundle\Form\TurnoType;
 use AppBundle\ValueObjects\Dia;
 use AppBundle\ValueObjects\Horario;
@@ -10,6 +11,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -66,19 +68,22 @@ class TurnoController extends Controller
      */
     public function createAction(Request $request)
     {
+        $created = [];
         $turnoRequest = $request->request->get('turno');
         if ($turnoRequest['multiple']) {
             $multiple = json_decode($turnoRequest['selected-dates']);
             foreach ($multiple as $item) {
                 $turno = $this->parseTurnoRequest($request, new Turno());
                 $this->persistTurno($turno, $item->fecha, $item->horario, $item->avion);
+                $created[] = $turno->getId();
             }
         } else {
             $turno = $this->parseTurnoRequest($request, new Turno());
             $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
+            $created[] = $turno->getId();
         }
 
-        return new Response('');
+        return new JsonResponse($created);
     }
 
     /**
@@ -112,9 +117,11 @@ class TurnoController extends Controller
      */
     public function updateAction(Request $request, Turno $turno)
     {
+        $fechaVieja = $turno->getFecha();
         $turnoRequest = $request->request->get('turno');
         $turnoUpdate = $this->parseTurnoRequest($request, $turno);
         $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
+        $this->notifyChange($turno, $fechaVieja);
 
         return new Response('');
     }
@@ -189,36 +196,27 @@ class TurnoController extends Controller
     }
 
     /**
-     * @param $alumno
-     * @param $piloto
-     * @param $turno
-     * @param $fecha
+     * @param Turno $turno
+     * @param DateTime $fechaVieja
      */
-    private function notifyChange($alumno, $piloto, $turno, $fecha)
+    private function notifyChange(Turno $turno, DateTime $fechaVieja)
     {
-        $emailArray = array();
-        $nombre = '';
-        if (is_object($alumno)) {
-            array_push($emailArray, $alumno->getEmail());
-            $nombre = $alumno->getNombre();
-        }
-        if (is_object($piloto)) {
-            array_push($emailArray, $piloto->getEmail());
-            $nombre = $piloto->getNombre();
-        }
-        $nuevaFecha = new DateTime($fecha);
+        $nombre = $turno->getUser()->getUserData()->getName()." ".$turno->getUser()->getUserData()->getLastName();
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Aviso de cambio de turno')
-            ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-            ->setTo($emailArray)
+            ->setFrom([
+                "appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"
+            ])
+            ->setTo([$turno->getUser()->getEmail()])
             ->setBody($this->renderView(
-                'Emails/change.html.twig', array(
+                'Emails/change.html.twig',
+                [
                     'nombre' => strtolower($nombre),
-                    'fechaVieja' => $turno->getFecha()->format('d-m-Y H:i'),
-                    'horaNueva' => $nuevaFecha->format('H:i'),
-                    'fechaNueva' => $nuevaFecha->format('d-m-Y'),
-                )
+                    'horaNueva' => $turno->getFecha()->sub(new \DateInterval('PT3H'))->format('H:i'),
+                    'fechaVieja' => $fechaVieja->sub(new \DateInterval('PT3H'))->format('d-m-Y H:i'),
+                    'fechaNueva' => $turno->getFecha()->format('d-m-Y'),
+                ]
             ), 'text/html');
         $this->get('mailer')->send($message);
     }
