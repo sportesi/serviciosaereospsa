@@ -54,21 +54,6 @@ function editEvent(data) {
     $('#newEvent').modal('show');
 }
 
-function showLoading() {
-    swal({
-        imageUrl: '/bundles/backend/img/loader.gif',
-        title: 'Cargando',
-        text: 'Por favor espere',
-        showConfirmButton: false,
-        allowEscapeKey: false,
-        imageSize: '80x80'
-    });
-}
-
-function hideLoading() {
-    swal.close();
-}
-
 function deleteEvent() {
     swal({
         title: 'Atencion!',
@@ -83,14 +68,43 @@ function deleteEvent() {
             type: 'DELETE',
             data: { 'ids': getSelected() }
         })
-        .done(function() {
-            $('#newEvent').modal('hide');
-            loadEvents();
-        })
-        .fail(function() {
-            swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
-        });        
+            .done(function() {
+                $('#newEvent').modal('hide');
+                selectedDatesDelete = [];
+                loadEvents();
+            })
+            .fail(function() {
+                swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
+            });
     });
+}
+
+function saveEvent() {
+    showLoading();
+    var url = '/backend/turno/create';
+    var parameters = $('.form-new-event').serialize();
+    $.post(url, parameters, function(){
+        $('#newEvent').modal('hide');
+        selectedDates = [];
+        loadEvents();
+    }).fail(function(response){
+        swal('Atención', response, 'warning');
+    });
+}
+
+function showLoading() {
+    swal({
+        imageUrl: '/bundles/backend/img/loader.gif',
+        title: 'Cargando',
+        text: 'Por favor espere',
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        imageSize: '80x80'
+    });
+}
+
+function hideLoading() {
+    swal.close();
 }
 
 function switchMode() {
@@ -210,18 +224,6 @@ function disableFoxtrotSierra() {
                 }
             }
         }
-    });
-}
-
-function saveEvent() {
-    showLoading();
-    var url = '/backend/turno/create';
-    var parameters = $('.form-new-event').serialize();
-    $.post(url, parameters, function(){
-        $('#newEvent').modal('hide');
-        loadEvents();
-    }).fail(function(response){
-        swal('Atención', response, 'warning');
     });
 }
 

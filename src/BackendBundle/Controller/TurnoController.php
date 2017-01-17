@@ -74,7 +74,7 @@ class TurnoController extends Controller {
             $multiple = json_decode($turnoRequest['selected-dates']);
             foreach ($multiple as $item) {
                 $turno = $this->parseTurnoRequest($request);
-                $this->createTurno($turno, $item->fecha, $item->horario);
+                $this->createTurno($turno, $item->fecha, $item->horario, $item->avion);
             }
         } else {
             $turno = $this->parseTurnoRequest($request);
@@ -88,14 +88,22 @@ class TurnoController extends Controller {
      * @param Turno $turno
      * @param $fecha
      * @param $horario
+     * @param null $avion
      */
-    private function createTurno(Turno $turno, $fecha, $horario)
+    private function createTurno(Turno $turno, $fecha, $horario, $avion = null)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $datetime = DateTime::createFromFormat('Y-m-d', $fecha);
         $datetime->setTime((intval($horario) / 100) + 3, 00);
+
         $turno->setFecha($datetime);
         $turno->setUpdatedAt(new DateTime());
-        $em = $this->getDoctrine()->getManager();
+
+        if ($avion) {
+            $turno->setAvion($em->getRepository('AppBundle:Avion')->find($avion));
+        }
+
         $em->persist($turno);
         $em->flush();
     }
