@@ -38,6 +38,32 @@
                 }
             })
         });
+
+        function deleteAvion() {
+            var url = "{{ path('backend_avion_delete', {'id' : form.vars.value.id ? form.vars.value.id : 0 }) }}";
+            swal({
+                title: 'Estas seguro?',
+                text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }, function(){
+                $.ajax({
+                    url: url,
+                    type: 'DELETE'
+                }).done(function () {
+                    swal({
+                        title: '',
+                        text: 'Avion eliminado.',
+                        type: 'success'
+                    }, function () {
+                        window.location.href = "/backend/avion"
+                    });
+                }).fail(function () {
+                    swal('', 'Vuelva a intentarlo.', 'warning');
+                });
+            });
+        }
         
     </script>
 {% endblock %}
@@ -139,7 +165,7 @@
                                         <a href="{{ path('backend_avion_index') }}" class="btn btn-warning"><i class="fa fa-reply fw"></i> Cancelar</a>
                                         <button type="button" onclick="deleteAvion()" class="btn btn-danger"><i class="fa fa-trash fw"></i> Eliminar</button>
                                     {% else %}
-                                        <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-save fw"></i> Agregar</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save fw"></i> Agregar</button>
                                     {% endif %}
                                 </div>
                             </div>
@@ -149,33 +175,5 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        function deleteAvion() {
-            var url = "{{ path('backend_avion_delete', {'id' : form.vars.value.id ? form.vars.value.id : 0 }) }}";
-            swal({
-                title: 'Estas seguro?',
-                text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
-                type: 'warning',
-                showCancelButton: true,
-                cancelButtonText: 'Cancelar'
-            }, function(){
-                $.ajax({
-                    url: url,
-                    type: 'DELETE'
-                }).done(function () {
-                    swal({
-                        title: '',
-                        text: 'Avion eliminado.',
-                        type: 'success'
-                    }, function () {
-                        window.location.href = "/backend/avion"
-                    });
-                }).fail(function () {
-                    swal('', 'Vuelva a intentarlo.', 'warning');
-                });
-            });
-        }
-    </script>
 
 {% endblock %}
