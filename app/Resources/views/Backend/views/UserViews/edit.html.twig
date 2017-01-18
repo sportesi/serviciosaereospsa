@@ -1,0 +1,110 @@
+{% extends 'BackendBundle::layout.html.twig' %}
+
+{% block styles %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <i class="fa fa-pencil fa-fw"></i> Editar Usuario
+                <a href="{{ path("backend_user_index") }}" class="btn btn-primary pull-right">Volver al listado</a>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if errors is defined and errors | length > 0 %}
+                        <div class="alert alert-danger">
+                            {% for item in errors %}
+                                <h5>- {{ item.message }} {{ item.invalidValue }}</h5>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        <label for="user_email" class="control-label col-md-2">Email</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_name" class="control-label col-md-2">Nombre</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_lastName" class="control-label col-md-2">Apellido</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.lastName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_phoneNumber" class="control-label col-md-2">Teléfono</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.phoneNumber) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_address" class="control-label col-md-2">Dirección</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.address) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_roles" class="control-label col-md-2">Roles</label>
+                        <div class="col-md-10">
+                            {% for role in form.roles %}
+                                {{ form_widget(role) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if resetForm is defined and not admin and not super %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Opciones</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <form class="pull-left form-horizontal" style="margin-right: 10px;">
+                                    <a href="{{ path("backend_user_welcome", { id: form.vars.value.id }) }}" class="btn btn-primary">Enviar bienvenida</a>
+                                </form>
+                                {{ form_start(resetForm, { attr: { class: 'pull-left', style: "margin-right: 10px;" } }) }}
+                                {{ form_widget(resetForm) }}
+                                <button type="submit" class="btn btn-primary">Reiniciar Contrase&ntilde;a</button>
+                                {{ form_end(resetForm) }}
+                                {{ form_start(deleteForm, { attr: { class: 'pull-left' } }) }}
+                                {{ form_widget(deleteForm) }}
+                                <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
+                                {{ form_end(deleteForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
