@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -101,7 +100,7 @@ class UserController extends Controller
         $user->setPlainPassword(StringService::generateRandomString());
         $validator = $this->get('validator');
         $this->errors = $validator->validate($user);
-        if ($this->errors->count() > 0){
+        if ($this->errors->count() > 0) {
             return $this->render("BackendBundle:UserViews:edit.html.twig", array(
                 'form' => $this->getUserForm($user)->createView(),
                 'errors' => $this->errors
@@ -127,59 +126,60 @@ class UserController extends Controller
 
     /**
      * @Route("/reset/{id}", name="pilotoResetPassword")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function resetPasswordAction(Request $request, Piloto $piloto)
+    public function resetPasswordAction(User $user)
     {
-        $password = StringService::generateRandomString();
         $em = $this->getDoctrine()->getManager();
-
-        $user = $this->get('fos_user.user_manager')->findUserByEmail($piloto->getEmail());
+        $password = StringService::generateRandomString();
         $user->setPlainPassword($password);
-        $this->get('fos_user.user_manager')->updateUser($user);
 
         $message = Swift_Message::newInstance()
             ->setSubject('Reinicio de Contraseña')
-            ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-            ->setTo(array($piloto->getEmail()))
+            ->setFrom(["appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"])
+            ->setTo([$user->getEmail()])
             ->setBody($this->renderView(
                 'Emails/reset.html.twig', array(
-                    'nombre' => strtolower($piloto->getNombre()),
+                    'nombre' => strtolower($user->getFullName()),
                     'password' => $password,
                 )
             ), 'text/html');
         $this->get('mailer')->send($message);
 
+        $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
+        return $this->redirectToRoute("backend_user_edit", ["id" => $user->getId()]);
     }
 
     /**
-     * @Route("/welcome/send/{id}")
+     * @Route("/welcome/{id}")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function sendWelcomeAction(Piloto $piloto)
+    public function welcomeAction(User $user)
     {
-        $password = $this->generateRandomString();
-        $user = $this->get('fos_user.user_manager')->findUserByEmail($piloto->getEmail());
+        $em = $this->getDoctrine()->getManager();
+        $password = StringService::generateRandomString();
         $user->setPlainPassword($password);
         $user->setEnabled(true);
-        $this->get('fos_user.user_manager')->updateUser($user);
+        $em->persist($user);
+        $em->flush();
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Bienvenido al sistema de turnos')
-            ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-            ->setTo(array($piloto->getEmail()))
+            ->setFrom(["appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"])
+            ->setTo([$user->getEmail()])
             ->setBody($this->renderView(
                 'Emails/welcome.html.twig', array(
-                    'nombre' => strtolower($piloto->getNombre()),
+                    'nombre' => strtolower($user->getFullName()),
                     'password' => $password,
                 )
             ), 'text/html');
         $this->get('mailer')->send($message);
 
-        return $this->redirectToRoute(
-            "BackendPilotoEdit", array("id" => $piloto->getId())
-        );
+        return $this->redirectToRoute("backend_user_edit", ["id" => $user->getId()]);
     }
 
     /**
@@ -187,7 +187,7 @@ class UserController extends Controller
      * @param User $user
      * @return User
      */
-    public function parseUserRequest(Request $request, User $user)
+    private function parseUserRequest(Request $request, User $user)
     {
         $this->getUserForm($user)->handleRequest($request);
         return $user;
@@ -198,7 +198,7 @@ class UserController extends Controller
      * @param null $edit
      * @return \Symfony\Component\Form\Form
      */
-    public function getUserForm(User $user, $edit = null)
+    private function getUserForm(User $user, $edit = null)
     {
         $action = $edit ?
             $this->generateUrl('backend_user_update', ['id' => $user->getId()]) :
@@ -216,7 +216,7 @@ class UserController extends Controller
      * @param User $user
      * @return Form
      */
-    public function getDeleteForm(User $user)
+    private function getDeleteForm(User $user)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl("backend_user_delete", ['id' => $user->getId()]))
@@ -228,7 +228,7 @@ class UserController extends Controller
      * @param User $user
      * @return Form
      */
-    public function getResetForm(User $user)
+    private function getResetForm(User $user)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl("pilotoResetPassword", ['id' => $user->getId()]))
@@ -239,7 +239,7 @@ class UserController extends Controller
     /**
      * @param User $user
      */
-    public function persistUser(User $user)
+    private function persistUser(User $user)
     {
         $em = $this->getDoctrine()->getManager();
         $user->getUserData()->setUser($user);
