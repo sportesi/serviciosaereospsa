@@ -31,10 +31,16 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->findAll();
 
-        $pilotos = $em->getRepository('AppBundle:User')->findAll();
-
-        return $this->render('BackendBundle:UserViews:index.html.twig', array('pilotos' => $pilotos));
+        return $this->render('BackendBundle:UserViews:index.html.twig', [
+            'users' => $users,
+            'roles' => [
+                'ROLE_ADMIN' => 'Administrador',
+                'ROLE_PILOT' => 'Piloto',
+                'ROLE_ALUMN' => 'Alumno'
+            ]
+        ]);
     }
 
     /**
@@ -49,6 +55,8 @@ class UserController extends Controller
             'form' => $this->getUserForm($user, true)->createView(),
             'resetForm' => $this->getResetForm($user)->createView(),
             'deleteForm' => $this->getDeleteForm($user)->createView(),
+            'admin' => $user->hasRole('ROLE_ADMIN'),
+            'super' => $user->hasRole('ROLE_SUPER_ADMIN'),
         ];
         return $this->render("BackendBundle:UserViews:edit.html.twig", $pageParameters);
     }

@@ -84,15 +84,21 @@
                                     <th>Apellido</th>
                                     <th>Nombre</th>
                                     <th>Email</th>
+                                    <th>Roles</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for item in pilotos %}
+                                {% for item in users %}
                                     <tr>
                                         <td>{{ item.userData.lastName }}</td>
                                         <td>{{ item.userData.name }}</td>
                                         <td>{{ item.email }}</td>
+                                        <td>
+                                            {% for rol in item.roles if rol != 'ROLE_USER' %}
+                                                {{ roles[rol] }}
+                                            {% endfor %}
+                                        </td>
                                         <td class="text-center">
                                             <a href="{{ path("backend_user_edit", { id: item.id }) }}" class="btn btn-primary btn-rounded btn-xs" >
                                                 <i class="fa fa-pencil"></i> Editar
