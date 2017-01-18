@@ -21,6 +21,13 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    {% if errors is defined and errors | length > 0 %}
+                        <div class="alert alert-danger">
+                            {% for item in errors %}
+                                <p><h5>- {{ item.message }} {{ item.invalidValue }}</h5></p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     {{ form_start(form) }}
                     <div class="form-group">
                         <label for="user_email" class="control-label col-md-2">Email</label>

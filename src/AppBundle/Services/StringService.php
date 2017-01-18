@@ -9,8 +9,6 @@
 namespace AppBundle\Services;
 
 
-use AppBundle\Entity\User;
-
 class StringService
 {
     public static function generateRandomString($length = 10)
@@ -24,9 +22,4 @@ class StringService
         return $randomString;
     }
 
-    public static function generateUsername(User $user)
-    {
-        return substr($user->getUserData()->getName(), 0, 1)
-            . explode(" ", $user->getUserData()->getLastName())[0];
-    }
 }

@@ -12,12 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
  * @Route("/user")
  */
 class UserController extends Controller
 {
+    /**
+     * @var ConstraintViolationList
+     */
+    private $errors;
 
     /**
      * @Route("/")
@@ -78,14 +83,22 @@ class UserController extends Controller
      * @Route("/create")
      * @Method("POST")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
         $user = $this->parseUserRequest($request, new User());
-        $user->setUsername(StringService::generateUsername($user));
-        $user->setUsernameCanonical($user->getUsername());
+        $user->setUsername($user->getEmail());
+        $user->setUsernameCanonical($user->getEmail());
         $user->setPlainPassword(StringService::generateRandomString());
+        $validator = $this->get('validator');
+        $this->errors = $validator->validate($user);
+        if ($this->errors->count() > 0){
+            return $this->render("BackendBundle:UserViews:edit.html.twig", array(
+                'form' => $this->getUserForm($user)->createView(),
+                'errors' => $this->errors
+            ));
+        }
         $this->persistUser($user);
         return $this->redirectToRoute('backend_user_edit', ['id' => $user->getId()]);
     }
