@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                <i class="fa fa-pencil fa-fw"></i> Editar Alumno
-                <a href="{{ path("BackendAlumnoHomepage") }}" class="btn btn-primary pull-right">Volver al listado</a>
+                <i class="fa fa-pencil fa-fw"></i> Editar Piloto
+                <a href="{{ path("backend_user_index") }}" class="btn btn-primary pull-right">Volver al listado</a>
             </h1>
         </div>
     </div>
@@ -22,7 +22,36 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{ form_start(form) }}
-                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        <label for="user-email" class="control-label col-md-2">Email</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="control-label col-md-2">Nombre</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="control-label col-md-2">Apellido</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.lastName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="control-label col-md-2">Teléfono</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.phoneNumber) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="control-label col-md-2">Dirección</label>
+                        <div class="col-md-10">
+                            {{ form_widget(form.userData.address) }}
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -44,10 +73,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <form class="pull-left form-horizontal" style="margin-right: 10px;">
-                                    <a href="{{ path("backend_alumno_sendwelcome", { id: form.vars.value.id, return: "true" }) }}" class="btn btn-primary">Enviar bienvenida</a>
-                                </form>
-                                <form class="pull-left form-horizontal" style="margin-right: 10px;">
-                                    <a href="{{ path("backend_alumno_transfer", { id: form.vars.value.id }) }}" class="btn btn-success">Pasar a piloto</a>
+                                    <a href="{{ path("backend_user_sendwelcome", { id: form.vars.value.id }) }}" class="btn btn-primary">Enviar bienvenida</a>
                                 </form>
                                 {{ form_start(resetForm, { attr: { class: 'pull-left', style: "margin-right: 10px;" } }) }}
                                 {{ form_widget(resetForm) }}
@@ -55,7 +81,7 @@
                                 {{ form_end(resetForm) }}
                                 {{ form_start(deleteForm, { attr: { class: 'pull-left' } }) }}
                                 {{ form_widget(deleteForm) }}
-                                <button type="submit" class="btn btn-danger">Eliminar Alumno</button>
+                                <button type="submit" class="btn btn-danger">Eliminar Piloto</button>
                                 {{ form_end(deleteForm) }}
                             </div>
                         </div>

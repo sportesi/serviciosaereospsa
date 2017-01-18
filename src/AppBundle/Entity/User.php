@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="UserData", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="UserData", mappedBy="user", fetch="EAGER")
      * @var UserData
      */
     private $userData;
@@ -85,5 +85,10 @@ class User extends BaseUser
     public function getTurno()
     {
         return $this->turno;
+    }
+
+    public function getFullName()
+    {
+        return $this->getUserData()->getName() . " " . $this->getUserData()->getLastName();
     }
 }

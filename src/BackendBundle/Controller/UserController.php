@@ -3,18 +3,19 @@
 namespace BackendBundle\Controller;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\PilotoType;
 use AppBundle\Form\UserType;
+use AppBundle\Services\StringService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/piloto")
+ * @Route("/user")
  */
-class PilotoController extends Controller
+class UserController extends Controller
 {
 
     /**
@@ -25,34 +26,39 @@ class PilotoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $pilotos = $em->getRepository('AppBundle:User')->findByRole('ROLE_PILOT');
+        $pilotos = $em->getRepository('AppBundle:User')->findAll();
 
-        return $this->render('BackendBundle:PilotoViews:index.html.twig', array('pilotos' => $pilotos));
+        return $this->render('BackendBundle:UserViews:index.html.twig', array('pilotos' => $pilotos));
     }
 
     /**
      * @Route("/edit/{id}")
-     * @Method({"GET"})
+     * @Method("GET")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
     function editAction(User $user)
     {
-        $resetPasswordForm = $this->createFormBuilder()
-            ->setAction($this->generateUrl("pilotoResetPassword", ['id' => $user->getId()]))
-            ->setMethod("POST")
-            ->getForm();
-        $deleteForm = $this->createFormBuilder()
-            ->setAction($this->generateUrl("pilotoDelete", ['id' => $user->getId()]))
-            ->setMethod("DELETE")
-            ->getForm();
-        $pilotoForm = $this->createForm(UserType::class, $user);
         $pageParameters = [
-            'form' => $pilotoForm->createView(),
-            'resetForm' => $resetPasswordForm->createView(),
-            'deleteForm' => $deleteForm->createView(),
+            'form' => $this->getUserForm($user, true)->createView(),
+            'resetForm' => $this->getResetForm($user)->createView(),
+            'deleteForm' => $this->getDeleteForm($user)->createView(),
         ];
-        return $this->render("BackendBundle:PilotoViews:edit.html.twig", $pageParameters);
+        return $this->render("BackendBundle:UserViews:edit.html.twig", $pageParameters);
+    }
+
+    /**
+     * @Route("/update/{id}")
+     * @Method("POST")
+     * @param Request $request
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    function updateAction(Request $request, User $user)
+    {
+        $updateUser = $this->parseUserRequest($request, $user);
+        $this->persistUser($updateUser);
+        return $this->redirectToRoute('backend_user_edit', ['id' => $user->getId()]);
     }
 
     /**
@@ -97,42 +103,9 @@ class PilotoController extends Controller
             return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
         }
 
-        return $this->render("BackendBundle:PilotoViews:edit.html.twig", array(
+        return $this->render("BackendBundle:UserViews:edit.html.twig", array(
             'form' => $form->createView(),
         ));
-    }
-
-    /**
-     * @Route("/edit/{id}", name = "BackendPilotoSave")
-     * @Method({"POST"})
-     */
-    function saveAction(Request $request, Piloto $piloto)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $um = $this->get('fos_user.user_manager');
-
-        $previousEmail = $piloto->getEmail();
-
-        $form = $this->createForm(PilotoType::class, $piloto);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-
-            if (!empty($previousEmail)) {
-                $user = $um->findUserByEmail($previousEmail);
-                $user->setEmail($piloto->getEmail());
-                $um->updateUser($user);
-            }
-
-            $em->persist($piloto);
-            $em->flush();
-            return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
-        } else {
-            $pageParameters = array(
-                'form' => $form->createView(),
-            );
-            return $this->render("BackendBundle:PilotoViews:edit.html.twig", $pageParameters);
-        }
     }
 
     /**
@@ -140,7 +113,7 @@ class PilotoController extends Controller
      */
     public function resetPasswordAction(Request $request, Piloto $piloto)
     {
-        $password = $this->generateRandomString();
+        $password = StringService::generateRandomString();
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('fos_user.user_manager')->findUserByEmail($piloto->getEmail());
@@ -162,17 +135,6 @@ class PilotoController extends Controller
         $em->flush();
 
         return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
-    }
-
-    function generateRandomString($length = 10)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
     }
 
     /**
@@ -215,6 +177,70 @@ class PilotoController extends Controller
         return $this->redirectToRoute(
             "BackendPilotoEdit", array("id" => $piloto->getId())
         );
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return User
+     */
+    public function parseUserRequest(Request $request, User $user)
+    {
+        $this->getUserForm($user)->handleRequest($request);
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     * @param null $edit
+     * @return \Symfony\Component\Form\Form
+     */
+    public function getUserForm(User $user, $edit = null)
+    {
+        $action = $edit ?
+            $this->generateUrl('backend_user_update', ['id' => $user->getId()]) :
+            $this->generateUrl('backend_user_new');
+        return $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'action' => $action,
+            ]
+        );
+    }
+
+    /**
+     * @param User $user
+     * @return Form
+     */
+    public function getDeleteForm(User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl("pilotoDelete", ['id' => $user->getId()]))
+            ->setMethod("DELETE")
+            ->getForm();
+    }
+
+    /**
+     * @param User $user
+     * @return Form
+     */
+    public function getResetForm(User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl("pilotoResetPassword", ['id' => $user->getId()]))
+            ->setMethod("POST")
+            ->getForm();
+    }
+
+    /**
+     * @param User $user
+     */
+    public function persistUser(User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
     }
 
 }

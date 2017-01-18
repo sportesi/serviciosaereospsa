@@ -21,4 +21,14 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAll()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select(['u', 'd'])
+            ->from('AppBundle:User', 'u')
+            ->innerJoin('u.userData', 'd');
+
+        return $qb->getQuery()->getResult();
+    }
 }
