@@ -53,7 +53,7 @@ class TurnoController extends Controller
             'dias' => Dia::getDias(),
         ];
 
-        return $this->render('BackendBundle:TurnoViews:index.html.twig', $pageData);
+        return $this->render('Backend/TurnoViews/index.html.twig', $pageData);
     }
 
     /**
@@ -83,7 +83,7 @@ class TurnoController extends Controller
     }
 
     /**
-     * @Route("/delete", name="BackendTurnosDelete")
+     * @Route("/delete")
      * @Method("DELETE")
      * @param Request $request
      * @return Response

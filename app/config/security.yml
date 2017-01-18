@@ -20,7 +20,7 @@ security:
                 login_path: fos_user_security_login 
                 check_path: fos_user_security_check
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: RoutingController
+                default_target_path: app_frontend_default_lgcheck
 
             logout:
                 path: fos_user_security_logout

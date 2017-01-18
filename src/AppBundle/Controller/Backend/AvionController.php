@@ -33,7 +33,7 @@ class AvionController extends Controller
             'editar' => false,
         ];
 
-	    return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+	    return $this->render('Backend/AvionViews/index.html.twig', $pageData);
 	}
 
     /**
@@ -49,7 +49,7 @@ class AvionController extends Controller
 
 	    return $this->redirect(
 	        $this->generateUrl(
-	            'backend_avion_edit',
+	            'app_backend_avion_edit',
                 [
                     'id' => $avion->getId(),
                 ]
@@ -74,7 +74,7 @@ class AvionController extends Controller
             'editar' => true,
         ];
 
-		return $this->render('BackendBundle:AvionViews:index.html.twig', $pageData);
+		return $this->render('Backend/AvionViews/index.html.twig', $pageData);
 	}
 
     /**
@@ -87,7 +87,7 @@ class AvionController extends Controller
     {
         $avion = $this->parseAvionRequest($request, $avion);
         $this->persistAvion($avion);
-        return $this->redirectToRoute('backend_avion_edit', ['id' => $avion->getId()]);
+        return $this->redirectToRoute('app_backend_avion_edit', ['id' => $avion->getId()]);
 	}
 
     /**
@@ -150,8 +150,8 @@ class AvionController extends Controller
     private function getAvionForm(Avion $avion, $edit = null)
     {
         $formAction = $edit ?
-            $this->generateUrl('backend_avion_update', ['id' => $avion->getId()]) :
-            $this->generateUrl('backend_avion_post');
+            $this->generateUrl('app_backend_avion_update', ['id' => $avion->getId()]) :
+            $this->generateUrl('app_backend_avion_post');
         return $this->createForm(
             AvionType::class,
             $avion,

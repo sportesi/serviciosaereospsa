@@ -32,7 +32,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
 
-        return $this->render('BackendBundle:UserViews:index.html.twig', [
+        return $this->render('Backend/UserViews/index.html.twig', [
             'users' => $users,
             'roles' => [
                 'ROLE_ADMIN' => 'Administrador',
@@ -57,7 +57,7 @@ class UserController extends Controller
             'admin' => $user->hasRole('ROLE_ADMIN'),
             'super' => $user->hasRole('ROLE_SUPER_ADMIN'),
         ];
-        return $this->render("BackendBundle:UserViews:edit.html.twig", $pageParameters);
+        return $this->render("Backend/UserViews/edit.html.twig", $pageParameters);
     }
 
     /**
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $updateUser = $this->parseUserRequest($request, $user);
         $this->persistUser($updateUser);
-        return $this->redirectToRoute('backend_user_edit', ['id' => $user->getId()]);
+        return $this->redirectToRoute('app_backend_user_edit', ['id' => $user->getId()]);
     }
 
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
      */
     public function newAction()
     {
-        return $this->render("BackendBundle:UserViews:edit.html.twig", array(
+        return $this->render("Backend/UserViews/edit.html.twig", array(
             'form' => $this->getUserForm(new User())->createView(),
         ));
     }
@@ -101,13 +101,13 @@ class UserController extends Controller
         $validator = $this->get('validator');
         $this->errors = $validator->validate($user);
         if ($this->errors->count() > 0) {
-            return $this->render("BackendBundle:UserViews:edit.html.twig", array(
+            return $this->render("Backend/UserViews/edit.html.twig", array(
                 'form' => $this->getUserForm($user)->createView(),
                 'errors' => $this->errors
             ));
         }
         $this->persistUser($user);
-        return $this->redirectToRoute('backend_user_edit', ['id' => $user->getId()]);
+        return $this->redirectToRoute('app_backend_user_edit', ['id' => $user->getId()]);
     }
 
     /**
@@ -121,15 +121,15 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
-        return $this->redirectToRoute("backend_user_index");
+        return $this->redirectToRoute("app_backend_user_index");
     }
 
     /**
-     * @Route("/reset/{id}", name="pilotoResetPassword")
+     * @Route("/reset/{id}")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function resetPasswordAction(User $user)
+    public function resetAction(User $user)
     {
         $em = $this->getDoctrine()->getManager();
         $password = StringService::generateRandomString();
@@ -150,7 +150,7 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute("backend_user_edit", ["id" => $user->getId()]);
+        return $this->redirectToRoute("app_backend_user_edit", ["id" => $user->getId()]);
     }
 
     /**
@@ -179,7 +179,7 @@ class UserController extends Controller
             ), 'text/html');
         $this->get('mailer')->send($message);
 
-        return $this->redirectToRoute("backend_user_edit", ["id" => $user->getId()]);
+        return $this->redirectToRoute("app_backend_user_edit", ["id" => $user->getId()]);
     }
 
     /**
@@ -201,8 +201,8 @@ class UserController extends Controller
     private function getUserForm(User $user, $edit = null)
     {
         $action = $edit ?
-            $this->generateUrl('backend_user_update', ['id' => $user->getId()]) :
-            $this->generateUrl('backend_user_create');
+            $this->generateUrl('app_backend_user_update', ['id' => $user->getId()]) :
+            $this->generateUrl('app_backend_user_create');
         return $this->createForm(
             UserType::class,
             $user,
@@ -219,7 +219,7 @@ class UserController extends Controller
     private function getDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl("backend_user_delete", ['id' => $user->getId()]))
+            ->setAction($this->generateUrl("app_backend_user_delete", ['id' => $user->getId()]))
             ->setMethod("DELETE")
             ->getForm();
     }
@@ -231,7 +231,7 @@ class UserController extends Controller
     private function getResetForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl("pilotoResetPassword", ['id' => $user->getId()]))
+            ->setAction($this->generateUrl("app_backend_user_reset", ['id' => $user->getId()]))
             ->setMethod("POST")
             ->getForm();
     }
