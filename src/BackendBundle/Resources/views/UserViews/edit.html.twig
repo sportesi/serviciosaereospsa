@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                <i class="fa fa-pencil fa-fw"></i> Editar Piloto
+                <i class="fa fa-pencil fa-fw"></i> Editar Usuario
                 <a href="{{ path("backend_user_index") }}" class="btn btn-primary pull-right">Volver al listado</a>
             </h1>
         </div>
@@ -23,33 +23,41 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="form-group">
-                        <label for="user-email" class="control-label col-md-2">Email</label>
+                        <label for="user_email" class="control-label col-md-2">Email</label>
                         <div class="col-md-10">
                             {{ form_widget(form.email) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="user-email" class="control-label col-md-2">Nombre</label>
+                        <label for="user_userData_name" class="control-label col-md-2">Nombre</label>
                         <div class="col-md-10">
                             {{ form_widget(form.userData.name) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="user-email" class="control-label col-md-2">Apellido</label>
+                        <label for="user_userData_lastName" class="control-label col-md-2">Apellido</label>
                         <div class="col-md-10">
                             {{ form_widget(form.userData.lastName) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="user-email" class="control-label col-md-2">Teléfono</label>
+                        <label for="user_userData_phoneNumber" class="control-label col-md-2">Teléfono</label>
                         <div class="col-md-10">
                             {{ form_widget(form.userData.phoneNumber) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="user-email" class="control-label col-md-2">Dirección</label>
+                        <label for="user_userData_address" class="control-label col-md-2">Dirección</label>
                         <div class="col-md-10">
                             {{ form_widget(form.userData.address) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_userData_roles" class="control-label col-md-2">Roles</label>
+                        <div class="col-md-10">
+                            {% for role in form.roles %}
+                                {{ form_widget(role) }}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +89,7 @@
                                 {{ form_end(resetForm) }}
                                 {{ form_start(deleteForm, { attr: { class: 'pull-left' } }) }}
                                 {{ form_widget(deleteForm) }}
-                                <button type="submit" class="btn btn-danger">Eliminar Piloto</button>
+                                <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
                                 {{ form_end(deleteForm) }}
                             </div>
                         </div>

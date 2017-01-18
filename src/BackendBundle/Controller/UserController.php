@@ -91,6 +91,20 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/delete/{id}")
+     * @Method("DELETE")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute("backend_user_index");
+    }
+
+    /**
      * @Route("/reset/{id}", name="pilotoResetPassword")
      */
     public function resetPasswordAction(Request $request, Piloto $piloto)
@@ -117,20 +131,6 @@ class UserController extends Controller
         $em->flush();
 
         return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
-    }
-
-    /**
-     * @Route("/delete/{id}", name="pilotoDelete")
-     * @param Piloto $piloto
-     * @Method({"DELETE"})
-     */
-    public function deleteAction(Piloto $piloto)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')->find($piloto->getUsuario()->getId());
-        $em->remove($user);
-        $em->flush();
-        return $this->redirectToRoute("BackendPilotoHomepage");
     }
 
     /**
@@ -198,7 +198,7 @@ class UserController extends Controller
     public function getDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl("pilotoDelete", ['id' => $user->getId()]))
+            ->setAction($this->generateUrl("backend_user_delete", ['id' => $user->getId()]))
             ->setMethod("DELETE")
             ->getForm();
     }
