@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="UserData", mappedBy="user", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="UserData", mappedBy="user", fetch="EAGER", cascade={"persist"})
      * @var UserData
      */
     private $userData;

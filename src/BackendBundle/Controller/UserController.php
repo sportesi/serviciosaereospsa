@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,7 +38,7 @@ class UserController extends Controller
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function editAction(User $user)
+    public function editAction(User $user)
     {
         $pageParameters = [
             'form' => $this->getUserForm($user, true)->createView(),
@@ -54,7 +55,7 @@ class UserController extends Controller
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    function updateAction(Request $request, User $user)
+    public function updateAction(Request $request, User $user)
     {
         $updateUser = $this->parseUserRequest($request, $user);
         $this->persistUser($updateUser);
@@ -63,49 +64,29 @@ class UserController extends Controller
 
     /**
      * @Route("/new")
-     * @Method({"GET", "POST"})
+     * @Method("GET")
      */
-    function newAction(Request $request)
+    public function newAction(Request $request)
     {
-        $piloto = new Piloto();
-        $form = $this->createForm(PilotoType::class, $piloto);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $um = $this->get('fos_user.user_manager');
-
-            $password = $this->generateRandomString();
-            $user = $um->createUser();
-            $user->setUsername($piloto->getEmail());
-            $user->setEmail($piloto->getEmail());
-            $user->setPlainPassword($password);
-            $user->addRole("ROLE_PILOT");
-            $user->setEnabled(true);
-            $um->updateUser($user);
-
-            $message = Swift_Message::newInstance()
-                ->setSubject('Bienvenido al sistema de turnos')
-                ->setFrom(array("appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"))
-                ->setTo(array($piloto->getEmail()))
-                ->setBody($this->renderView(
-                    'Emails/welcome.html.twig', array(
-                        'nombre' => strtolower($piloto->getNombre()),
-                        'password' => $password,
-                    )
-                ), 'text/html');
-            $this->get('mailer')->send($message);
-
-            $piloto->setUsuario($user);
-
-            $em->persist($piloto);
-            $em->flush();
-            return $this->redirectToRoute("BackendPilotoEdit", array("id" => $piloto->getId()));
-        }
-
         return $this->render("BackendBundle:UserViews:edit.html.twig", array(
-            'form' => $form->createView(),
+            'form' => $this->getUserForm(new User())->createView(),
         ));
+    }
+
+    /**
+     * @Route("/create")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function createAction(Request $request)
+    {
+        $user = $this->parseUserRequest($request, new User());
+        $user->setUsername(StringService::generateUsername($user));
+        $user->setUsernameCanonical($user->getUsername());
+        $user->setPlainPassword(StringService::generateRandomString());
+        $this->persistUser($user);
+        return $this->redirectToRoute('backend_user_edit', ['id' => $user->getId()]);
     }
 
     /**
@@ -199,7 +180,7 @@ class UserController extends Controller
     {
         $action = $edit ?
             $this->generateUrl('backend_user_update', ['id' => $user->getId()]) :
-            $this->generateUrl('backend_user_new');
+            $this->generateUrl('backend_user_create');
         return $this->createForm(
             UserType::class,
             $user,
