@@ -4,8 +4,9 @@
     <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Services/StringService.php" afterPath="$PROJECT_DIR$/src/AppBundle/Services/StringService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UserData.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UserData.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackendBundle/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/BackendBundle/Controller/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig" afterPath="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig" />
     </list>
     <ignored path=".idea/inspectionProfiles/Project_Default.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +26,8 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="86" column="71" lean-forward="false" selection-start-line="86" selection-start-column="71" selection-end-line="86" selection-end-column="71" />
+            <state relative-caret-position="133">
+              <caret line="74" column="5" lean-forward="false" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
               <folding>
                 <element signature="e#44#70#0#PHP" expanded="true" />
                 <element signature="e#533#585#0#PHP" expanded="false" />
@@ -35,21 +36,24 @@
                 <element signature="e#1009#1396#0#PHP" expanded="false" />
                 <element signature="e#1402#1588#0#PHP" expanded="false" />
                 <element signature="e#1593#1854#0#PHP" expanded="false" />
-                <element signature="e#2820#3863#0#PHP" expanded="false" />
-                <element signature="e#3869#3987#0#PHP" expanded="false" />
-                <element signature="e#3992#4304#0#PHP" expanded="false" />
-                <element signature="e#4310#4357#0#PHP" expanded="false" />
-                <element signature="e#4362#5370#0#PHP" expanded="false" />
-                <element signature="e#5376#5463#0#PHP" expanded="false" />
-                <element signature="e#5468#5624#0#PHP" expanded="false" />
-                <element signature="e#5630#5735#0#PHP" expanded="false" />
-                <element signature="e#5740#6126#0#PHP" expanded="false" />
-                <element signature="e#6132#6188#0#PHP" expanded="false" />
-                <element signature="e#6193#6433#0#PHP" expanded="false" />
-                <element signature="e#6439#6495#0#PHP" expanded="false" />
-                <element signature="e#6500#6744#0#PHP" expanded="false" />
-                <element signature="e#6750#6786#0#PHP" expanded="false" />
-                <element signature="e#6791#6943#0#PHP" expanded="false" />
+                <element signature="e#1860#1973#0#PHP" expanded="false" />
+                <element signature="e#1978#2175#0#PHP" expanded="false" />
+                <element signature="e#2181#2337#0#PHP" expanded="false" />
+                <element signature="e#2342#2783#0#PHP" expanded="false" />
+                <element signature="e#2862#3905#0#PHP" expanded="false" />
+                <element signature="e#3911#4029#0#PHP" expanded="false" />
+                <element signature="e#4034#4346#0#PHP" expanded="false" />
+                <element signature="e#4352#4399#0#PHP" expanded="false" />
+                <element signature="e#4404#5412#0#PHP" expanded="false" />
+                <element signature="e#5418#5505#0#PHP" expanded="false" />
+                <element signature="e#5510#5666#0#PHP" expanded="false" />
+                <element signature="e#5672#5777#0#PHP" expanded="false" />
+                <element signature="e#5782#6168#0#PHP" expanded="false" />
+                <element signature="e#6174#6230#0#PHP" expanded="false" />
+                <element signature="e#6235#6475#0#PHP" expanded="false" />
+                <element signature="e#6481#6537#0#PHP" expanded="false" />
+                <element signature="e#6542#6786#0#PHP" expanded="false" />
+                <element signature="e#6792#6828#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -68,25 +72,29 @@
       <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="35" column="30" lean-forward="false" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+            <state relative-caret-position="-792">
+              <caret line="22" column="106" lean-forward="false" selection-start-line="22" selection-start-column="106" selection-end-line="22" selection-end-column="106" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AvionController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/AvionController.php">
+      <file leaf-file-name="UserData.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/UserData.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-              <folding>
-                <element signature="e#44#71#0#PHP" expanded="true" />
-                <element signature="e#581#996#0#PHP" expanded="false" />
-                <element signature="e#1160#1507#0#PHP" expanded="false" />
-                <element signature="e#1627#2027#0#PHP" expanded="false" />
-                <element signature="e#2583#2763#0#PHP" expanded="false" />
-              </folding>
+            <state relative-caret-position="414">
+              <caret line="52" column="94" lean-forward="false" selection-start-line="52" selection-start-column="94" selection-end-line="52" selection-end-column="94" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -166,7 +174,6 @@
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/InstructorViews/index.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Controller/InstructorController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/UserData.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/LogService.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/ValueObjects/Horario.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/ValueObjects/Dia.php" />
@@ -188,13 +195,14 @@
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/modal.new.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/PilotoViews/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" />
-        <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Controller/PilotoController.php" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/sidebar.new.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/PilotoViews/index.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/UserViews/edit.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/StringService.php" />
+        <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/UserData.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Controller/UserController.php" />
       </list>
     </option>
@@ -249,6 +257,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -465,8 +475,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -579,6 +587,7 @@
       <workItem from="1484664769695" duration="694000" />
       <workItem from="1484665548614" duration="12158000" />
       <workItem from="1484740966058" duration="4928000" />
+      <workItem from="1484748061779" duration="2758000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -773,18 +782,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66423000" />
+    <option name="totallyTimeSpent" value="69181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24827056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24827056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -796,9 +803,32 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24827056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
@@ -888,27 +918,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/ValueObjects/LogAction.php" />
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/InstructorViews/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/InstructorController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="59" lean-forward="false" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/UserData.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="51" column="4" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="55" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/InstructorViews/index.html.twig" />
+    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/InstructorController.php" />
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/diaRepository.php" />
     <entry file="file://$PROJECT_DIR$/src/FrontendBundle/Resources/views/TurnoViews/modal.new.html.twig">
       <provider selected="true" editor-type-id="text-editor">
@@ -928,7 +939,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -936,7 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="24" column="5" lean-forward="false" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,9 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="47" lean-forward="false" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
-          <folding>
-            <element signature="e#34#83#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1020,13 +1026,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/AlumnoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="238" column="39" lean-forward="false" selection-start-line="238" selection-start-column="39" selection-end-line="238" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/AlumnoController.php" />
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/AvionViews/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1038,7 +1038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="60" lean-forward="false" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1046,36 +1045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="70" />
-          <folding>
-            <element signature="e#207#346#0#PHP" expanded="false" />
-            <element signature="e#369#459#0#PHP" expanded="false" />
-            <element signature="e#485#607#0#PHP" expanded="false" />
-            <element signature="e#633#699#0#PHP" expanded="false" />
-            <element signature="e#729#806#0#PHP" expanded="false" />
-            <element signature="e#837#994#0#PHP" expanded="false" />
-            <element signature="e#1020#1075#0#PHP" expanded="false" />
-            <element signature="e#1080#1141#0#PHP" expanded="false" />
-            <element signature="e#1147#1241#0#PHP" expanded="false" />
-            <element signature="e#1246#1344#0#PHP" expanded="false" />
-            <element signature="e#1350#1410#0#PHP" expanded="false" />
-            <element signature="e#1415#1482#0#PHP" expanded="false" />
-            <element signature="e#1488#1590#0#PHP" expanded="false" />
-            <element signature="e#1595#1709#0#PHP" expanded="false" />
-            <element signature="e#1715#1779#0#PHP" expanded="false" />
-            <element signature="e#1784#1859#0#PHP" expanded="false" />
-            <element signature="e#1865#1966#0#PHP" expanded="false" />
-            <element signature="e#1971#2089#0#PHP" expanded="false" />
-            <element signature="e#2095#2157#0#PHP" expanded="false" />
-            <element signature="e#2162#2239#0#PHP" expanded="false" />
-            <element signature="e#2245#2353#0#PHP" expanded="false" />
-            <element signature="e#2358#2487#0#PHP" expanded="false" />
-            <element signature="e#2493#2567#0#PHP" expanded="false" />
-            <element signature="e#2572#2639#0#PHP" expanded="false" />
-            <element signature="e#2645#2750#0#PHP" expanded="false" />
-            <element signature="e#2755#2879#0#PHP" expanded="false" />
-            <element signature="e#2885#2957#0#PHP" expanded="false" />
-            <element signature="e#2962#3027#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1121,9 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="31" column="43" lean-forward="false" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
-          <folding>
-            <element signature="e#34#64#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1138,15 +1104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1154,7 +1111,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="222" column="20" lean-forward="false" selection-start-line="222" selection-start-column="20" selection-end-line="222" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1179,7 +1135,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="70" column="105" lean-forward="false" selection-start-line="70" selection-start-column="105" selection-end-line="70" selection-end-column="105" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1187,7 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="62" lean-forward="false" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1195,6 +1149,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="75" column="66" lean-forward="false" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/StringService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1213,26 +1174,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
+    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/header.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="35" column="30" lean-forward="false" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+        <state relative-caret-position="216">
+          <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Services/StringService.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="-792">
+          <caret line="22" column="106" lean-forward="false" selection-start-line="22" selection-start-column="106" selection-end-line="22" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/UserData.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="52" column="94" lean-forward="false" selection-start-line="52" selection-start-column="94" selection-end-line="52" selection-end-column="94" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="86" column="71" lean-forward="false" selection-start-line="86" selection-start-column="71" selection-end-line="86" selection-end-column="71" />
+        <state relative-caret-position="133">
+          <caret line="74" column="5" lean-forward="false" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
           <folding>
             <element signature="e#44#70#0#PHP" expanded="true" />
             <element signature="e#533#585#0#PHP" expanded="false" />
@@ -1241,21 +1210,24 @@
             <element signature="e#1009#1396#0#PHP" expanded="false" />
             <element signature="e#1402#1588#0#PHP" expanded="false" />
             <element signature="e#1593#1854#0#PHP" expanded="false" />
-            <element signature="e#2820#3863#0#PHP" expanded="false" />
-            <element signature="e#3869#3987#0#PHP" expanded="false" />
-            <element signature="e#3992#4304#0#PHP" expanded="false" />
-            <element signature="e#4310#4357#0#PHP" expanded="false" />
-            <element signature="e#4362#5370#0#PHP" expanded="false" />
-            <element signature="e#5376#5463#0#PHP" expanded="false" />
-            <element signature="e#5468#5624#0#PHP" expanded="false" />
-            <element signature="e#5630#5735#0#PHP" expanded="false" />
-            <element signature="e#5740#6126#0#PHP" expanded="false" />
-            <element signature="e#6132#6188#0#PHP" expanded="false" />
-            <element signature="e#6193#6433#0#PHP" expanded="false" />
-            <element signature="e#6439#6495#0#PHP" expanded="false" />
-            <element signature="e#6500#6744#0#PHP" expanded="false" />
-            <element signature="e#6750#6786#0#PHP" expanded="false" />
-            <element signature="e#6791#6943#0#PHP" expanded="false" />
+            <element signature="e#1860#1973#0#PHP" expanded="false" />
+            <element signature="e#1978#2175#0#PHP" expanded="false" />
+            <element signature="e#2181#2337#0#PHP" expanded="false" />
+            <element signature="e#2342#2783#0#PHP" expanded="false" />
+            <element signature="e#2862#3905#0#PHP" expanded="false" />
+            <element signature="e#3911#4029#0#PHP" expanded="false" />
+            <element signature="e#4034#4346#0#PHP" expanded="false" />
+            <element signature="e#4352#4399#0#PHP" expanded="false" />
+            <element signature="e#4404#5412#0#PHP" expanded="false" />
+            <element signature="e#5418#5505#0#PHP" expanded="false" />
+            <element signature="e#5510#5666#0#PHP" expanded="false" />
+            <element signature="e#5672#5777#0#PHP" expanded="false" />
+            <element signature="e#5782#6168#0#PHP" expanded="false" />
+            <element signature="e#6174#6230#0#PHP" expanded="false" />
+            <element signature="e#6235#6475#0#PHP" expanded="false" />
+            <element signature="e#6481#6537#0#PHP" expanded="false" />
+            <element signature="e#6542#6786#0#PHP" expanded="false" />
+            <element signature="e#6792#6828#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>

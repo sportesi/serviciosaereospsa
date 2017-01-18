@@ -65,8 +65,9 @@ class UserController extends Controller
     /**
      * @Route("/new")
      * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newAction()
     {
         return $this->render("BackendBundle:UserViews:edit.html.twig", array(
             'form' => $this->getUserForm(new User())->createView(),
@@ -220,6 +221,7 @@ class UserController extends Controller
     public function persistUser(User $user)
     {
         $em = $this->getDoctrine()->getManager();
+        $user->getUserData()->setUser($user);
         $em->persist($user);
         $em->flush();
     }

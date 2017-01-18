@@ -50,7 +50,7 @@ class UserData
     private $address;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="userData")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="userData", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
      */
