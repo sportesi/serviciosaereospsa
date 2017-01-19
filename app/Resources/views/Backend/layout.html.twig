@@ -7,14 +7,10 @@
 
         <title>Servicios A&eacute;reos PSA</title>
 
-        <link rel="stylesheet" href="{{ asset("/backend/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="{{ asset("/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.css") }}" type="text/css">
-        <link rel="stylesheet" type="text/css" href="{{ asset("/backend/css/select2.min.css") }}">
-        <link rel="stylesheet" href="{{ asset("/backend/css/AdminLTE.min.css") }}">
-        <link rel="stylesheet" href="{{ asset("/backend/css/skins/skin-blue.min.css") }}">
-        <link rel="stylesheet" href="{{ asset("/backend/css/styles.css") }}" type="text/css">
+
+        <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 
         {% block styles %}{% endblock %}
     </head>
@@ -35,23 +31,13 @@
 
         </div>
 
-        <script src="{{ asset("/backend/bower_components/jquery/dist/jquery.min.js") }}"></script>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script src="{{ asset("/js/app.js") }}"></script>
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
             $('.sidebar-menu')
                 .find('a[href="'+window.location.pathname+'"]')
                 .parent()
                 .addClass('active');
         </script>
-        <script src="{{ asset("/backend/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
-        <script src="{{ asset("/backend/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js") }}"></script>
-        <script src="{{ asset("/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
-        <script src="{{ asset("/backend/bower_components/select2/dist/js/select2.full.min.js") }}"></script>
-        <script src="{{ asset("/backend/bower_components/select2/dist/js/i18n/es.js") }}"></script>
-        <script src="{{ asset("/backend/bower_components/lodash/dist/lodash.min.js") }}"></script>
-        <script src="{{ asset("/backend/scripts/app.min.js") }}"></script>
-        <script src="{{ asset("/backend/scripts/main.js") }}?v=1"></script>
 
         {% block scripts %}{% endblock %}
 

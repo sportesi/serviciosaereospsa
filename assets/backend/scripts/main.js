@@ -103,7 +103,7 @@ function saveEvent(edit) {
 
 function showLoading() {
     swal({
-        imageUrl: '/backend/img/loader.gif',
+        imageUrl: '/img/loader.gif',
         title: 'Cargando',
         text: 'Por favor espere',
         showConfirmButton: false,
