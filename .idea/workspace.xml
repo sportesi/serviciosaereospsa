@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.xml" afterPath="" />
+    <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="Refactor directory tree">
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/css/body.css" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/css/exception.css" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/css/structure.css" afterPath="" />
@@ -11,15 +9,9 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/images/blue_picto_more.gif" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/images/grey_magnifier.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public_html/bundles/framework/images/logo_symfony.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/AppBundle/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/BackendBundle/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/FrontendBundle/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/serviciosaereospsa.iml" afterPath="$PROJECT_DIR$/.idea/serviciosaereospsa.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/Frontend/Default/index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/Frontend/Default/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public_html/config.php" afterPath="$PROJECT_DIR$/public_html/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" />
     </list>
     <ignored path=".idea/inspectionProfiles/Project_Default.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,7 +27,18 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -137,7 +140,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/Frontend/Default/index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Frontend/DefaultController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/Frontend/TurnoViews/index.html.twig" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/public_html/backend/css/login.css" />
         <option value="$PROJECT_DIR$/public_html/backend/scripts/main.js" />
@@ -145,6 +147,7 @@
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -212,6 +215,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="serviciosaereospsa" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="serviciosaereospsa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="serviciosaereospsa" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public_html" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -335,7 +352,7 @@
       <workItem from="1484740966058" duration="4928000" />
       <workItem from="1484748061779" duration="8092000" />
       <workItem from="1484770371773" duration="122000" />
-      <workItem from="1484826747896" duration="6865000" />
+      <workItem from="1484826747896" duration="7335000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -589,17 +606,24 @@
       <option name="project" value="LOCAL" />
       <updated>1484846127430</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Refactor directory tree">
+      <created>1484850095341</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1484850095341</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85260000" />
+    <option name="totallyTimeSpent" value="85730000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32052267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32052267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -658,7 +682,8 @@
     <MESSAGE value="Changed stuff" />
     <MESSAGE value="Moved everything inside backendbundle and frontendbundle into app bundle&#10;Moved every public resource to public_html" />
     <MESSAGE value="Re-arranged frontend styles and views." />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-arranged frontend styles and views." />
+    <MESSAGE value="Refactor directory tree" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor directory tree" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -667,7 +692,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Controller/AvionController.php" />
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Resources/Backend/views/CommonViews/header.html.twig" />
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/UserInterface.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -897,14 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public_html/backend/scripts/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
@@ -989,6 +1005,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_html/frontend/js/ajaxchimp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding />
         </state>
       </provider>

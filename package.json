@@ -1,0 +1,22 @@
+{
+  "name": "serviciosaereospsa",
+  "version": "1.0.0",
+  "description": "psa ===",
+  "main": "public_html/app.php",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/sportesi/serviciosaereospsa.git"
+  },
+  "author": "Sebastian Portesi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/sportesi/serviciosaereospsa/issues"
+  },
+  "homepage": "https://gitlab.com/sportesi/serviciosaereospsa#README"
+}
