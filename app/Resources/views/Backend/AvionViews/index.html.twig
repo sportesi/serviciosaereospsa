@@ -1,0 +1,175 @@
+{% extends 'Backend/layout.html.twig' %}
+
+{% block styles %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $('#avion_servicio').on('change', function(){
+            if ($(this).prop('checked')) {
+                $('.group_razonFueraServicio').fadeOut()
+                $('.group_razonFueraServicio *').prop('disabled', true)
+            } else {
+                $('.group_razonFueraServicio *').prop('disabled', false)
+                $('.group_razonFueraServicio').fadeIn()
+            }
+        })
+        if (!$('#avion_servicio').prop('checked')) {
+            $('.group_razonFueraServicio').fadeIn()
+        }
+        $('.table-aviones tbody').sortable({
+            stop: function( event, ui ) {
+                var data = $('.table tbody').sortable('toArray', { attribute : 'data-id' });
+                $.post('/backend/avion/order', { 'order' : data });
+            }
+        });
+
+        $(document).ready(function() {
+            $('.datepicker').datetimepicker();
+            $('.datepicker').each(function(){
+                var stringDate = $(this).attr('value');
+                if (stringDate) {
+                    var date = moment(stringDate.replace('Z', ''));
+                    $(this).data("DateTimePicker").date(date);
+                }
+            })
+        });
+
+        function deleteAvion() {
+            var url = "{{ path('app_backend_avion_delete', {'id' : form.vars.value.id ? form.vars.value.id : 0 }) }}";
+            swal({
+                title: 'Estas seguro?',
+                text: 'Estas a punto de eliminar un registro. \nEsta accion no puede deshacerse',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }, function(){
+                $.ajax({
+                    url: url,
+                    type: 'DELETE'
+                }).done(function () {
+                    swal({
+                        title: '',
+                        text: 'Avion eliminado.',
+                        type: 'success'
+                    }, function () {
+                        window.location.href = "/backend/avion"
+                    });
+                }).fail(function () {
+                    swal('', 'Vuelva a intentarlo.', 'warning');
+                });
+            });
+        }
+        
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <style type="text/css">
+        tbody tr {
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><i class="fa fa-plane fa-fw"></i> Aviones</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-aviones">
+                            <thead>
+                            <tr>
+                                <th>Matr&iacute;cula</th>
+                                <th>Fuera de Servicio</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in aviones %}
+                                <tr onclick="window.location.href = '{{ path('app_backend_avion_edit', { 'id' : item.id }) }}'" data-id="{{ item.id }}">
+                                    <td>{{ item.matricula }}</td>
+                                    <td>{{ item.servicio ? 'No' : 'Si' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            {{ form_start(form, {'attr' : { 'class' : 'form-horizontal' }}) }}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% if editar %}
+                            <h3 class="panel-title">Editar Avion</h3>
+                        {% else %}
+                            <h3 class="panel-title">Agregar Avion</h3>
+                        {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="input" class="col-sm-3 control-label">Matricula</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.matricula) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input" class="col-sm-3 control-label">En Servicio</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.servicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputTipoFueraServicio" class="col-sm-3 control-label">Tipo F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.tipoFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="input" class="col-sm-3 control-label">Raz&oacute;n F/S</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.razonFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Desde F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.desdeFueraServicio) }}
+                            </div>
+                        </div>
+                        <div class="form-group group_razonFueraServicio" style="display: none;">
+                            <label for="inputFechaFueraServicio" class="col-sm-3 control-label">Hasta F/S:</label>
+                            <div class="col-sm-9">
+                                {{ form_widget(form.hastaFueraServicio) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="center-block text-center">
+                                    {% if editar %}
+                                        <button type="submit" class="btn btn-success"><i class="fa fa-save fw"></i> Guardar</button>
+                                        <a href="{{ path('app_backend_avion_index') }}" class="btn btn-warning"><i class="fa fa-reply fw"></i> Cancelar</a>
+                                        <button type="button" onclick="deleteAvion()" class="btn btn-danger"><i class="fa fa-trash fw"></i> Eliminar</button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save fw"></i> Agregar</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <title>Servicios A&eacute;reos PSA</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+        <link rel="stylesheet" href="{{ asset('/css/app.min.css') }}">
+
+        {% block styles %}{% endblock %}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {% include('Backend/CommonViews/header.html.twig') %}
+
+            {% include('Backend/CommonViews/sidebar.new.html.twig') %}
+
+            <div class="content-wrapper">
+                <section class="content">
+                    {% block body %}
+
+                    {% endblock %}
+                </section>
+            </div>
+
+        </div>
+
+        <script src="{{ asset("/js/app.min.js") }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+
+        <script>
+            $('.sidebar-menu')
+                .find('a[href="'+window.location.pathname+'"]')
+                .parent()
+                .addClass('active');
+        </script>
+
+        {% block scripts %}{% endblock %}
+
+    </body>
+</html>
