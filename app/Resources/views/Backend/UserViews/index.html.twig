@@ -1,17 +1,11 @@
 {% extends 'Backend/layout.html.twig' %}
 
 {% block styles %}
-    <!-- DataTables CSS -->
-    <link href="{{ asset("/backend/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css") }}" rel="stylesheet">
-    <!-- DataTables Responsive CSS -->
-    <link href="{{ asset("/backend/bower_components/datatables-responsive/css/dataTables.responsive.css") }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.13/r-2.1.0/datatables.min.css"/>
 {% endblock %}
 
 {% block scripts %}
-    <!-- DataTables JavaScript -->
-    <script src="{{ asset("/backend/bower_components/datatables/media/js/jquery.dataTables.min.js") }}"></script>
-    <script src="{{ asset("/backend/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js") }}"></script>
-    <script src="{{ asset("/backend/bower_components/datatables-responsive/js/dataTables.responsive.js") }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.13/r-2.1.0/datatables.min.js"></script>
 
     <script type="text/javascript">
         $('table').DataTable({

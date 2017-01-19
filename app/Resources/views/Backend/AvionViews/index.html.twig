@@ -1,13 +1,9 @@
 {% extends 'Backend/layout.html.twig' %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('/backend/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="{{ asset('/backend/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset("/backend/bower_components/moment/min/moment-with-locales.min.js") }}"></script>
-    <script type="text/javascript" src="{{ asset('/backend/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript">
         $('#avion_servicio').on('change', function(){
             if ($(this).prop('checked')) {
@@ -28,7 +24,7 @@
             }
         });
 
-        jQuery(document).ready(function($) {
+        $(document).ready(function() {
             $('.datepicker').datetimepicker();
             $('.datepicker').each(function(){
                 var stringDate = $(this).attr('value');
