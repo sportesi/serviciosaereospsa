@@ -1,0 +1,10 @@
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+    background-image: url('/bundles/frontend/img/bg_img4.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}

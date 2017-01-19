@@ -16,11 +16,10 @@
 /vendor~/
 /web/bundles/
 *~
-/nbproject/private/
+/nbproject/*
 .bash_history
 .composer/
 .logs/
 .ssh/
 serviciosaereospsa/
 *.tar
-public_html/*
