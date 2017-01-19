@@ -444,7 +444,7 @@
       <workItem from="1484740966058" duration="4928000" />
       <workItem from="1484748061779" duration="8092000" />
       <workItem from="1484770371773" duration="122000" />
-      <workItem from="1484826747896" duration="13828000" />
+      <workItem from="1484826747896" duration="13845000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -747,11 +747,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484857603093</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Refactor directory tree">
+      <created>1484857618159</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1484857618159</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92223000" />
+    <option name="totallyTimeSpent" value="92240000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
