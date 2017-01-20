@@ -183,9 +183,9 @@ function disableFoxtrotSierra() {
             if (day.isSameOrAfter(fsd, 'day') && day.isSameOrBefore(fsh, 'day')) {
                 var tdStart = null ;
                 var count = 0;
-                $(this).find('td[data-hparsed]').each(function() {
+                $(this).find('td[data-horario]').each(function() {
                     var dataTr = $(this).data();
-                    var hparsed = parseInt(dataTr.hparsed) / 100;
+                    var hparsed = parseInt(dataTr.horario) / 100;
                     day.hour(hparsed);
                     if (day.isSameOrAfter(fsd) && day.isSameOrBefore(fsh)) {
                         if (!tdStart) {
@@ -194,6 +194,7 @@ function disableFoxtrotSierra() {
                             $(this).remove();
                         }
                         count++;
+
                     }
                 });
                 if (tdStart) {

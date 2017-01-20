@@ -92,10 +92,10 @@
                                 {% endfor %}
                             </tr>
                             <tr>
-                                <th width="1%">D&iacute;a</th>
-                                <th>Mat</th>
+                                <th width="1%" style="border-bottom: none !important;">D&iacute;a</th>
+                                <th style="border-bottom: none !important;">Mat</th>
                                 {% for itemHorario in horarios %}
-                                    <th>Piloto</th>
+                                    <th style="border-bottom: none !important;">Piloto</th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -106,33 +106,25 @@
                                     <td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ loop.index }}" class="rotate">{{ itemDia }}<br><b></b></td>
                                 </tr>
                                 {% for itemAvion in aviones %}
-                                    <tr data-dia="{{ itemDia }}" data-avion="{{ itemAvion.id }}"
-                                            {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' and not itemAvion.servicio %}
-                                                data-fsd="{{ itemAvion.desdeFueraServicio | json_encode() }}"
-                                                data-fsh="{{ itemAvion.hastaFueraServicio | json_encode() }}"
-                                                data-tfs="{{ itemAvion.tipoFueraServicio | json_encode() }}"
-                                                data-rfs="{{ itemAvion.razonFueraServicio | json_encode() }}"
-                                            {% endif %} >
-                                        <td class="td-avion">{{ itemAvion.matricula | replace({'LV-' : ''}) }}</td>
-                                        {% if itemAvion.tipoFueraServicio != 'Fuera de Servicio' %}
-                                            {% for itemHorario in horarios %}
-                                                {% set summer = ['1400', '2400'] %}
-                                                {% if itemHorario >= summer[0] and itemHorario <= summer[1] %}
-                                                    <td class="bg-disabled"></td>
-                                                {% else %}
-                                                    <td class="clickable"
-                                                        data-avion="{{ itemAvion.id }}"
-                                                        data-fecha="{{ fechaDia }}"
-                                                        data-horario="{{ itemHorario }}"
-                                                        id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}"
-                                                    >
-                                                        <div></div>
-                                                    </td>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            <td colspan="{{ horarios|length }}" class="bg-warning">{{ itemAvion.tipoFueraServicio }}: {{ itemAvion.razonFueraServicio }}</td>
-                                        {% endif %}
+                                    <tr data-dia="{{ itemDia }}" data-avion="{{ itemAvion.id }}">
+                                        {% set firstClass = loop.index == 1 ? 'first-plane-row' : '' %}
+                                        {% set lastClass = loop.last ? 'last-plane-row' : '' %}
+                                        <td class="td-avion {{ firstClass }} {{ lastClass }}">{{ itemAvion.matricula | replace({'LV-' : ''}) }}</td>
+                                        {% for itemHorario in horarios %}
+                                            {% set summer = ['1400', '2400'] %}
+                                            {% if itemHorario >= summer[0] and itemHorario <= summer[1] %}
+                                                <td class="bg-disabled {{ firstClass }} {{ lastClass }}"></td>
+                                            {% else %}
+                                                <td class="clickable {{ firstClass }} {{ lastClass }}"
+                                                    data-avion="{{ itemAvion.id }}"
+                                                    data-fecha="{{ fechaDia }}"
+                                                    data-horario="{{ itemHorario }}"
+                                                    id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}"
+                                                >
+                                                    <div></div>
+                                                </td>
+                                            {% endif %}
+                                        {% endfor %}
                                     </tr>
                                 {% endfor %}
                                 {% if loop.index is even %}
