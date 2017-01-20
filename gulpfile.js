@@ -17,7 +17,7 @@ var cssFiles = [
     'node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
     'node_modules/admin-lte/dist/css/AdminLTE.css',
     'node_modules/admin-lte/dist/css/skins/skin-blue.css',
-    'assets/backend/css/styles.css'
+    'assets/backend/css/*.css'
 ];
 
 gulp.task('compile-css', function () {
