@@ -113,7 +113,9 @@
                                         {% for itemHorario in horarios %}
                                             {% set summer = ['1400', '2400'] %}
                                             {% if itemHorario >= summer[0] and itemHorario <= summer[1] %}
-                                                <td class="bg-disabled {{ firstClass }} {{ lastClass }}"></td>
+                                                <td class="bg-disabled {{ firstClass }} {{ lastClass }}"
+                                                    id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}">
+                                                </td>
                                             {% else %}
                                                 <td class="clickable {{ firstClass }} {{ lastClass }}"
                                                     data-avion="{{ itemAvion.id }}"

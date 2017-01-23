@@ -8,7 +8,7 @@ var cleanCss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var sourceMaps = require('gulp-sourcemaps');
 
-gulp.task('default', ['watch', 'compile-css', 'compile-js']);
+gulp.task('default', ['compile-css', 'compile-js']);
 
 var cssFiles = [
     'node_modules/bootstrap/dist/css/bootstrap.css',
@@ -28,15 +28,15 @@ gulp.task('compile-css', function () {
 });
 
 var jsFiles = [
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/bootstrap/dist/js/bootstrap.js',
-    'node_modules/bootstrap-sweetalert/dist/sweetalert.js',
-    'node_modules/moment/min/moment-with-locales.js',
-    'node_modules/select2/dist/js/select2.full.js',
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/bootstrap-sweetalert/dist/sweetalert.min.js',
+    'node_modules/moment/min/moment-with-locales.min.js',
+    'node_modules/select2/dist/js/select2.full.min.js',
     'node_modules/select2/dist/js/i18n/es.js',
-    'node_modules/lodash/lodash.js',
-    'node_modules/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
-    'node_modules/admin-lte/dist/js/app.js',
+    'node_modules/lodash/lodash.min.js',
+    'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+    'node_modules/admin-lte/dist/js/app.min.js',
     'assets/backend/scripts/main.js'
 ];
 

@@ -67,14 +67,14 @@ function deleteEvent() {
         $.ajax({
             url: '/backend/turno/delete',
             type: 'DELETE',
-            data: { 'ids': getSelected() }
+            data: {'ids': getSelected()}
         })
-            .done(function() {
+            .done(function () {
                 $('#newEvent').modal('hide');
                 selectedDatesDelete = [];
                 loadEvents();
             })
-            .fail(function() {
+            .fail(function () {
                 swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
             });
     });
@@ -92,11 +92,11 @@ function saveEvent(edit) {
         return;
     }
 
-    $.post((edit ? urlUpdate : urlCreate), parameters, function(){
+    $.post((edit ? urlUpdate : urlCreate), parameters, function () {
         $('#newEvent').modal('hide');
         selectedDates = [];
         loadEvents();
-    }).fail(function(response){
+    }).fail(function (response) {
         swal('Atención', response, 'warning');
     });
 }
@@ -172,39 +172,28 @@ function setPopoverOn() {
 }
 
 function disableFoxtrotSierra() {
-    $('tr[data-fsd]').each(function() {
-        var data = $(this).data();
-        if (data.fsd) {
-            var day = moment(date).startOf('isoweek').day(data.dia);
-            var fsd = moment(data.fsd.date);
-            var fsh = moment(data.fsh.date);
-            var tfs = data.tfs;
-            var rfs = data.rfs;
-            if (day.isSameOrAfter(fsd, 'day') && day.isSameOrBefore(fsh, 'day')) {
-                var tdStart = null ;
-                var count = 0;
-                $(this).find('td[data-horario]').each(function() {
-                    var dataTr = $(this).data();
-                    var hparsed = parseInt(dataTr.horario) / 100;
-                    day.hour(hparsed);
-                    if (day.isSameOrAfter(fsd) && day.isSameOrBefore(fsh)) {
-                        if (!tdStart) {
-                            tdStart = $(this);
-                        } else {
-                            $(this).remove();
+    $.getJSON('/backend/avion/disabled', function (planes) {
+        for (i = 0; i < planes.length; i++) {
+            if (!planes[i].servicio && planes[i].desdeFueraServicio && planes[i].hastaFueraServicio) {
+                var lt = planes[i].desdeFueraServicio.timestamp;
+                var gt = planes[i].hastaFueraServicio.timestamp;
+                var diff = moment.unix(gt).diff(moment.unix(lt), 'hours');
+                for (h = 1; h <= diff; h++) {
+                    var day = moment.unix(lt).add(h, 'hours');
+                    var id = planes[i].id + day.format('YYYYMMDDHH00');
+                    var td = $('td#' + id);
+                    td.addClass('bg-service');
+                    if (td.find('div').text().trim() === "") {
+                        if (!td.find('div').length) {
+                            td.append('<div></div>');
                         }
-                        count++;
-
+                        td.find('div').text('F/S').data('content', planes[i].razonFueraServicio);
                     }
-                });
-                if (tdStart) {
-                    tdStart.attr('colspan', count);
-                    tdStart.text(tfs + ': ' + rfs);
-                    tdStart.addClass('bg-warning');
                 }
             }
         }
     });
+
 }
 
 function loadEvents() {
@@ -214,7 +203,7 @@ function loadEvents() {
         for (var i = 0; i < response.length; i++) {
             var turno = response[i];
 
-            var cell = $('#'+turno.avion.id+moment.unix(turno.fecha.timestamp).format('YYYYMMDDHHmm'));
+            var cell = $('#' + turno.avion.id + moment.unix(turno.fecha.timestamp).format('YYYYMMDDHHmm'));
             if (turno.user) {
                 if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
                     cell.addClass('bg-piloto');
@@ -236,7 +225,7 @@ function loadEvents() {
     });
 }
 
-function getSelected(){
+function getSelected() {
     var idArray = [];
     if (selectedDatesDelete.length === 0) {
         idArray.push($('[name="turno[id]"]').val());
@@ -246,7 +235,7 @@ function getSelected(){
     return idArray;
 }
 
-function cleanGrid(){
+function cleanGrid() {
     $('td.clickable')
         .removeData('turno')
         .removeClass('bg-piloto')

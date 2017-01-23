@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class AvionController
@@ -169,5 +173,20 @@ class AvionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($avion);
         $em->flush();
+    }
+
+    /**
+     * @Route("/disabled")
+     * @Method("GET")
+     * @return Response
+     */
+    public function disabledAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
+
+        $serializer = new Serializer([new ObjectNormalizer()], [new XmlEncoder(), new JsonEncoder()]);
+
+        return new Response($serializer->serialize($aviones, 'json'));
     }
 }

@@ -55,3 +55,14 @@
 .rotate {
     border-right: 2px solid #a0a0a0 !important;
 }
+
+.bg-service {
+    background-color: #ffeb84;
+    border: 0 !important;
+}
+
+.bg-alumno.bg-service, .bg-piloto.bg-service {
+    background-color: crimson !important;
+    color: white;
+    border: 0 !important;
+}
