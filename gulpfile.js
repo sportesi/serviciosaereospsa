@@ -37,7 +37,6 @@ var jsFiles = [
     'node_modules/lodash/lodash.min.js',
     'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
     'node_modules/admin-lte/dist/js/app.min.js',
-    'assets/backend/scripts/main.js'
 ];
 
 gulp.task('compile-js', function () {

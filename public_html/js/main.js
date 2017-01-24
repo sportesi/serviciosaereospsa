@@ -155,7 +155,7 @@ function switchMode() {
 }
 
 function setPopoverOn() {
-    $('td.bg-piloto div, td.bg-alumno div')
+    $('td div, td div')
         .off('mouseover')
         .on('mouseover', function () {
             if ($(this).data('content')) {
@@ -187,8 +187,13 @@ function disableFoxtrotSierra() {
                         if (!td.find('div').length) {
                             td.append('<div></div>');
                         }
-                        td.find('div').text('F/S').data('content', planes[i].razonFueraServicio);
+                        td.find('div').text('F/S');
+                        if (td.find('div').data('content') !== "") {
+                            td.find('div').data('content', planes[i].razonFueraServicio);
+                        }
                     }
+                    setPopoverOn();
+                    // Al parecer cuando tiene la clase bg-alumno/piloto + bg-service, el popover falla.
                 }
             }
         }
