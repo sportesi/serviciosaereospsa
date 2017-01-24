@@ -193,7 +193,6 @@ function disableFoxtrotSierra() {
                         }
                     }
                     setPopoverOn();
-                    // Al parecer cuando tiene la clase bg-alumno/piloto + bg-service, el popover falla.
                 }
             }
         }
