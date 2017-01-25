@@ -31,4 +31,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllUsers()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select(['u', 'd'])
+            ->from('AppBundle:User', 'u')
+            ->innerJoin('u.userData', 'd')
+            ->where('u.roles not like :role')
+            ->setParameter('role', '%ADMIN%');
+
+        return $qb->getQuery()->getResult();
+    }
 }
