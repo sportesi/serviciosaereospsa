@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Backend;
 
 use AppBundle\Entity\Turno;
 use AppBundle\Form\TurnoType;
+use AppBundle\Repository\TurnoRepository;
 use AppBundle\ValueObjects\Dia;
 use AppBundle\ValueObjects\Horario;
 use DateTime;
@@ -173,21 +174,39 @@ class TurnoController extends Controller
             return $object->getId();
         });
 
+        $ignored = [
+            'turno',
+            'password',
+            'salt',
+            'plainPassword',
+            'username',
+            'usernameCanonical',
+            'emailCanonical',
+            'lastLogin',
+            'confirmationToken',
+            'accountNonExpired',
+            'accountNonLocked',
+            'credentialsNonExpired',
+            'enabled',
+            'superAdmin',
+            'passwordRequestedAt',
+            'timezone',
+            'offset',
+            'groups',
+            'groupNames',
+            '__initializer__',
+            '__cloner__',
+            '__isInitialized__',
+            'avionOrder'
+        ];
+
+        $normalizer->setIgnoredAttributes($ignored);
+
         $serializer = new Serializer([$normalizer], $encoders);
 
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+        $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
 
-        $qb->select(['t'])
-            ->from('AppBundle:Turno', 't');
-
-        $qb->where('t.fecha BETWEEN :start AND :end')
-            ->setParameter('start', $request->query->get('start'))
-            ->setParameter('end', $request->query->get('end'));
-
-        $turnos = $qb->getQuery()->getResult();
-
-        $jsonContent = $serializer->serialize($turnos, 'json');
+        $jsonContent = $serializer->serialize($repo->findByRole($this->getUser(), $request), 'json');
         return new Response($jsonContent);
     }
 

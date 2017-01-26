@@ -15,15 +15,7 @@ class DefaultController extends Controller
      */
     public function lgCheckAction()
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_backend_turno_index');
-        }
-        if ($this->isGranted('ROLE_PILOT')) {
-            return $this->redirectToRoute('FrontendTurnoHomepage');
-        }
-        if ($this->isGranted('ROLE_ALUMN')) {
-            return $this->redirectToRoute('FrontendTurnoHomepage');
-        }
+        return $this->redirectToRoute('app_backend_turno_index');
     }
 
     /**

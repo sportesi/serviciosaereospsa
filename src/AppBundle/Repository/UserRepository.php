@@ -13,6 +13,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findByRole($role)
     {
         $qb = $this->_em->createQueryBuilder();
+
         $qb->select(['u', 'd'])
             ->from('AppBundle:User', 'u')
             ->innerJoin('u.userData', 'd')

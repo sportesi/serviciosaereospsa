@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Turno
@@ -48,6 +49,7 @@ class Turno
      * @ORM\ManyToOne(targetEntity="User", inversedBy="turno")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
+     * @MaxDepth(1)
      */
     private $user;
 
