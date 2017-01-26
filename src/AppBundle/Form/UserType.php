@@ -25,6 +25,9 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             ->add('userData', UserDataType::class)
+            ->add('enabled', null, [
+                'label' => 'Activo (Si el usuario no esta activo, no podra iniciar sesión)'
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => $permissions,
                 'multiple' => true,

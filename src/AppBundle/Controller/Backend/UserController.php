@@ -26,6 +26,7 @@ class UserController extends Controller
     /**
      * @Route("/")
      * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
