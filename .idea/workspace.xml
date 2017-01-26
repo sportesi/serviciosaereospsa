@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/Backend/UserViews/edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/Backend/UserViews/edit.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" />
     </list>
     <ignored path=".idea/inspectionProfiles/Project_Default.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,22 +21,14 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserType.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/UserType.php">
+      <file leaf-file-name="AvionController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="28" column="90" lean-forward="false" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/UserViews/edit.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="73" column="55" lean-forward="false" selection-start-line="73" selection-start-column="55" selection-end-line="73" selection-end-column="55" />
-              <folding />
+            <state relative-caret-position="306">
+              <caret line="183" column="37" lean-forward="false" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+              <folding>
+                <element signature="e#48#75#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,7 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/TurnoViews/modal.new.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/PilotoViews/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Controller/PilotoController.php" />
         <option value="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/sidebar.new.html.twig" />
@@ -139,7 +129,6 @@
         <option value="$PROJECT_DIR$/assets/backend/css/login.css" />
         <option value="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Security/login.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php" />
         <option value="$PROJECT_DIR$/assets/backend/scripts/main.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/assets/backend/css/styles.css" />
@@ -147,7 +136,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/Backend/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/Frontend/TurnoViews/index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Frontend/DefaultController.php" />
-        <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/Frontend/layout.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/Backend/TurnoViews/index.html.twig" />
         <option value="$PROJECT_DIR$/public_html/js/main.js" />
@@ -157,9 +145,12 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/Backend/CommonViews/sidebar.new.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/Backend/UserViews/edit.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/UserType.php" />
+        <option value="$PROJECT_DIR$/app/config/security.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Avion.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php" />
       </list>
     </option>
   </component>
@@ -478,14 +469,7 @@
       <workItem from="1485260033434" duration="2015000" />
       <workItem from="1485289710285" duration="1600000" />
       <workItem from="1485347824158" duration="4741000" />
-      <workItem from="1485435132137" duration="7149000" />
-    </task>
-    <task id="LOCAL-00005" summary="Changed title">
-      <created>1483715058384</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1483715058384</updated>
+      <workItem from="1485435132137" duration="8135000" />
     </task>
     <task id="LOCAL-00006" summary="Changed stuff">
       <created>1484329002698</created>
@@ -823,11 +807,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485442382973</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="added super-widget 2.0.">
+      <created>1485443471627</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1485443471627</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120102000" />
+    <option name="totallyTimeSpent" value="121088000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="24" width="1311" height="744" extended-state="6" />
@@ -900,7 +891,8 @@
     <MESSAGE value="Terminado el tema de los aviones en mantenimiento" />
     <MESSAGE value="Los usuarios que se listan en la grilla de turnos no son ADMIN ahora" />
     <MESSAGE value="hey, look over there!" />
-    <option name="LAST_COMMIT_MESSAGE" value="hey, look over there!" />
+    <MESSAGE value="added super-widget 2.0." />
+    <option name="LAST_COMMIT_MESSAGE" value="added super-widget 2.0." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -909,13 +901,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/AppCache.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1085,13 +1070,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="179" column="14" lean-forward="false" selection-start-line="179" selection-start-column="14" selection-end-line="179" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
@@ -1127,14 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/security.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1320,65 +1290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="247" column="21" lean-forward="false" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="21" />
-          <folding>
-            <element signature="e#477#503#0#PHP" expanded="false" />
-            <element signature="e#550#597#0#PHP" expanded="false" />
-            <element signature="e#624#734#0#PHP" expanded="false" />
-            <element signature="e#739#1179#0#PHP" expanded="false" />
-            <element signature="e#907#1172#0#PHP" expanded="false" />
-            <element signature="e#958#1171#0#PHP" expanded="false" />
-            <element signature="e#1014#1161#1#PHP" expanded="false" />
-            <element signature="e#1185#1329#0#PHP" expanded="false" />
-            <element signature="e#1334#1827#0#PHP" expanded="false" />
-            <element signature="e#1405#1737#0#PHP" expanded="false" />
-            <element signature="e#1833#2019#0#PHP" expanded="false" />
-            <element signature="e#2024#2289#0#PHP" expanded="false" />
-            <element signature="e#2295#2408#0#PHP" expanded="false" />
-            <element signature="e#2413#2604#0#PHP" expanded="false" />
-            <element signature="e#2462#2597#0#PHP" expanded="false" />
-            <element signature="e#2512#2596#0#PHP" expanded="false" />
-            <element signature="e#2610#2809#0#PHP" expanded="false" />
-            <element signature="e#3593#3750#0#PHP" expanded="false" />
-            <element signature="e#3755#3972#0#PHP" expanded="false" />
-            <element signature="e#3978#4109#0#PHP" expanded="false" />
-            <element signature="e#4114#4985#0#PHP" expanded="false" />
-            <element signature="e#4333#4412#0#PHP" expanded="false" />
-            <element signature="e#4333#4501#0#PHP" expanded="false" />
-            <element signature="e#4333#4542#0#PHP" expanded="false" />
-            <element signature="e#4333#4789#0#PHP" expanded="false" />
-            <element signature="e#4565#4775#0#PHP" expanded="false" />
-            <element signature="e#4626#4761#0#PHP" expanded="false" />
-            <element signature="e#4991#5124#0#PHP" expanded="false" />
-            <element signature="e#5129#6046#0#PHP" expanded="false" />
-            <element signature="e#5434#5523#0#PHP" expanded="false" />
-            <element signature="e#5434#5612#0#PHP" expanded="false" />
-            <element signature="e#5434#5653#0#PHP" expanded="false" />
-            <element signature="e#5434#5902#0#PHP" expanded="false" />
-            <element signature="e#5676#5888#0#PHP" expanded="false" />
-            <element signature="e#5739#5874#0#PHP" expanded="false" />
-            <element signature="e#6052#6139#0#PHP" expanded="false" />
-            <element signature="e#6144#6301#0#PHP" expanded="false" />
-            <element signature="e#6307#6412#0#PHP" expanded="false" />
-            <element signature="e#6417#6812#0#PHP" expanded="false" />
-            <element signature="e#6664#6805#0#PHP" expanded="false" />
-            <element signature="e#6743#6795#0#PHP" expanded="false" />
-            <element signature="e#6818#6874#0#PHP" expanded="false" />
-            <element signature="e#6879#7131#0#PHP" expanded="false" />
-            <element signature="e#6943#7066#0#PHP" expanded="false" />
-            <element signature="e#6943#7100#0#PHP" expanded="false" />
-            <element signature="e#7137#7193#0#PHP" expanded="false" />
-            <element signature="e#7198#7446#0#PHP" expanded="false" />
-            <element signature="e#7261#7383#0#PHP" expanded="false" />
-            <element signature="e#7261#7415#0#PHP" expanded="false" />
-            <element signature="e#7452#7488#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1386,6 +1297,14 @@
           <folding>
             <element signature="e#36#78#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/UserType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="28" column="90" lean-forward="false" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1397,11 +1316,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/UserType.php">
+    <entry file="file://$PROJECT_DIR$/app/config/security.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="28" column="90" lean-forward="false" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
+        <state relative-caret-position="504">
+          <caret line="33" column="47" lean-forward="false" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Avion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="32" lean-forward="true" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="14" column="62" lean-forward="false" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
+          <folding>
+            <element signature="e#48#74#0#PHP" expanded="true" />
+            <element signature="e#652#699#0#PHP" expanded="false" />
+            <element signature="e#726#836#0#PHP" expanded="false" />
+            <element signature="e#841#1281#0#PHP" expanded="false" />
+            <element signature="e#1009#1274#0#PHP" expanded="false" />
+            <element signature="e#1060#1273#0#PHP" expanded="false" />
+            <element signature="e#1116#1263#1#PHP" expanded="false" />
+            <element signature="e#1287#1431#0#PHP" expanded="false" />
+            <element signature="e#1436#1929#0#PHP" expanded="false" />
+            <element signature="e#1507#1839#0#PHP" expanded="false" />
+            <element signature="e#1935#2121#0#PHP" expanded="false" />
+            <element signature="e#2126#2391#0#PHP" expanded="false" />
+            <element signature="e#2397#2510#0#PHP" expanded="false" />
+            <element signature="e#2515#2706#0#PHP" expanded="false" />
+            <element signature="e#2564#2699#0#PHP" expanded="false" />
+            <element signature="e#2614#2698#0#PHP" expanded="false" />
+            <element signature="e#2712#2911#0#PHP" expanded="false" />
+            <element signature="e#3695#3852#0#PHP" expanded="false" />
+            <element signature="e#3857#4074#0#PHP" expanded="false" />
+            <element signature="e#4080#4211#0#PHP" expanded="false" />
+            <element signature="e#4216#5087#0#PHP" expanded="false" />
+            <element signature="e#4435#4514#0#PHP" expanded="false" />
+            <element signature="e#4435#4603#0#PHP" expanded="false" />
+            <element signature="e#4435#4644#0#PHP" expanded="false" />
+            <element signature="e#4435#4891#0#PHP" expanded="false" />
+            <element signature="e#4667#4877#0#PHP" expanded="false" />
+            <element signature="e#4728#4863#0#PHP" expanded="false" />
+            <element signature="e#5093#5226#0#PHP" expanded="false" />
+            <element signature="e#5231#6148#0#PHP" expanded="false" />
+            <element signature="e#5536#5625#0#PHP" expanded="false" />
+            <element signature="e#5536#5714#0#PHP" expanded="false" />
+            <element signature="e#5536#5755#0#PHP" expanded="false" />
+            <element signature="e#5536#6004#0#PHP" expanded="false" />
+            <element signature="e#5778#5990#0#PHP" expanded="false" />
+            <element signature="e#5841#5976#0#PHP" expanded="false" />
+            <element signature="e#6154#6241#0#PHP" expanded="false" />
+            <element signature="e#6246#6403#0#PHP" expanded="false" />
+            <element signature="e#6409#6514#0#PHP" expanded="false" />
+            <element signature="e#6519#6914#0#PHP" expanded="false" />
+            <element signature="e#6766#6907#0#PHP" expanded="false" />
+            <element signature="e#6845#6897#0#PHP" expanded="false" />
+            <element signature="e#6920#6976#0#PHP" expanded="false" />
+            <element signature="e#6981#7233#0#PHP" expanded="false" />
+            <element signature="e#7045#7168#0#PHP" expanded="false" />
+            <element signature="e#7045#7202#0#PHP" expanded="false" />
+            <element signature="e#7239#7295#0#PHP" expanded="false" />
+            <element signature="e#7300#7548#0#PHP" expanded="false" />
+            <element signature="e#7363#7485#0#PHP" expanded="false" />
+            <element signature="e#7363#7517#0#PHP" expanded="false" />
+            <element signature="e#7554#7590#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="183" column="37" lean-forward="false" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+          <folding>
+            <element signature="e#48#75#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

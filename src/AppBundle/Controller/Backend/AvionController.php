@@ -13,32 +13,34 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class AvionController
  * @package BackendBundle\Controller
  * @Route("/avion")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class AvionController extends Controller
 {
-	/**
-	 * @Route("/")
-	 * @Method("GET")
+    /**
+     * @Route("/")
+     * @Method("GET")
      * @return Response
      */
-	public function indexAction()
-	{
-		$em = $this->getDoctrine()->getManager();
-		$aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
 
-		$pageData = [
+        $pageData = [
             'aviones' => $aviones,
             'form' => $this->getAvionForm(new Avion())->createView(),
             'editar' => false,
         ];
 
-	    return $this->render('Backend/AvionViews/index.html.twig', $pageData);
-	}
+        return $this->render('Backend/AvionViews/index.html.twig', $pageData);
+    }
 
     /**
      * @Route("/create")
@@ -46,20 +48,20 @@ class AvionController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-	public function postAction(Request $request)
-	{
-	    $avion = $this->parseAvionRequest($request, new Avion());
-	    $this->persistAvion($avion);
+    public function postAction(Request $request)
+    {
+        $avion = $this->parseAvionRequest($request, new Avion());
+        $this->persistAvion($avion);
 
-	    return $this->redirect(
-	        $this->generateUrl(
-	            'app_backend_avion_edit',
+        return $this->redirect(
+            $this->generateUrl(
+                'app_backend_avion_edit',
                 [
                     'id' => $avion->getId(),
                 ]
             )
         );
-	}
+    }
 
     /**
      * @Route("/edit/{id}")
@@ -67,19 +69,19 @@ class AvionController extends Controller
      * @param Avion $avion
      * @return Response
      */
-	public function editAction(Avion $avion)
-	{
-	    $em = $this->getDoctrine()->getManager();
-		$aviones = $em->getRepository('AppBundle:Avion')->findAll();
+    public function editAction(Avion $avion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $aviones = $em->getRepository('AppBundle:Avion')->findAll();
 
-		$pageData = [
+        $pageData = [
             'aviones' => $aviones,
             'form' => $this->getAvionForm($avion, true)->createView(),
             'editar' => true,
         ];
 
-		return $this->render('Backend/AvionViews/index.html.twig', $pageData);
-	}
+        return $this->render('Backend/AvionViews/index.html.twig', $pageData);
+    }
 
     /**
      * @Route("/update/{id}")
@@ -92,7 +94,7 @@ class AvionController extends Controller
         $avion = $this->parseAvionRequest($request, $avion);
         $this->persistAvion($avion);
         return $this->redirectToRoute('app_backend_avion_edit', ['id' => $avion->getId()]);
-	}
+    }
 
     /**
      * @Route("/delete/{id}")
@@ -100,14 +102,14 @@ class AvionController extends Controller
      * @param Avion $avion
      * @return Response
      */
-	public function deleteAction(Avion $avion)
-	{
+    public function deleteAction(Avion $avion)
+    {
         $em = $this->getDoctrine()->getManager();
         $em->remove($avion);
         $em->flush();
 
-    	return new Response('');
-	}
+        return new Response('');
+    }
 
     /**
      * @Route("/order")
@@ -115,25 +117,25 @@ class AvionController extends Controller
      * @param Request $request
      * @return Response
      */
-	public function setOrderAction(Request $request)
-	{
-		$avionOrder = $request->request->get('order');
-	    $em = $this->getDoctrine()->getManager();
-	    $qb = $em->createQueryBuilder();
-	    $qb->select('a')
-	    ->from('AppBundle:Avion', 'a')
-	    ->where($qb->expr()->in('a.id', $avionOrder));
+    public function setOrderAction(Request $request)
+    {
+        $avionOrder = $request->request->get('order');
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('a')
+            ->from('AppBundle:Avion', 'a')
+            ->where($qb->expr()->in('a.id', $avionOrder));
 
-	    $aviones = $qb->getQuery()->getResult();
+        $aviones = $qb->getQuery()->getResult();
 
-	    foreach ($aviones as $avion) {
-	    	$avion->setAvionOrder(array_search($avion->getId(), $avionOrder));
-	    }
+        foreach ($aviones as $avion) {
+            $avion->setAvionOrder(array_search($avion->getId(), $avionOrder));
+        }
 
-	    $em->flush();
+        $em->flush();
 
-	    return new Response();
-	}
+        return new Response();
+    }
 
     /**
      * @param Request $request
@@ -179,6 +181,7 @@ class AvionController extends Controller
      * @Route("/disabled")
      * @Method("GET")
      * @return Response
+     * @Security("has_role('ROLE_USER')")
      */
     public function disabledAction()
     {
