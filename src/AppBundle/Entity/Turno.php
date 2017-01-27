@@ -4,11 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Turno
  *
- * @ORM\Table(name="turno")
+ * @ORM\Table(name="turno", uniqueConstraints={@UniqueConstraint(name="turno_fecha_idx", columns={"fecha", "id_avion"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurnoRepository")
  */
 class Turno

@@ -97,7 +97,7 @@ function saveEvent(edit) {
         selectedDates = [];
         loadEvents();
     }).fail(function (response) {
-        swal('Atención', response, 'warning');
+        swal('Atención', response.responseText, 'warning');
     });
 }
 
@@ -215,6 +215,10 @@ function loadEvents() {
                     cell.addClass('bg-alumno');
                 }
                 cell.find('div').text(turno.user.userData.lastName.toLowerCase());
+            } else {
+                cell.removeClass().addClass('bg-disabled');
+                cell.find('div').text('');
+                cell.find('div').data('content', '');
             }
             if (turno.comentario) {
                 cell.find('div').data('content', turno.comentario);

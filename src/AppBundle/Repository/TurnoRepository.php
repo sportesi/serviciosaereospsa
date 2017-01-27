@@ -14,4 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class TurnoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByNotUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb->from('AppBundle:Turno', 'u')
+            ->where('t.user != :user')
+            ->setParameter('user', $user);
+        return $qb->getQuery()->getResult();
+    }
 }

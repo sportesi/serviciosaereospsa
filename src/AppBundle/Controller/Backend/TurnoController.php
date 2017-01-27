@@ -8,7 +8,9 @@ use AppBundle\Repository\TurnoRepository;
 use AppBundle\ValueObjects\Dia;
 use AppBundle\ValueObjects\Horario;
 use DateTime;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -117,10 +119,12 @@ class TurnoController extends Controller
         $fechaVieja = $turno->getFecha();
         $turnoRequest = $request->request->get('turno');
         $turnoUpdate = $this->parseTurnoRequest($request, $turno);
-        $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
-        $this->notifyChange($turno, $fechaVieja);
+        $response = $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
+        if ($response->getStatusCode() != 500) {
+            $this->notifyChange($turno, $fechaVieja);
+        }
 
-        return new Response('');
+        return $response;
     }
 
     /**
@@ -128,6 +132,7 @@ class TurnoController extends Controller
      * @param $fecha
      * @param $horario
      * @param null $avion
+     * @return Response
      */
     private function persistTurno(Turno $turno, $fecha, $horario, $avion = null)
     {
@@ -143,8 +148,13 @@ class TurnoController extends Controller
             $turno->setAvion($em->getRepository('AppBundle:Avion')->find($avion));
         }
 
-        $em->persist($turno);
-        $em->flush();
+        try {
+            $em->persist($turno);
+            $em->flush();
+        } catch (UniqueConstraintViolationException $ex) {
+            return new Response('No se puede cargar dos turnos en el mismo horario', 500);
+        }
+        return new Response('');
     }
 
     /**
@@ -212,14 +222,67 @@ class TurnoController extends Controller
          * lo ponga grisado y le elimine la clase "clickable"
          */
 
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $ignored[] = 'user';
+        }
+
         $normalizer->setIgnoredAttributes($ignored);
-
         $serializer = new Serializer([$normalizer], $encoders);
-
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
 
-        $jsonContent = $serializer->serialize($repo->findAll(), 'json');
-        return new Response($jsonContent);
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $serializedContent = json_decode($serializer->serialize(
+                $repo->findByNotUser($this->getUser()),
+                'json'
+            ));
+            $response = json_encode(array_merge($serializedContent, $this->getTurnosByUser()));
+        } else {
+            $serializedContent = json_decode($serializer->serialize($repo->findAll(), 'json'));
+            $response = json_encode($serializedContent);
+        }
+
+        return new Response($response);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getTurnosByUser()
+    {
+        $ignored = [
+            'turno',
+            'password',
+            'salt',
+            'plainPassword',
+            'username',
+            'usernameCanonical',
+            'emailCanonical',
+            'lastLogin',
+            'confirmationToken',
+            'accountNonExpired',
+            'accountNonLocked',
+            'credentialsNonExpired',
+            'enabled',
+            'superAdmin',
+            'passwordRequestedAt',
+            'timezone',
+            'offset',
+            'groups',
+            'groupNames',
+            '__initializer__',
+            '__cloner__',
+            '__isInitialized__',
+            'avionOrder'
+        ];
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizer->setIgnoredAttributes($ignored);
+        $serializer = new Serializer([$normalizer], $encoders);
+        $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
+        return json_decode($serializer->serialize($repo->findByUser($this->getUser()), 'json'));
     }
 
     /**
