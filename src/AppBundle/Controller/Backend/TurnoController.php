@@ -200,13 +200,25 @@ class TurnoController extends Controller
             'avionOrder'
         ];
 
+        /**
+         * Para filtrar que data voy a mostrar en el json, dependiendo
+         * quien este logueado, podria usar el siguiente metodo (setIgnoradeAttr)
+         * y agregarle que no muestre el usuario cuando el requester no sea ADMIN.
+         * Entonces, si el usuario es admin, uso findAll.
+         * Si el usuario es PILOT o ALUMN, uso findAll y deberia agregar un
+         * segundo metodo privado, que me traiga los turnos del usuario, y los
+         * concatene a la coleccion anterior (la cual no tiene los usuarios)
+         * Despues, deberia desde el JS, agregar que si no encuentra el usuario,
+         * lo ponga grisado y le elimine la clase "clickable"
+         */
+
         $normalizer->setIgnoredAttributes($ignored);
 
         $serializer = new Serializer([$normalizer], $encoders);
 
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
 
-        $jsonContent = $serializer->serialize($repo->findByRole($this->getUser(), $request), 'json');
+        $jsonContent = $serializer->serialize($repo->findAll(), 'json');
         return new Response($jsonContent);
     }
 
@@ -216,7 +228,7 @@ class TurnoController extends Controller
      */
     private function notifyChange(Turno $turno, DateTime $fechaVieja)
     {
-        $nombre = $turno->getUser()->getUserData()->getName()." ".$turno->getUser()->getUserData()->getLastName();
+        $nombre = $turno->getUser()->getUserData()->getName() . " " . $turno->getUser()->getUserData()->getLastName();
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Aviso de cambio de turno')
