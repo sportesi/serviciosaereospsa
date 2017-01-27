@@ -148,6 +148,10 @@ class TurnoController extends Controller
             $turno->setAvion($em->getRepository('AppBundle:Avion')->find($avion));
         }
 
+        if ($turno->getFecha() >= $turno->getAvion()->getDesdeFueraServicio() && $turno->getFecha() <= $turno->getAvion()->getHastaFueraServicio()) {
+            return new Response('No se puede cargar un turno sobre un avion fuera de servicio', 500);
+        }
+
         try {
             $em->persist($turno);
             $em->flush();

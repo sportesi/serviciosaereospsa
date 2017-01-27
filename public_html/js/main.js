@@ -191,6 +191,8 @@ function disableFoxtrotSierra() {
                         if (td.find('div').data('content') !== "") {
                             td.find('div').data('content', planes[i].razonFueraServicio);
                         }
+                        td.removeClass('clickable');
+                        td.off('click');
                     }
                     setPopoverOn();
                 }
