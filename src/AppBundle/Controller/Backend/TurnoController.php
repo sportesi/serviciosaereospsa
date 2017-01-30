@@ -67,19 +67,23 @@ class TurnoController extends Controller
      */
     public function createAction(Request $request)
     {
-        $created = [];
-        $turnoRequest = $request->request->get('turno');
-        if ($turnoRequest['multiple']) {
-            $multiple = json_decode($turnoRequest['selected-dates']);
-            foreach ($multiple as $item) {
+        try {
+            $created = [];
+            $turnoRequest = $request->request->get('turno');
+            if ($turnoRequest['multiple']) {
+                $multiple = json_decode($turnoRequest['selected-dates']);
+                foreach ($multiple as $item) {
+                    $turno = $this->parseTurnoRequest($request, new Turno());
+                    $this->persistTurno($turno, $item->fecha, $item->horario, $item->avion);
+                    $created[] = $turno->getId();
+                }
+            } else {
                 $turno = $this->parseTurnoRequest($request, new Turno());
-                $this->persistTurno($turno, $item->fecha, $item->horario, $item->avion);
+                $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
                 $created[] = $turno->getId();
             }
-        } else {
-            $turno = $this->parseTurnoRequest($request, new Turno());
-            $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
-            $created[] = $turno->getId();
+        } catch (\Exception $ex) {
+            return new Response($ex->getMessage(), 500);
         }
 
         return new JsonResponse($created);
@@ -116,15 +120,17 @@ class TurnoController extends Controller
      */
     public function updateAction(Request $request, Turno $turno)
     {
-        $fechaVieja = $turno->getFecha();
-        $turnoRequest = $request->request->get('turno');
-        $turnoUpdate = $this->parseTurnoRequest($request, $turno);
-        $response = $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
-        if ($response->getStatusCode() != 500) {
+        try {
+            $fechaVieja = $turno->getFecha();
+            $turnoRequest = $request->request->get('turno');
+            $turnoUpdate = $this->parseTurnoRequest($request, $turno);
+            $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
             $this->notifyChange($turno, $fechaVieja);
+        } catch (\Exception $ex) {
+            return new Response($ex->getMessage(), 500);
         }
 
-        return $response;
+        return new Response('');
     }
 
     /**
@@ -132,7 +138,7 @@ class TurnoController extends Controller
      * @param $fecha
      * @param $horario
      * @param null $avion
-     * @return Response
+     * @throws \Exception
      */
     private function persistTurno(Turno $turno, $fecha, $horario, $avion = null)
     {
@@ -149,16 +155,22 @@ class TurnoController extends Controller
         }
 
         if ($turno->getFecha() >= $turno->getAvion()->getDesdeFueraServicio() && $turno->getFecha() <= $turno->getAvion()->getHastaFueraServicio()) {
-            return new Response('No se puede cargar un turno sobre un avion fuera de servicio', 500);
+            throw new \Exception('No se puede cargar un turno sobre un avion fuera de servicio');
         }
+
+        if (!$this->isGranted('ROLE_ADMIN') && $this->getUser() != $turno->getUser())
+        {
+            throw new \Exception('No tenes permiso para realizar esta acción');
+        }
+
+        $this->checkUserLimit($turno);
 
         try {
             $em->persist($turno);
             $em->flush();
         } catch (UniqueConstraintViolationException $ex) {
-            return new Response('No se puede cargar dos turnos en el mismo horario', 500);
+            throw new \Exception('No se puede cargar dos turnos en el mismo horario');
         }
-        return new Response('');
     }
 
     /**
@@ -313,5 +325,14 @@ class TurnoController extends Controller
                 ]
             ), 'text/html');
         $this->get('mailer')->send($message);
+    }
+
+    /**
+     * @param Turno $turno
+     */
+    private function checkUserLimit(Turno $turno)
+    {
+        $turnos = $this->getDoctrine()->getManager()->getRepository(Turno::class)->findByUserAndDate($turno);
+        var_dump($turnos);
     }
 }
