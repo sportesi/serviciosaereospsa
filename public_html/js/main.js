@@ -52,7 +52,9 @@ function newEvent(data) {
 }
 
 function editEvent(data) {
-    console.log(data);
+    if (!data.turno.user) {
+        return;
+    }
     $('[name="turno[id]"]').val(data.turno.id);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[fecha]"]').val(moment.unix(data.turno.fecha.timestamp).format("YYYY-MM-DD"));
