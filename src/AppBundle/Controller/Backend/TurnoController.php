@@ -100,12 +100,17 @@ class TurnoController extends Controller
         $deleteIds = $request->request->get('ids');
         $em = $this->getDoctrine()->getManager();
 
-        foreach ($deleteIds as $id) {
-            $turno = $em->getRepository('AppBundle:Turno')->find($id);
-            if (is_object($turno)) {
-                $em->remove($turno);
-                $em->flush();
+        try {
+            foreach ($deleteIds as $id) {
+                $turno = $em->getRepository('AppBundle:Turno')->find($id);
+                if (is_object($turno)) {
+                    $this->checkUserAbleToDelete($turno);
+                    $em->remove($turno);
+                    $em->flush();
+                }
             }
+        } catch (\Exception $ex) {
+            return new Response($ex->getMessage(), 500);
         }
 
         return new Response('');
@@ -335,6 +340,22 @@ class TurnoController extends Controller
         $turnos = $this->getDoctrine()->getManager()->getRepository(Turno::class)->findByUserAndDate($turno);
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_PILOT') && sizeof($turnos) > 0) {
             throw new \Exception("Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias");
+        }
+    }
+
+    /**
+     * @param Turno $turno
+     * @throws \Exception
+     */
+    private function checkUserAbleToDelete(Turno $turno)
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $limit = $turno->getFecha();
+            $limit->add(new \DateInterval('P1D'));
+            $now = new DateTime();
+            if (intval($now->diff($turno->getFecha())->format('%d')) < 1) {
+                throw new \Exception("Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias");
+            }
         }
     }
 }

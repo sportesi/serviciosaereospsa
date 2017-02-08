@@ -87,8 +87,8 @@ function deleteEvent() {
                 selectedDatesDelete = [];
                 loadEvents();
             })
-            .fail(function () {
-                swal('Intente nuevamente', 'Ocurrio un error, pruebe a refrescar la pagina', 'warning');
+            .fail(function (response) {
+                swal('Atención', response.responseText, 'warning');
             });
     });
 }
@@ -110,6 +110,10 @@ function saveEvent(edit) {
         selectedDates = [];
         loadEvents();
     }).fail(function (response) {
+        if (response.status == 404) {
+            swal('Atención', 'Refresque la pagina y vuelva a intentarlo.', 'warning');
+            return;
+        }
         swal('Atención', response.responseText, 'warning');
     });
 }
