@@ -20,6 +20,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class TurnoController
@@ -168,6 +169,7 @@ class TurnoController extends Controller
         }
 
         $this->checkUserLimit($turno);
+        $this->checkDay($turno);
 
         try {
             $em->persist($turno);
@@ -337,7 +339,10 @@ class TurnoController extends Controller
      */
     private function checkUserLimit(Turno $turno)
     {
-        $turnos = $this->getDoctrine()->getManager()->getRepository(Turno::class)->findByUserAndDate($turno);
+        $turnos = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Turno::class)
+            ->findByUserAndDate($turno, $this->getUser());
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_PILOT') && sizeof($turnos) > 0) {
             throw new \Exception("Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias");
         }
@@ -355,6 +360,16 @@ class TurnoController extends Controller
             $now = new DateTime();
             if (intval($now->diff($turno->getFecha())->format('%d')) < 1) {
                 throw new \Exception("Los turnos pueden cancelarse con un dia de anticipacion. \nPara mas informacion comuniquese con PSA. \nGracias");
+            }
+        }
+    }
+
+    private function checkDay(Turno $turno)
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $now = new DateTime();
+            if ($now > $turno->getFecha()) {
+                throw new \Exception('No se puede cargar un turno en el pasado');
             }
         }
     }

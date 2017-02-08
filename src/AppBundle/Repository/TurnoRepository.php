@@ -29,14 +29,16 @@ class TurnoRepository extends EntityRepository
 
     /**
      * @param Turno $turno
+     * @param User $user
      * @return array
      */
-    public function findByUserAndDate(Turno $turno)
+    public function findByUserAndDate(Turno $turno, User $user)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('t')
             ->from(Turno::class, 't')
             ->where("t.fecha like :fecha")
+            ->andWhere($qb->expr()->eq('t.user', $user->getId()))
             ->setParameter('fecha', $turno->getFecha()->format('Y-m-d') . '%');
         return $qb->getQuery()->getArrayResult();
     }
