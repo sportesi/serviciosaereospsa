@@ -21,13 +21,24 @@ function initCalendar() {
     });
 }
 
+function getUserSelectValue() {
+    if ($('#turno-user option').length == 1) {
+        return $(_.find($('#turno-user option'), function (x) {
+            return x.value != ''
+        })).val();
+    }
+    else {
+        return '';
+    }
+}
+
 function newEvent(data) {
     $('[name="turno[id]"]').val(0);
     $('[name="turno[avion]"]').val(data.avion);
     $('[name="turno[fecha]"]').val(moment(data.fecha, 'YYYY-MM-DD').format("YYYY-MM-DD"));
     $('[name="turno[comentario]"]').val("");
     $('[name="turno[horario]"]').val(data.horario);
-    $('[name="turno[user]"]').val('').trigger('change');
+    $('[name="turno[user]"]').val(getUserSelectValue()).trigger('change');
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
