@@ -16,7 +16,9 @@
 						<label for="turno-user" class="col-sm-2 control-label">Usuario:</label>
 						<div class="col-sm-10">
 							<select name="turno[user]" id="turno-user" class="form-control select2" required style="width: 100%">
-								<option value="">Seleccione usuario</option>
+                                {% if users | length > 1 %}
+									<option value="">Seleccione usuario...</option>
+                                {% endif %}
 								{% for user in users if user.userData is not null %}
                                     <option value="{{ user.id }}">
 										{{ (user.userData.lastName ~ ', ' ~ user.userData.name) | lower | title }}

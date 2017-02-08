@@ -40,7 +40,7 @@ class TurnoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $aviones = $em->getRepository('AppBundle:Avion')->findBy([], ['avionOrder' => 'ASC']);
-        $users = $em->getRepository('AppBundle:User')->findAllUsers();
+        $users = $em->getRepository('AppBundle:User')->findAllUsers($this->getUser());
 
         $week = intval($request->query->get('week'));
         $day = date('w');
