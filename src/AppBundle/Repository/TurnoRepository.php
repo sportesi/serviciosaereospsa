@@ -33,8 +33,9 @@ class TurnoRepository extends EntityRepository
      */
     public function findByUserAndDate(Turno $turno)
     {
-        $qb = $this->createQueryBuilder('at');
-        $qb->from(Turno::class, 't')
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('t')
+            ->from(Turno::class, 't')
             ->where("t.fecha like :fecha")
             ->setParameter('fecha', $turno->getFecha()->format('Y-m-d') . '%');
         return $qb->getQuery()->getArrayResult();

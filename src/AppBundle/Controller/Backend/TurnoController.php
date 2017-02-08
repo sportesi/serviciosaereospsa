@@ -158,9 +158,8 @@ class TurnoController extends Controller
             throw new \Exception('No se puede cargar un turno sobre un avion fuera de servicio');
         }
 
-        if (!$this->isGranted('ROLE_ADMIN') && $this->getUser() != $turno->getUser())
-        {
-            throw new \Exception('No tenes permiso para realizar esta acción');
+        if (!$this->isGranted('ROLE_ADMIN') && $this->getUser() != $turno->getUser()) {
+            throw new \Exception('No tenés permiso para realizar esta acción');
         }
 
         $this->checkUserLimit($turno);
@@ -329,10 +328,13 @@ class TurnoController extends Controller
 
     /**
      * @param Turno $turno
+     * @throws \Exception
      */
     private function checkUserLimit(Turno $turno)
     {
         $turnos = $this->getDoctrine()->getManager()->getRepository(Turno::class)->findByUserAndDate($turno);
-        var_dump($turnos);
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_PILOT') && sizeof($turnos) > 0) {
+            throw new \Exception("Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias");
+        }
     }
 }
