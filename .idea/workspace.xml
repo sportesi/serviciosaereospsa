@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/Backend/ProfileViews/index.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/ProfileController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/Backend/TurnoViews/modal.new.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/Backend/TurnoViews/modal.new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public_html/js/main.js" afterPath="$PROJECT_DIR$/public_html/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Turno.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Turno.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/Backend/CommonViews/sidebar.new.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/Backend/CommonViews/sidebar.new.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/backend/css/styles.css" afterPath="$PROJECT_DIR$/assets/backend/css/styles.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public_html/css/app.min.css" afterPath="$PROJECT_DIR$/public_html/css/app.min.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,155 +23,74 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TurnoController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/ProfileViews/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="78" column="41" lean-forward="false" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
+            <state relative-caret-position="126">
+              <caret line="7" column="41" lean-forward="true" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
               <folding>
-                <element signature="e#943#1032#0#PHP" expanded="false" />
-                <element signature="e#1081#1188#0#PHP" expanded="false" />
-                <element signature="e#1193#2004#0#PHP" expanded="false" />
-                <element signature="e#1683#1917#0#PHP" expanded="false" />
-                <element signature="e#2010#2124#0#PHP" expanded="false" />
-                <element signature="e#3324#3440#0#PHP" expanded="false" />
-                <element signature="e#3445#4079#0#PHP" expanded="false" />
-                <element signature="e#3609#4039#0#PHP" expanded="false" />
-                <element signature="e#3627#3937#0#PHP" expanded="false" />
-                <element signature="e#3748#3923#0#PHP" expanded="false" />
-                <element signature="e#3948#4039#0#PHP" expanded="false" />
-                <element signature="e#4085#4231#0#PHP" expanded="false" />
-                <element signature="e#4793#4927#0#PHP" expanded="false" />
-                <element signature="e#6146#6236#0#PHP" expanded="false" />
-                <element signature="e#6241#6453#0#PHP" expanded="false" />
-                <element signature="e#6459#6570#0#PHP" expanded="false" />
-                <element signature="e#6575#9049#0#PHP" expanded="false" />
-                <element signature="e#6748#6857#0#PHP" expanded="false" />
-                <element signature="e#6789#6856#2#PHP" expanded="false" />
-                <element signature="e#6879#7524#0#PHP" expanded="false" />
-                <element signature="e#7535#8219#0#PHP" expanded="false" />
-                <element signature="e#8229#8310#0#PHP" expanded="false" />
-                <element signature="e#8524#9002#0#PHP" expanded="false" />
-                <element signature="e#8596#8725#0#PHP" expanded="false" />
-                <element signature="e#8608#8724#1#PHP" expanded="false" />
-                <element signature="e#8833#9002#0#PHP" expanded="false" />
-                <element signature="e#9055#9087#0#PHP" expanded="false" />
-                <element signature="e#9092#10333#0#PHP" expanded="false" />
-                <element signature="e#9152#9797#0#PHP" expanded="false" />
-                <element signature="e#9917#10026#0#PHP" expanded="false" />
-                <element signature="e#9958#10025#2#PHP" expanded="false" />
-                <element signature="e#10339#10412#0#PHP" expanded="false" />
-                <element signature="e#10417#11413#0#PHP" expanded="false" />
-                <element signature="e#10628#10710#0#PHP" expanded="false" />
-                <element signature="e#10628#10829#0#PHP" expanded="false" />
-                <element signature="e#10733#10828#1#PHP" expanded="false" />
-                <element signature="e#10628#10882#0#PHP" expanded="false" />
-                <element signature="e#10628#11360#0#PHP" expanded="false" />
-                <element signature="e#10905#11346#0#PHP" expanded="false" />
-                <element signature="e#10983#11332#0#PHP" expanded="false" />
-                <element signature="e#11419#11483#0#PHP" expanded="false" />
-                <element signature="e#11488#11956#0#PHP" expanded="false" />
-                <element signature="e#11558#11647#0#PHP" expanded="false" />
-                <element signature="e#11558#11705#0#PHP" expanded="false" />
-                <element signature="e#11715#11950#0#PHP" expanded="false" />
-                <element signature="e#11962#12026#0#PHP" expanded="false" />
-                <element signature="e#12031#12521#0#PHP" expanded="false" />
-                <element signature="e#12098#12515#0#PHP" expanded="false" />
-                <element signature="e#12276#12505#0#PHP" expanded="false" />
-                <element signature="e#12527#12811#0#PHP" expanded="false" />
-                <element signature="e#12581#12805#0#PHP" expanded="false" />
-                <element signature="e#12667#12795#0#PHP" expanded="false" />
+                <element signature="e#1147#2649#0#Twig" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Turno.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Turno.php">
+      <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../AdminLTE/pages/examples/profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="57" column="41" lean-forward="false" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public_html/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="68" column="86" lean-forward="false" selection-start-line="68" selection-start-column="86" selection-end-line="68" selection-end-column="86" />
+            <state relative-caret-position="199">
+              <caret line="511" column="6" lean-forward="false" selection-start-line="511" selection-start-column="6" selection-end-line="862" selection-end-column="12" />
               <folding>
-                <element signature="e#53#113#0" expanded="false" />
-                <element signature="e#116#136#0" expanded="false" />
-                <element signature="n#!!block;n#initCalendar#0" expanded="false" />
-                <element signature="e#353#437#0" expanded="false" />
-                <element signature="e#386#423#0" expanded="false" />
-                <element signature="n#!!block;n#getUserSelectValue#0" expanded="false" />
-                <element signature="e#520#643#0" expanded="false" />
-                <element signature="e#584#628#0" expanded="false" />
-                <element signature="e#653#679#0" expanded="false" />
-                <element signature="e#1119#1255#0" expanded="false" />
-                <element signature="e#1571#1594#0" expanded="false" />
-                <element signature="n#!!block;n#showLoading#0" expanded="false" />
-                <element signature="e#4055#4252#0" expanded="false" />
-                <element signature="n#!!block;n#hideLoading#0" expanded="false" />
-                <element signature="n#!!block;n#switchMode#0" expanded="false" />
-                <element signature="e#4506#5603#0" expanded="false" />
-                <element signature="e#4825#5576#0" expanded="false" />
-                <element signature="e#4913#5148#0" expanded="false" />
-                <element signature="e#5030#5124#0" expanded="false" />
-                <element signature="e#5154#5558#0" expanded="false" />
-                <element signature="e#5194#5536#0" expanded="false" />
-                <element signature="n#!!block;n#setPopoverOn#0" expanded="false" />
-                <element signature="e#5721#5883#0" expanded="false" />
-                <element signature="e#5764#5873#0" expanded="false" />
-                <element signature="e#5946#6055#0" expanded="false" />
-                <element signature="e#5989#6045#0" expanded="false" />
-                <element signature="n#!!block;n#disableFoxtrotSierra#0" expanded="false" />
-                <element signature="e#6154#7415#0" expanded="false" />
-                <element signature="e#6200#7409#0" expanded="false" />
-                <element signature="e#6303#7399#0" expanded="false" />
-                <element signature="e#6554#7385#0" expanded="false" />
-                <element signature="e#6843#7331#0" expanded="false" />
-                <element signature="e#6897#6978#0" expanded="false" />
-                <element signature="e#7098#7215#0" expanded="false" />
-                <element signature="n#!!block;n#loadEvents#0" expanded="false" />
-                <element signature="e#7545#8555#0" expanded="false" />
-                <element signature="e#7645#8470#0" expanded="false" />
-                <element signature="e#7821#8125#0" expanded="false" />
-                <element signature="e#7888#7955#0" expanded="false" />
-                <element signature="e#7961#8028#0" expanded="false" />
-                <element signature="e#8131#8303#0" expanded="false" />
-                <element signature="e#8338#8421#0" expanded="false" />
-                <element signature="e#8574#8678#0" expanded="false" />
-                <element signature="n#!!block;n#getSelected#0" expanded="false" />
-                <element signature="e#8773#8833#0" expanded="false" />
-                <element signature="e#8839#8914#0" expanded="false" />
-                <element signature="n#!!block;n#cleanGrid#0" expanded="false" />
-                <element signature="n#!!block;n#setClickEvent#0" expanded="false" />
-                <element signature="e#9278#10424#0" expanded="false" />
-                <element signature="e#9367#10248#0" expanded="false" />
-                <element signature="e#9406#9808#0" expanded="false" />
-                <element signature="e#9590#9655#0" expanded="false" />
-                <element signature="e#9661#9731#0" expanded="false" />
-                <element signature="e#9814#10238#0" expanded="false" />
-                <element signature="e#9996#10067#0" expanded="false" />
-                <element signature="e#10073#10149#0" expanded="false" />
-                <element signature="e#10254#10418#0" expanded="false" />
-                <element signature="e#10293#10347#0" expanded="false" />
-                <element signature="e#10353#10408#0" expanded="false" />
+                <element signature="n#a#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modal.new.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/TurnoViews/modal.new.html.twig">
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="55" column="48" lean-forward="false" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="48" />
+            <state relative-caret-position="-3918">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/ProfileController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="22">
+              <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+              <folding>
+                <element signature="e#658#705#0#PHP" expanded="false" />
+                <element signature="e#1016#1147#0#PHP" expanded="false" />
+                <element signature="e#1152#2023#0#PHP" expanded="false" />
+                <element signature="e#1371#1450#0#PHP" expanded="false" />
+                <element signature="e#1371#1539#0#PHP" expanded="false" />
+                <element signature="e#1371#1580#0#PHP" expanded="false" />
+                <element signature="e#1371#1827#0#PHP" expanded="false" />
+                <element signature="e#1603#1813#0#PHP" expanded="false" />
+                <element signature="e#1664#1799#0#PHP" expanded="false" />
+                <element signature="e#2029#2116#0#PHP" expanded="false" />
+                <element signature="e#2121#2278#0#PHP" expanded="false" />
+                <element signature="e#2284#2389#0#PHP" expanded="false" />
+                <element signature="e#2641#2782#0#PHP" expanded="false" />
+                <element signature="e#2720#2772#0#PHP" expanded="false" />
+                <element signature="e#2795#2851#0#PHP" expanded="false" />
+                <element signature="e#2856#3108#0#PHP" expanded="false" />
+                <element signature="e#2920#3043#0#PHP" expanded="false" />
+                <element signature="e#2920#3077#0#PHP" expanded="false" />
+                <element signature="e#3114#3170#0#PHP" expanded="false" />
+                <element signature="e#3175#3423#0#PHP" expanded="false" />
+                <element signature="e#3238#3360#0#PHP" expanded="false" />
+                <element signature="e#3238#3392#0#PHP" expanded="false" />
+                <element signature="e#3429#3465#0#PHP" expanded="false" />
+                <element signature="e#3470#3669#0#PHP" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -244,6 +164,10 @@
         <option value="$PROJECT_DIR$/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/Backend/TurnoViews/modal.new.html.twig" />
         <option value="$PROJECT_DIR$/public_html/js/main.js" />
+        <option value="$PROJECT_DIR$/app/Resources/views/Backend/CommonViews/sidebar.new.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/Backend/ProfileViews/index.html.twig" />
+        <option value="$PROJECT_DIR$/assets/backend/css/styles.css" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/Backend/ProfileController.php" />
       </list>
     </option>
   </component>
@@ -323,205 +247,15 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AppBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AppBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AppBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AppBundle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Backend" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Backend" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Backend" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TurnoViews" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviciosaereospsa" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -531,22 +265,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AdminLTE/pages/examples/profile.html" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public_html/css" />
+      <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/AppBundle/Controller/Backend" />
       <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/public/img" />
       <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews" />
       <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/views" />
       <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/public/css" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public_html/css" />
-      <recent name="$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts" />
     </key>
   </component>
   <component name="RunManager">
@@ -635,7 +370,7 @@
       <workItem from="1486052998983" duration="1221000" />
       <workItem from="1486141689661" duration="1240000" />
       <workItem from="1486582600478" duration="5563000" />
-      <workItem from="1486656134126" duration="2553000" />
+      <workItem from="1486656134126" duration="4166000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -721,11 +456,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486660721776</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Identificar que turnos se cargaron desde front y cuales desde back">
+      <created>1486662580611</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1486662580611</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31857000" />
+    <option name="totallyTimeSpent" value="33470000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -770,34 +512,16 @@
     <MESSAGE value="Evitar que los alumnos puedan cargar mas de un turno por dia" />
     <MESSAGE value="Concurrencia del borrado de turnos. Si se borro desde un lugar, no se puede editar desde otro en el que todavia &quot;exista&quot;&#10;Tambien mejore los mensajes de error del borrado y el guardado" />
     <MESSAGE value="FIX =&gt; Evitar que los alumnos puedan cargar mas de un turno por dia.&#10;Me falto agregar al metodo findByUserAndDate que se fije por el usuario" />
-    <option name="LAST_COMMIT_MESSAGE" value="FIX =&gt; Evitar que los alumnos puedan cargar mas de un turno por dia.&#10;Me falto agregar al metodo findByUserAndDate que se fije por el usuario" />
+    <MESSAGE value="Identificar que turnos se cargaron desde front y cuales desde back" />
+    <option name="LAST_COMMIT_MESSAGE" value="Identificar que turnos se cargaron desde front y cuales desde back" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/FrontendBundle/Resources/public/js/main.js" />
-    <entry file="file://$PROJECT_DIR$/public_html/app_dev.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="14" column="88" lean-forward="false" selection-start-line="14" selection-start-column="88" selection-end-line="14" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/public/css/login.css" />
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/public/css/AdminLTE.min.css" />
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/public/css/skins/skin-red.css" />
-    <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/public/scripts/app.min.js" />
-    <entry file="file://$PROJECT_DIR$/../AdminLTE/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1258" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/toplinks.html.twig" />
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/CommonViews/sidebar.html.twig" />
     <entry file="file://$PROJECT_DIR$/src/BackendBundle/Resources/views/layout.html.twig" />
@@ -863,13 +587,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/frontend/js/main.js" />
-    <entry file="file://$PROJECT_DIR$/assets/backend/css/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/backend/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -904,14 +621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="52" column="11" lean-forward="false" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1091,6 +800,112 @@
             <element signature="e#10254#10418#0" expanded="false" />
             <element signature="e#10293#10347#0" expanded="false" />
             <element signature="e#10353#10408#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/AvionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="15" selection-end-column="62" />
+          <folding>
+            <element signature="e#48#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/UserViews/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="35" lean-forward="true" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AdminLTE/pages/examples/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="511" column="6" lean-forward="false" selection-start-line="511" selection-start-column="6" selection-end-line="862" selection-end-column="12" />
+          <folding>
+            <element signature="n#a#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#nav#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-216">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/CommonViews/sidebar.new.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/backend/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="74" column="9" lean-forward="false" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Backend/ProfileViews/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="41" lean-forward="true" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+          <folding>
+            <element signature="e#1147#2649#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3918">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/ProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+          <folding>
+            <element signature="e#658#705#0#PHP" expanded="false" />
+            <element signature="e#1016#1147#0#PHP" expanded="false" />
+            <element signature="e#1152#2023#0#PHP" expanded="false" />
+            <element signature="e#1371#1450#0#PHP" expanded="false" />
+            <element signature="e#1371#1539#0#PHP" expanded="false" />
+            <element signature="e#1371#1580#0#PHP" expanded="false" />
+            <element signature="e#1371#1827#0#PHP" expanded="false" />
+            <element signature="e#1603#1813#0#PHP" expanded="false" />
+            <element signature="e#1664#1799#0#PHP" expanded="false" />
+            <element signature="e#2029#2116#0#PHP" expanded="false" />
+            <element signature="e#2121#2278#0#PHP" expanded="false" />
+            <element signature="e#2284#2389#0#PHP" expanded="false" />
+            <element signature="e#2641#2782#0#PHP" expanded="false" />
+            <element signature="e#2720#2772#0#PHP" expanded="false" />
+            <element signature="e#2795#2851#0#PHP" expanded="false" />
+            <element signature="e#2856#3108#0#PHP" expanded="false" />
+            <element signature="e#2920#3043#0#PHP" expanded="false" />
+            <element signature="e#2920#3077#0#PHP" expanded="false" />
+            <element signature="e#3114#3170#0#PHP" expanded="false" />
+            <element signature="e#3175#3423#0#PHP" expanded="false" />
+            <element signature="e#3238#3360#0#PHP" expanded="false" />
+            <element signature="e#3238#3392#0#PHP" expanded="false" />
+            <element signature="e#3429#3465#0#PHP" expanded="false" />
+            <element signature="e#3470#3669#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>

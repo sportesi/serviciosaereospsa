@@ -70,3 +70,8 @@
 .popover-content {
     color: black !important;
 }
+
+#profile-picture {
+    width: 170px;
+    margin-bottom: 10%;
+}
