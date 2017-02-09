@@ -3,28 +3,19 @@
 namespace AppBundle\Controller\Backend;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
-use AppBundle\Services\StringService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Swift_Message;
+use AppBundle\Form\ChangePasswordType;
+use AppBundle\Form\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/profile")
- * @Security("has_role('ROLE_ADMIN')")
  */
 class ProfileController extends Controller
 {
-    /**
-     * @var ConstraintViolationList
-     */
-    private $errors;
-
     /**
      * @Route("/")
      * @Method("GET")
@@ -33,37 +24,36 @@ class ProfileController extends Controller
     public function indexAction()
     {
         return $this->render('Backend/ProfileViews/index.html.twig', [
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'form' => $this->getUserForm($this->getUser())->createView(),
+            'changePassword' => $this->getChangePasswordForm()->createView()
         ]);
     }
 
     /**
-     * @Route("/reset/{id}")
-     * @param User $user
+     * @Route("/update")
+     * @Method("POST")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function resetAction(User $user)
+    public function updateAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $password = StringService::generateRandomString();
-        $user->setPlainPassword($password);
+        $updateUser = $this->parseUserRequest($request, $this->getUser());
+        $this->persistUser($updateUser);
+        return $this->redirectToRoute('app_backend_profile_index');
+    }
 
-        $message = Swift_Message::newInstance()
-            ->setSubject('Reinicio de Contraseña')
-            ->setFrom(["appmailer@serviciosaereospsa.esy.es" => "PSA Escuela de Vuelo"])
-            ->setTo([$user->getEmail()])
-            ->setBody($this->renderView(
-                'Emails/reset.html.twig', array(
-                    'nombre' => strtolower($user->getFullName()),
-                    'password' => $password,
-                )
-            ), 'text/html');
-        $this->get('mailer')->send($message);
-
-        $em->persist($user);
-        $em->flush();
-
-        return $this->redirectToRoute("app_backend_user_edit", ["id" => $user->getId()]);
+    /**
+     * @Route("/password")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function passwordAction(Request $request)
+    {
+        $updateUser = $this->parsePasswordRequest($request, $this->getUser());
+        $this->persistUser($updateUser);
+        return $this->redirectToRoute('app_backend_profile_index');
     }
 
     /**
@@ -78,46 +68,16 @@ class ProfileController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param User $user
-     * @param null $edit
-     * @return \Symfony\Component\Form\Form
+     * @return User
      */
-    private function getUserForm(User $user, $edit = null)
+    private function parsePasswordRequest(Request $request, User $user)
     {
-        $action = $edit ?
-            $this->generateUrl('app_backend_user_update', ['id' => $user->getId()]) :
-            $this->generateUrl('app_backend_user_create');
-        return $this->createForm(
-            UserType::class,
-            $user,
-            [
-                'action' => $action,
-            ]
-        );
-    }
-
-    /**
-     * @param User $user
-     * @return Form
-     */
-    private function getDeleteForm(User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl("app_backend_user_delete", ['id' => $user->getId()]))
-            ->setMethod("DELETE")
-            ->getForm();
-    }
-
-    /**
-     * @param User $user
-     * @return Form
-     */
-    private function getResetForm(User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl("app_backend_user_reset", ['id' => $user->getId()]))
-            ->setMethod("POST")
-            ->getForm();
+        $form = $this->getChangePasswordForm();
+        $form->handleRequest($request);
+        $user->setPlainPassword($form->getData()['password']);
+        return $user;
     }
 
     /**
@@ -129,6 +89,30 @@ class ProfileController extends Controller
         $user->getUserData()->setUser($user);
         $em->persist($user);
         $em->flush();
+    }
+
+    /**
+     * @param User $user
+     * @return Form
+     */
+    private function getUserForm(User $user)
+    {
+        $action = $this->generateUrl('app_backend_profile_update');
+        return $this->createForm(
+            ProfileType::class,
+            $user,
+            [
+                'action' => $action,
+            ]
+        );
+    }
+
+    public function getChangePasswordForm()
+    {
+        $action = $this->generateUrl('app_backend_profile_password');
+        return $this->createForm(ChangePasswordType::class, null, [
+            'action' => $action
+        ]);
     }
 
 }
