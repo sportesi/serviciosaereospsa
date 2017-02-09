@@ -75,11 +75,15 @@ class TurnoController extends Controller
                 $multiple = json_decode($turnoRequest['selected-dates']);
                 foreach ($multiple as $item) {
                     $turno = $this->parseTurnoRequest($request, new Turno());
+                    $turno->setCreatedAt(new DateTime());
+                    $turno->setCreatedBy($this->getUser());
                     $this->persistTurno($turno, $item->fecha, $item->horario, $item->avion);
                     $created[] = $turno->getId();
                 }
             } else {
                 $turno = $this->parseTurnoRequest($request, new Turno());
+                $turno->setCreatedAt(new DateTime());
+                $turno->setCreatedBy($this->getUser());
                 $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
                 $created[] = $turno->getId();
             }

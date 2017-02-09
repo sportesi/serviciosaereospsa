@@ -39,6 +39,7 @@ function newEvent(data) {
     $('[name="turno[comentario]"]').val("");
     $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[user]"]').val(getUserSelectValue()).trigger('change');
+    $('#createdBy').val('');
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
@@ -46,12 +47,13 @@ function newEvent(data) {
 
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
     $('#newEvent .form-new-title, #newEvent .form-new-btn').show();
-    $('.move-turno').hide();
+    $('.move-turno, .created-turno').hide();
 
     $('#newEvent').modal('show');
 }
 
 function editEvent(data) {
+    console.log(data);
     if (!data.turno.user) {
         return;
     }
@@ -61,10 +63,16 @@ function editEvent(data) {
     $('[name="turno[comentario]"]').val(data.turno.comentario);
     $('[name="turno[user]"]').val(data.turno.user.id).trigger('change');
     $('[name="turno[horario]"]').val(data.horario);
+    if (data.turno.createdBy) {
+        var createdBy = data.turno.createdBy.fullName +
+                ' (' + data.turno.createdBy.email + ') ' +
+                ' - ' + moment.unix(data.turno.createdAt.timestamp).format('DD/MM/YYYY HH:mm');
+        $('#createdBy').val(createdBy);
+    }
 
     $('#newEvent .modal-title, #newEvent .btn-success').hide();
     $('#newEvent .btn-danger, #newEvent .form-edit-title, #newEvent .form-edit-btn').show();
-    $('.move-turno').show();
+    $('.move-turno, .created-turno').show();
     $('#newEvent').modal('show');
 }
 
