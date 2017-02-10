@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\ChangePasswordType;
 use AppBundle\Form\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,8 +52,14 @@ class ProfileController extends Controller
      */
     public function passwordAction(Request $request)
     {
-        $updateUser = $this->parsePasswordRequest($request, $this->getUser());
-        $this->persistUser($updateUser);
+        try {
+            $user = $this->parsePasswordRequest($request, $this->getUser());
+            $userManager = $this->get('fos_user.user_manager');
+            $userManager->updateUser($user);
+        } catch (InvalidArgumentException $exception) {
+            $this->addFlash('error', $exception->getMessage());
+            $this->addFlash('tab', 'change-password');
+        }
         return $this->redirectToRoute('app_backend_profile_index');
     }
 
@@ -76,7 +83,11 @@ class ProfileController extends Controller
     {
         $form = $this->getChangePasswordForm();
         $form->handleRequest($request);
-        $user->setPlainPassword($form->getData()['password']);
+        if ($form->isValid() && $form->isSubmitted()) {
+            $user->setPlainPassword($form->getData()['password']);
+        } else {
+            throw new InvalidArgumentException("Las contraseñas no coinciden entre ellas");
+        }
         return $user;
     }
 

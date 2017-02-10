@@ -1,5 +1,13 @@
 {% extends('Backend/layout.html.twig') %}
 
+{% block scripts %}
+    {% for tab in app.session.flashBag.get('tab') %}
+        <script>
+            $("a[href='#{{ tab }}']").click();
+        </script>
+    {% endfor %}
+{% endblock %}
+
 {% block body %}
 
     <div class="row">
@@ -62,6 +70,11 @@
             <!-- /.box -->
         </div>
         <div class="col-md-9">
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="alert alert-warning">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#settings" data-toggle="tab">Mis Datos</a></li>
