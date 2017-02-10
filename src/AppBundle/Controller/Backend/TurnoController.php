@@ -168,7 +168,7 @@ class TurnoController extends Controller
             throw new \Exception('No se puede cargar un turno sobre un avion fuera de servicio');
         }
 
-        if (!$this->isGranted('ROLE_ADMIN') && $this->getUser() != $turno->getUser()) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR') && $this->getUser() != $turno->getUser()) {
             throw new \Exception('No tenés permiso para realizar esta acción');
         }
 
@@ -236,19 +236,7 @@ class TurnoController extends Controller
             'avionOrder'
         ];
 
-        /**
-         * Para filtrar que data voy a mostrar en el json, dependiendo
-         * quien este logueado, podria usar el siguiente metodo (setIgnoradeAttr)
-         * y agregarle que no muestre el usuario cuando el requester no sea ADMIN.
-         * Entonces, si el usuario es admin, uso findAll.
-         * Si el usuario es PILOT o ALUMN, uso findAll y deberia agregar un
-         * segundo metodo privado, que me traiga los turnos del usuario, y los
-         * concatene a la coleccion anterior (la cual no tiene los usuarios)
-         * Despues, deberia desde el JS, agregar que si no encuentra el usuario,
-         * lo ponga grisado y le elimine la clase "clickable"
-         */
-
-        if (!$this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
             $ignored[] = 'user';
         }
 
@@ -256,7 +244,7 @@ class TurnoController extends Controller
         $serializer = new Serializer([$normalizer], $encoders);
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
 
-        if (!$this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
             $serializedContent = json_decode($serializer->serialize(
                 $repo->findByNotUser($this->getUser()),
                 'json'
@@ -347,7 +335,7 @@ class TurnoController extends Controller
             ->getManager()
             ->getRepository(Turno::class)
             ->findByUserAndDate($turno, $this->getUser());
-        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_PILOT') && sizeof($turnos) > 0) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_PILOT') && !$this->isGranted('ROLE_INSTR') && sizeof($turnos) > 0) {
             throw new \Exception("Solo puede reservar un turno por dia. \nPara mas informacion comuniquese con PSA. \nGracias");
         }
     }
@@ -358,7 +346,7 @@ class TurnoController extends Controller
      */
     private function checkUserAbleToDelete(Turno $turno)
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
             $limit = $turno->getFecha();
             $limit->add(new \DateInterval('P1D'));
             $now = new DateTime();
@@ -370,7 +358,7 @@ class TurnoController extends Controller
 
     private function checkDay(Turno $turno)
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN   ') && !$this->isGranted('ROLE_INSTR')) {
             $now = new DateTime();
             if ($now > $turno->getFecha()) {
                 throw new \Exception('No se puede cargar un turno en el pasado');

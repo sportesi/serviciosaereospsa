@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/user")
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_INSTR')")
  */
 class UserController extends Controller
 {
@@ -40,7 +40,8 @@ class UserController extends Controller
             'roles' => [
                 'ROLE_ADMIN' => 'Administrador',
                 'ROLE_PILOT' => 'Piloto',
-                'ROLE_ALUMN' => 'Alumno'
+                'ROLE_ALUMN' => 'Alumno',
+                'ROLE_INSTR' => 'Instructor',
             ]
         ]);
     }

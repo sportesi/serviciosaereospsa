@@ -48,7 +48,7 @@ class UserRepository extends EntityRepository
             ->innerJoin('u.userData', 'd')
             ->where('u.roles not like :role');
 
-        if (!$user->hasRole('ROLE_ADMIN'))
+        if (!$user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_INSTR'))
         {
             $qb->andWhere($qb->expr()->eq('u.id', ':id'));
             $qb->setParameter('id', $user->getId());

@@ -238,8 +238,10 @@ function loadEvents() {
             if (turno.user) {
                 if (turno.user.roles.indexOf("ROLE_PILOT") > -1) {
                     cell.addClass('bg-piloto');
-                } else {
+                } else if (turno.user.roles.indexOf("ROLE_ALUMN") > -1) {
                     cell.addClass('bg-alumno');
+                } else if (turno.user.roles.indexOf("ROLE_INSTR") > -1) {
+                    cell.addClass('bg-piloto');
                 }
                 cell.find('div').text(turno.user.userData.lastName.toLowerCase());
             } else {

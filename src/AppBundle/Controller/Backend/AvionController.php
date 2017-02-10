@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * Class AvionController
  * @package BackendBundle\Controller
  * @Route("/avion")
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_INSTR')")
  */
 class AvionController extends Controller
 {

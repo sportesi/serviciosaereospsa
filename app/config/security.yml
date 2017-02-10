@@ -7,6 +7,7 @@ security:
         ROLE_ADMIN: ROLE_ADMIN
         ROLE_PILOT: ROLE_PILOT
         ROLE_ALUMN: ROLE_ALUMN
+        ROLE_INSTR: ROLE_INSTR
 
     providers:
         fos_userbundle:

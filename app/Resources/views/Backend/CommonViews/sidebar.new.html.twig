@@ -7,7 +7,7 @@
                     <i class="fa fa-table"></i> <span>Turnos</span>
                 </a>
             </li>
-            {% if (app.user.hasRole('ROLE_ADMIN')) %}
+            {% if (app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_INSTR')) %}
                 <li>
                     <a href="{{ path('app_backend_avion_index') }}">
                         <i class="fa fa-plane"></i> <span>Aviones</span>

@@ -20,7 +20,8 @@ class UserType extends AbstractType
         $permissions = array(
             'Administrador' => 'ROLE_ADMIN',
             'Piloto' => 'ROLE_PILOT',
-            'Alumno' => 'ROLE_ALUMN'
+            'Alumno' => 'ROLE_ALUMN',
+            'Instructor' => 'ROLE_INSTR',
         );
         $builder
             ->add('email')
