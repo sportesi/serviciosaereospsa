@@ -35,6 +35,13 @@ class User extends BaseUser
      */
     private $turno;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Log", mappedBy="user", fetch="EAGER")
+     * @var Log
+     * @MaxDepth(1)
+     */
+    private $log;
+
     public function __construct()
     {
         parent::__construct();
@@ -94,5 +101,37 @@ class User extends BaseUser
     public function getFullName()
     {
         return $this->getUserData()->getName() . " " . $this->getUserData()->getLastName();
+    }
+
+    /**
+     * @return Turno
+     */
+    public function getLog()
+    {
+        return $this->log;
+    }
+
+    /**
+     * Add log
+     *
+     * @param \AppBundle\Entity\Log $log
+     *
+     * @return User
+     */
+    public function addLog(\AppBundle\Entity\Log $log)
+    {
+        $this->log[] = $log;
+
+        return $this;
+    }
+
+    /**
+     * Remove log
+     *
+     * @param \AppBundle\Entity\Log $log
+     */
+    public function removeLog(\AppBundle\Entity\Log $log)
+    {
+        $this->log->removeElement($log);
     }
 }

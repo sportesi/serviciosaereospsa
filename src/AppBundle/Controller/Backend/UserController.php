@@ -61,6 +61,7 @@ class UserController extends BaseController
             'deleteForm' => $this->getDeleteForm($user)->createView(),
             'admin' => $user->hasRole('ROLE_ADMIN'),
             'super' => $user->hasRole('ROLE_SUPER_ADMIN'),
+            'log' => $user->getLog()
         ];
         return $this->render("Backend/UserViews/edit.html.twig", $pageParameters);
     }

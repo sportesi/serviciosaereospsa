@@ -37,7 +37,7 @@ class Log
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="log")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
      * @MaxDepth(1)
