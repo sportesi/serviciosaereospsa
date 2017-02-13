@@ -34,9 +34,8 @@ class LogService
      */
     public function save(Log $log)
     {
-        if ($log->getUser() != "anon.") {
+        dump($log);
 //            $this->manager->persist($log);
 //            $this->manager->flush();
-        }
     }
 }
