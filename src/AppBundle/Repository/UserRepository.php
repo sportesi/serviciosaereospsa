@@ -26,12 +26,17 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findAll()
+    public function findAllByUserRole(User $user)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select(['u', 'd'])
             ->from('AppBundle:User', 'u')
             ->innerJoin('u.userData', 'd');
+
+        if (!$user->hasRole('ROLE_ADMIN')) {
+            $qb->andWhere('u.roles not like :role');
+            $qb->setParameter('role', '%ADMIN%');
+        }
 
         return $qb->getQuery()->getResult();
     }
@@ -48,8 +53,7 @@ class UserRepository extends EntityRepository
             ->innerJoin('u.userData', 'd')
             ->where('u.roles not like :role');
 
-        if (!$user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_INSTR'))
-        {
+        if (!$user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_INSTR')) {
             $qb->andWhere($qb->expr()->eq('u.id', ':id'));
             $qb->setParameter('id', $user->getId());
         }

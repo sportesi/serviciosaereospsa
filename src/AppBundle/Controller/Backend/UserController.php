@@ -34,7 +34,7 @@ class UserController extends BaseController
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $users = $em->getRepository('AppBundle:User')->findAllByUserRole($this->getUser());
 
         return $this->render('Backend/UserViews/index.html.twig', [
             'users' => $users,
