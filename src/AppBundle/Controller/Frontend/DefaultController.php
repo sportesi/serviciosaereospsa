@@ -10,15 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/lg_check")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function lgCheckAction()
-    {
-        return $this->redirectToRoute('app_backend_turno_index');
-    }
-
-    /**
      * @Route("/")
      */
     public function indexAction()

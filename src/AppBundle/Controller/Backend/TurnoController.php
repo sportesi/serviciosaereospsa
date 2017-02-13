@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Backend;
 
+use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Turno;
 use AppBundle\Form\TurnoType;
 use AppBundle\Repository\TurnoRepository;
@@ -27,7 +28,7 @@ use Symfony\Component\Validator\Constraints\Date;
  * @package BackendBundle\Controller
  * @Route("/turno")
  */
-class TurnoController extends Controller
+class TurnoController extends BaseController
 {
 
     /**
@@ -87,6 +88,7 @@ class TurnoController extends Controller
                 $this->persistTurno($turno, $turnoRequest['fecha'], $turnoRequest['horario']);
                 $created[] = $turno->getId();
             }
+            $this->log('Crear Turno', 'Turnos');
         } catch (\Exception $ex) {
             return new Response($ex->getMessage(), 500);
         }
@@ -114,6 +116,7 @@ class TurnoController extends Controller
                     $em->flush();
                 }
             }
+            $this->log('Eliminar Turno', 'Turnos');
         } catch (\Exception $ex) {
             return new Response($ex->getMessage(), 500);
         }
@@ -136,6 +139,7 @@ class TurnoController extends Controller
             $turnoUpdate = $this->parseTurnoRequest($request, $turno);
             $this->persistTurno($turnoUpdate, $turnoRequest['fecha'], $turnoRequest['horario']);
             $this->notifyChange($turno, $fechaVieja);
+            $this->log('Editar/Mover Turno', 'Turnos');
         } catch (\Exception $ex) {
             return new Response($ex->getMessage(), 500);
         }

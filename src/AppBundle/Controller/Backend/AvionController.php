@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Backend;
 
+use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Avion;
 use AppBundle\Form\AvionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/avion")
  * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_INSTR')")
  */
-class AvionController extends Controller
+class AvionController extends BaseController
 {
     /**
      * @Route("/")
@@ -53,6 +54,7 @@ class AvionController extends Controller
         $avion = $this->parseAvionRequest($request, new Avion());
         $this->persistAvion($avion);
 
+        $this->log('Crear Avion', 'Aviones');
         return $this->redirect(
             $this->generateUrl(
                 'app_backend_avion_edit',
@@ -93,6 +95,8 @@ class AvionController extends Controller
     {
         $avion = $this->parseAvionRequest($request, $avion);
         $this->persistAvion($avion);
+
+        $this->log('Editar Avion', 'Aviones');
         return $this->redirectToRoute('app_backend_avion_edit', ['id' => $avion->getId()]);
     }
 
@@ -107,6 +111,8 @@ class AvionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($avion);
         $em->flush();
+
+        $this->log('Eliminar Avion', 'Aviones');
 
         return new Response('');
     }
@@ -133,6 +139,8 @@ class AvionController extends Controller
         }
 
         $em->flush();
+
+        $this->log('Reordenar Aviones', 'Aviones');
 
         return new Response();
     }

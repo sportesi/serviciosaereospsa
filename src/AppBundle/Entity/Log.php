@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Log
@@ -24,37 +25,9 @@ class Log
     /**
      * @var string
      *
-     * @ORM\Column(name="requestUri", type="string", length=255)
-     */
-    private $requestUri;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="clientIp", type="string", length=255)
+     * @ORM\Column(name="client_ip", type="string", length=255)
      */
     private $clientIp;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="route", type="string", length=255)
-     */
-    private $route;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="controller", type="string", length=255)
-     */
-    private $controller;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="method", type="string", length=8)
-     */
-    private $method;
 
     /**
      * @var \DateTime
@@ -64,43 +37,44 @@ class Log
     private $date;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="user", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
+     * @MaxDepth(1)
      */
     private $user;
 
     /**
-     * @ORM\Column(name="content", type="text")
      * @var string
+     *
+     * @ORM\Column(name="action", type="string", length=255)
      */
-    private $content;
+    private $action;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="section", type="string", length=255)
+     */
+    private $section;
 
     /**
      * Log constructor.
-     * @param string $requestUri
+     * @param $action
+     * @param $section
      * @param string $clientIp
-     * @param string $route
-     * @param string $controller
-     * @param string $method
-     * @param string $user
-     * @param $content
+     * @param User $user
      */
-    public function __construct($requestUri, $clientIp, $route, $controller, $method, $user, $content)
+    public function __construct($action, $section, $clientIp, User $user)
     {
-        $this->requestUri = $requestUri;
-        $this->clientIp = $clientIp;
-        $this->route = $route;
-        $this->controller = $controller;
-        $this->method = $method;
         $this->date = new \DateTime();
+        $this->clientIp = $clientIp;
         $this->user = $user;
-        $this->content = $content;
+        $this->action = $action;
+        $this->section = $section;
     }
 
     /**
-     * Get id
-     *
      * @return int
      */
     public function getId()
@@ -109,46 +83,14 @@ class Log
     }
 
     /**
-     * Set requestUri
-     *
-     * @param string $requestUri
-     *
-     * @return Log
+     * @param int $id
      */
-    public function setRequestUri($requestUri)
+    public function setId($id)
     {
-        $this->requestUri = $requestUri;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get requestUri
-     *
-     * @return string
-     */
-    public function getRequestUri()
-    {
-        return $this->requestUri;
-    }
-
-    /**
-     * Set clientIp
-     *
-     * @param string $clientIp
-     *
-     * @return Log
-     */
-    public function setClientIp($clientIp)
-    {
-        $this->clientIp = $clientIp;
-
-        return $this;
-    }
-
-    /**
-     * Get clientIp
-     *
      * @return string
      */
     public function getClientIp()
@@ -157,94 +99,14 @@ class Log
     }
 
     /**
-     * Set route
-     *
-     * @param string $route
-     *
-     * @return Log
+     * @param string $clientIp
      */
-    public function setRoute($route)
+    public function setClientIp($clientIp)
     {
-        $this->route = $route;
-
-        return $this;
+        $this->clientIp = $clientIp;
     }
 
     /**
-     * Get route
-     *
-     * @return string
-     */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
-    /**
-     * Set controller
-     *
-     * @param string $controller
-     *
-     * @return Log
-     */
-    public function setController($controller)
-    {
-        $this->controller = $controller;
-
-        return $this;
-    }
-
-    /**
-     * Get controller
-     *
-     * @return string
-     */
-    public function getController()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * Set method
-     *
-     * @param string $method
-     *
-     * @return Log
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-
-        return $this;
-    }
-
-    /**
-     * Get method
-     *
-     * @return string
-     */
-    public function getMethod()
-    {
-        return $this->method;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Log
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
      * @return \DateTime
      */
     public function getDate()
@@ -253,22 +115,14 @@ class Log
     }
 
     /**
-     * Set user
-     *
-     * @param string $user
-     *
-     * @return Log
+     * @param \DateTime $date
      */
-    public function setUser($user)
+    public function setDate($date)
     {
-        $this->user = $user;
-
-        return $this;
+        $this->date = $date;
     }
 
     /**
-     * Get user
-     *
      * @return string
      */
     public function getUser()
@@ -276,21 +130,43 @@ class Log
         return $this->user;
     }
 
-
+    /**
+     * @param string $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
 
     /**
      * @return string
      */
-    public function getContent()
+    public function getAction()
     {
-        return $this->content;
+        return $this->action;
     }
 
     /**
-     * @param string $content
+     * @param string $action
      */
-    public function setContent($content)
+    public function setAction($action)
     {
-        $this->content = $content;
+        $this->action = $action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param string $section
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
     }
 }

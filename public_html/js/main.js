@@ -39,7 +39,7 @@ function newEvent(data) {
     $('[name="turno[comentario]"]').val("");
     $('[name="turno[horario]"]').val(data.horario);
     $('[name="turno[user]"]').val(getUserSelectValue()).trigger('change');
-    $('#createdBy').val('');
+    $('#createdBy').text('');
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
@@ -65,9 +65,9 @@ function editEvent(data) {
     $('[name="turno[horario]"]').val(data.horario);
     if (data.turno.createdBy) {
         var createdBy = data.turno.createdBy.fullName +
-                ' (' + data.turno.createdBy.email + ') ' +
+                ' (' + data.turno.createdBy.email + ')' +
                 ' - ' + moment.unix(data.turno.createdAt.timestamp).format('DD/MM/YYYY HH:mm');
-        $('#createdBy').val(createdBy);
+        $('#createdBy').text(createdBy);
     }
 
     $('#newEvent .modal-title, #newEvent .btn-success').hide();

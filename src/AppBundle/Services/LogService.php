@@ -34,8 +34,7 @@ class LogService
      */
     public function save(Log $log)
     {
-        dump($log);
-//            $this->manager->persist($log);
-//            $this->manager->flush();
+        $this->manager->persist($log);
+        $this->manager->flush();
     }
 }

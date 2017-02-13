@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Backend;
 
+use AppBundle\Controller\BaseController;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Services\StringService;
@@ -18,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/user")
  * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_INSTR')")
  */
-class UserController extends Controller
+class UserController extends BaseController
 {
     /**
      * @var ConstraintViolationList
@@ -75,6 +76,8 @@ class UserController extends Controller
     {
         $updateUser = $this->parseUserRequest($request, $user);
         $this->persistUser($updateUser);
+
+        $this->log('Editar Usuario', 'Usuarios');
         return $this->redirectToRoute('app_backend_user_edit', ['id' => $user->getId()]);
     }
 
@@ -111,6 +114,7 @@ class UserController extends Controller
             ));
         }
         $this->persistUser($user);
+        $this->log('Crear Usuario', 'Usuarios');
         return $this->redirectToRoute('app_backend_user_edit', ['id' => $user->getId()]);
     }
 
@@ -125,6 +129,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
+        $this->log('Eliminar Usuario', 'Usuarios');
         return $this->redirectToRoute("app_backend_user_index");
     }
 
@@ -153,6 +158,7 @@ class UserController extends Controller
 
         $em->persist($user);
         $em->flush();
+        $this->log('Reinicio de Contraseña', 'Usuarios');
 
         return $this->redirectToRoute("app_backend_user_edit", ["id" => $user->getId()]);
     }
@@ -182,6 +188,8 @@ class UserController extends Controller
                 )
             ), 'text/html');
         $this->get('mailer')->send($message);
+
+        $this->log('Envio de Bienvenida', 'Usuarios');
 
         return $this->redirectToRoute("app_backend_user_edit", ["id" => $user->getId()]);
     }

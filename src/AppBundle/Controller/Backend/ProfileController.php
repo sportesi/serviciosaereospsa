@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Backend;
 
+use AppBundle\Controller\BaseController;
 use AppBundle\Entity\User;
 use AppBundle\Form\ChangePasswordType;
 use AppBundle\Form\ProfileType;
@@ -15,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * @Route("/profile")
  */
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
     /**
      * @Route("/")
@@ -41,6 +42,8 @@ class ProfileController extends Controller
     {
         $updateUser = $this->parseUserRequest($request, $this->getUser());
         $this->persistUser($updateUser);
+
+        $this->log('Editar Cuenta', 'Mi Cuenta');
         return $this->redirectToRoute('app_backend_profile_index');
     }
 
@@ -56,6 +59,7 @@ class ProfileController extends Controller
             $user = $this->parsePasswordRequest($request, $this->getUser());
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
+            $this->log('Cambiar Contraseña', 'Mi Cuenta');
         } catch (InvalidArgumentException $exception) {
             $this->addFlash('error', $exception->getMessage());
             $this->addFlash('tab', 'change-password');
