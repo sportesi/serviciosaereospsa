@@ -120,7 +120,7 @@
                                         <td class="td-avion {{ firstClass }} {{ lastClass }}">{{ itemAvion.matricula | replace({'LV-' : ''}) }}</td>
                                         {% for itemHorario in horarios %}
                                             {% set summer = ['1400', '2400'] %}
-                                            {% if itemHorario >= summer[0] and itemHorario <= summer[1] %}
+                                            {% if (itemHorario >= summer[0] and itemHorario <= summer[1]) or itemHorario == '0800' %}
                                                 <td class="bg-disabled {{ firstClass }} {{ lastClass }}"
                                                     id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}">
                                                 </td>
