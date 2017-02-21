@@ -48,9 +48,10 @@ class UserRepository extends EntityRepository
     public function findAllUsers(User $user)
     {
         $qb = $this->_em->createQueryBuilder();
-        $qb->select(['u', 'd'])
+        $qb->select(['u', 'd', 'l'])
             ->from('AppBundle:User', 'u')
             ->innerJoin('u.userData', 'd')
+            ->innerJoin('u.log', 'l')
             ->where('u.roles not like :role');
 
         if (!$user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_INSTR')) {

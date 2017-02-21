@@ -104,7 +104,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return Turno
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLog()
     {
