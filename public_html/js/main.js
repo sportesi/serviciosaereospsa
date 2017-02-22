@@ -43,6 +43,9 @@ function newEvent(data) {
     if (selectedDates.length > 0) {
         $('[name="turno[multiple]"]').val(true);
         $('[name="turno[selected-dates]"]').val(JSON.stringify(selectedDates));
+    } else {
+        $('[name="turno[multiple]"]').val('');
+        $('[name="turno[selected-dates]"]').val('');
     }
 
     $('#newEvent .modal-title, #newEvent .btn-success, #newEvent .btn-danger').hide();
@@ -65,8 +68,8 @@ function editEvent(data) {
     $('[name="turno[horario]"]').val(data.horario);
     if (data.turno.createdBy) {
         var createdBy = data.turno.createdBy.fullName +
-                ' (' + data.turno.createdBy.email + ')' +
-                ' - ' + moment.unix(data.turno.createdAt.timestamp).format('DD/MM/YYYY HH:mm');
+            ' (' + data.turno.createdBy.email + ')' +
+            ' - ' + moment.unix(data.turno.createdAt.timestamp).format('DD/MM/YYYY HH:mm');
         $('#createdBy').text(createdBy);
     }
 
@@ -203,8 +206,8 @@ function disableFoxtrotSierra() {
                 var lt = planes[i].desdeFueraServicio.timestamp;
                 var gt = planes[i].hastaFueraServicio.timestamp;
                 var diff = moment.unix(gt).diff(moment.unix(lt), 'hours');
-                for (h = 1; h <= diff; h++) {
-                    var day = moment.unix(lt).add(h, 'hours');
+                for (h = 0; h <= diff; h++) {
+                    var day = moment.unix(lt).add(h+3, 'hours');
                     var id = planes[i].id + day.format('YYYYMMDDHH00');
                     var td = $('td#' + id);
                     td.addClass('bg-service');
@@ -222,9 +225,26 @@ function disableFoxtrotSierra() {
                     setPopoverOn();
                 }
             }
+            if (!planes[i].servicio && !planes[i].desdeFueraServicio && !planes[i].hastaFueraServicio) {
+                $("tr[data-avion=" + planes[i].id + "] td.clickable").each(function () {
+                    var td = $(this);
+                    td.addClass('bg-service');
+                    if (td.find('div').text().trim() === "") {
+                        if (!td.find('div').length) {
+                            td.append('<div></div>');
+                        }
+                        td.find('div').text('F/S');
+                        if (td.find('div').data('content') !== "") {
+                            td.find('div').data('content', planes[i].razonFueraServicio);
+                        }
+                        td.removeClass('clickable');
+                        td.off('click');
+                    }
+                    setPopoverOn();
+                });
+            }
         }
     });
-
 }
 
 function loadEvents() {
