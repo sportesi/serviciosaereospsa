@@ -1,21 +1,12 @@
 frontend:
-    resource: "@FrontendBundle/Controller/"
+    resource: "@AppBundle/Controller/Frontend/"
     type:     annotation
     prefix:   /
 
 backend:
-    resource: "@BackendBundle/Controller/"
+    resource: "@AppBundle/Controller/Backend/"
     type:     annotation
     prefix:   /backend
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-    prefix:   /app
-
-# app:
-#     resource: "@AppBundle/Controller/"
-#     type:     annotation
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

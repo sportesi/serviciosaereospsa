@@ -1,0 +1,29 @@
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="header">MENÚ</li>
+            <li>
+                <a href="{{ path('app_backend_turno_index') }}">
+                    <i class="fa fa-table"></i> <span>Turnos</span>
+                </a>
+            </li>
+            {% if (app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_INSTR')) %}
+                <li>
+                    <a href="{{ path('app_backend_avion_index') }}">
+                        <i class="fa fa-plane"></i> <span>Aviones</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_backend_user_index') }}">
+                        <i class="fa fa-users"></i> <span>Usuarios</span>
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                <a href="{{ path('app_backend_profile_index') }}">
+                    <i class="fa fa-gear"></i> <span>Mi Cuenta</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>

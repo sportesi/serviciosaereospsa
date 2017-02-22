@@ -13,14 +13,11 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/vendor~/
-/web/bundles/
 *~
-/nbproject/private/
 .bash_history
 .composer/
 .logs/
 .ssh/
-serviciosaereospsa/
 *.tar
-public_html/*
+node_modules/
+.idea/*

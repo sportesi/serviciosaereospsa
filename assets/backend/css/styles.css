@@ -1,0 +1,85 @@
+.nav.navbar-nav.navbar-right {
+    margin-right: 2%;
+    cursor: pointer;
+}
+
+.img-logo {
+    width: 57%;
+    vertical-align: top !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.bg-disabled {
+    background: lightgrey;
+}
+
+.content {
+    min-height: 93vh !important;
+}
+
+.main-header .logo {
+    font-size: 14pt !important;
+}
+
+.bg-piloto {
+    background-color: #50c5ff;
+}
+
+.bg-alumno {
+    background-color: #90ff62;
+}
+
+.bg-delete {
+    background-color: #ff0c0c !important;
+}
+
+.td-avion {
+    border-left: 1px solid #f4f4f4 !important;
+}
+
+.sweet-alert {
+    border: 1px solid #245571;
+}
+
+.first-plane-row {
+    border-top: 2px solid #a0a0a0 !important;
+}
+
+.last-plane-row {
+    border-bottom: 2px solid #a0a0a0 !important;
+}
+
+.rotate {
+    border-right: 2px solid #a0a0a0 !important;
+}
+
+.bg-service {
+    background-color: #ffeb84;
+    border: 0 !important;
+}
+
+.bg-alumno.bg-service, .bg-piloto.bg-service {
+    background-color: crimson !important;
+    color: white;
+    border: 0 !important;
+}
+
+.popover-content {
+    color: black !important;
+}
+
+#profile-picture {
+    width: 170px;
+    margin-bottom: 10%;
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}

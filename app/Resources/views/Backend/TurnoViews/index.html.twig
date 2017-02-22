@@ -1,0 +1,161 @@
+{% extends 'Backend/layout.html.twig' %}
+
+{% block styles %}
+    <style type="text/css">
+        th{
+            text-align: center !important;
+        }
+        .rotate{
+            transform: rotate(-90deg);
+            vertical-align: middle !important;
+            text-align: center !important;
+            line-height: 1 !important;
+
+            padding: 0 !important;
+        }
+        tbody td{
+            text-align: center;
+        }
+        .clickable {
+            text-transform: capitalize;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="/js/main.js"></script>
+
+    <script type="text/javascript">
+
+        moment.locale('es');
+
+        var date = moment().add({{ week | number_format }}, 'w').format();
+
+        var start = moment(date).startOf('week').format('DD');
+        var startComplete = moment(date).startOf('week').format();
+        var end = moment(date).endOf('week').format('DD');
+        var endComplete = moment(date).endOf('week').format();
+        var month = moment(date).format('MMMM');
+        var monthNumber = moment(date).format('MM');
+        var semanaText = 'Semana del ' + start + ' al ' + end + ' del mes de ' + month.capitalizeFirstLetter();
+        $('#semanaText').text(semanaText);
+
+        $('.rotate').each(function () {
+            $(this).find('b').text(moment(date).startOf('isoweek').day($(this).data('dia')).format('DD'));
+        });
+
+        initCalendar();
+
+        $('#turno-user').select2({
+            language: "es",
+            containerCssClass: ":all"
+        });
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <i class="fa fa-table fa-fw"></i> Turnos
+                <div class="pull-right">
+                    <h3 style="margin: 10px;" id="semanaText" ></h3>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-left">
+                {% if (app.user.hasRole('ADMIN')) %}
+                    <button type="button" onclick="switchMode();" class="btn btn-primary btn-modo-crear">
+                        Cambiar a modo "Mover turnos"
+                    </button>
+                    <button type="button" onclick="switchMode();" class="btn btn-success btn-modo-mover"
+                            style="display: none;">Cambiar a modo "Crear turnos"
+                    </button>
+                {% endif %}
+                <button class="btn btn-primary text-uppercase btn-instrucciones" data-toggle="modal" data-target="#modal-instrucciones">Instrucciones reserva de turnos</button>
+            </div>
+            <div class="btn-group pull-right">
+                <a href="{{ path('app_backend_turno_index', { 'week' : week - 1 }) }}" class="btn btn-default">Semana Anterior</a>
+                <a href="{{ path('app_backend_turno_index', { 'week' : 0 }) }}" class="btn btn-default">Semana Actual</a>
+                <a href="{{ path('app_backend_turno_index', { 'week' : week + 1 }) }}" class="btn btn-default">Semana Siguiente</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Hora</th>
+                                {% for itemHorario in horarios %}
+                                    <th>{{ itemHorario }}</th>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th width="1%" style="border-bottom: none !important;">D&iacute;a</th>
+                                <th style="border-bottom: none !important;">Mat</th>
+                                {% for itemHorario in horarios %}
+                                    <th style="border-bottom: none !important;">Piloto</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for itemDia in dias %}
+                                {% set fechaDia = weekStart | date_modify('+' ~ (loop.index - 1) ~ ' day') | date_modify('+' ~ week | number_format ~ ' week') | date('Y-m-d') %}
+                                <tr>
+                                    <td colspan="1" rowspan="{{ aviones|length + 1 }}" data-dia="{{ loop.index }}" class="rotate">{{ itemDia }}<br><b></b></td>
+                                </tr>
+                                {% for itemAvion in aviones %}
+                                    <tr data-dia="{{ itemDia }}" data-avion="{{ itemAvion.id }}">
+                                        {% set firstClass = loop.index == 1 ? 'first-plane-row' : '' %}
+                                        {% set lastClass = loop.last ? 'last-plane-row' : '' %}
+                                        <td class="td-avion {{ firstClass }} {{ lastClass }}">{{ itemAvion.matricula | replace({'LV-' : ''}) }}</td>
+                                        {% for itemHorario in horarios %}
+                                            {% set summer = ['1400', '2400'] %}
+                                            {% if (itemHorario >= summer[0] and itemHorario <= summer[1]) or itemHorario == '0800' %}
+                                                <td class="bg-disabled {{ firstClass }} {{ lastClass }}"
+                                                    id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}">
+                                                </td>
+                                            {% else %}
+                                                <td class="clickable {{ firstClass }} {{ lastClass }}"
+                                                    data-avion="{{ itemAvion.id }}"
+                                                    data-fecha="{{ fechaDia }}"
+                                                    data-horario="{{ itemHorario }}"
+                                                    id="{{ ( itemAvion.id ~ fechaDia ~ itemHorario) | replace({ '-' : '' }) }}"
+                                                >
+                                                    <div></div>
+                                                </td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                {% if loop.index is even %}
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Hora</th>
+                                            {% for itemHorario in horarios %}
+                                                <th>{{ itemHorario }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'Backend/TurnoViews/modal.new.html.twig' %}
+    {% include 'Backend/TurnoViews/modal.instrucciones.html.twig' %}
+
+{% endblock %}

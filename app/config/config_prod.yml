@@ -28,7 +28,7 @@ monolog:
             handler: swift
         swift:
             type:       swift_mailer
-            from_email: 'error@serviciosaereospsa.com'
+            from_email: 'appmailer@serviciosaereospsa.esy.es'
             to_email:   'sebastian.nahuel.portesi@gmail.com'
             subject:    'An Error Occurred! %%message%%'
             level:      debug

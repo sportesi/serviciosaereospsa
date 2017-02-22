@@ -1,0 +1,132 @@
+{% extends('Backend/layout.html.twig') %}
+
+{% block scripts %}
+    {% for tab in app.session.flashBag.get('tab') %}
+        <script>
+            $("a[href='#{{ tab }}']").click();
+        </script>
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle"
+                         src="{{ asset("/img/avatar.png") }}"
+                         alt="User profile picture"
+                         id="profile-picture">
+                    <h3 class="profile-username text-center">{{ user.fullName }}</h3>
+                    <p class="text-muted text-center">{{ user.email }}</p>
+                    {% if user.userData.address %}
+                        <p class="text-muted text-center">{{ user.userData.address }}</p>
+                    {% endif %}
+                    {% if user.userData.phoneNumber %}
+                        <p class="text-muted text-center">{{ user.userData.phoneNumber }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- About Me Box -->
+            {#<div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">About Me</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+                    <p class="text-muted">
+                        B.S. in Computer Science from the University of Tennessee at Knoxville
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+                    <p class="text-muted">Malibu, California</p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+                    <p>
+                        <span class="label label-danger">UI Design</span>
+                        <span class="label label-success">Coding</span>
+                        <span class="label label-info">Javascript</span>
+                        <span class="label label-warning">PHP</span>
+                        <span class="label label-primary">Node.js</span>
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                </div>
+                <!-- /.box-body -->
+            </div>#}
+            <!-- /.box -->
+        </div>
+        <div class="col-md-9">
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="alert alert-warning">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#settings" data-toggle="tab">Mis Datos</a></li>
+                    <li><a href="#change-password" data-toggle="tab">Cambiar Contraseña</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="settings">
+                        {{ form_start(form) }}
+                            <div class="form-group">
+                                <label for="user_email" class="control-label col-md-2">Email</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.email) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_userData_name" class="control-label col-md-2">Nombre</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.userData.name) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_userData_lastName" class="control-label col-md-2">Apellido</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.userData.lastName) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_userData_phoneNumber" class="control-label col-md-2">Teléfono</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.userData.phoneNumber) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_userData_address" class="control-label col-md-2">Dirección</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.userData.address) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary text-capitalize">modificar mis datos</button>
+                                </div>
+                            </div>
+                        {{ form_end(form, {render_rest: true}) }}
+                    </div>
+                    <div class="tab-pane" id="change-password">
+                        {{ form_start(changePassword) }}
+                        {{ form_widget(changePassword) }}
+                        {{ form_end(changePassword) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

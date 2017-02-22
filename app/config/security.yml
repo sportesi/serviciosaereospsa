@@ -7,6 +7,7 @@ security:
         ROLE_ADMIN: ROLE_ADMIN
         ROLE_PILOT: ROLE_PILOT
         ROLE_ALUMN: ROLE_ALUMN
+        ROLE_INSTR: ROLE_INSTR
 
     providers:
         fos_userbundle:
@@ -20,15 +21,15 @@ security:
                 login_path: fos_user_security_login 
                 check_path: fos_user_security_check
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: RoutingController
+                default_target_path: app_backend_turno_index
 
             logout:
                 path: fos_user_security_logout
                 target: fos_user_security_login
             
-            anonymous:    true
+            anonymous: true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend/, role: ROLE_ADMIN }
+        - { path: ^/backend/, role: ROLE_USER }

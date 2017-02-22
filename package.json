@@ -1,0 +1,42 @@
+{
+  "name": "serviciosaereospsa",
+  "version": "1.0.0",
+  "description": "psa ===",
+  "main": "public_html/app.php",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/sportesi/serviciosaereospsa.git"
+  },
+  "author": "Sebastian Portesi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/sportesi/serviciosaereospsa/issues"
+  },
+  "homepage": "https://gitlab.com/sportesi/serviciosaereospsa#README",
+  "dependencies": {
+    "admin-lte": "^2.3.11",
+    "bootstrap": "^3.3.7",
+    "bootstrap-sweetalert": "^1.0.1",
+    "datatables.net": "^2.1.1",
+    "datatables.net-bs": "^2.1.1",
+    "datatables.net-responsive": "^2.1.1",
+    "datatables.net-responsive-bs": "^2.1.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglify": "^2.0.0",
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "select2": "^4.0.3"
+  }
+}

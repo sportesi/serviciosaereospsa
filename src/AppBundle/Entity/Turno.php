@@ -3,11 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Turno
  *
- * @ORM\Table(name="turno")
+ * @ORM\Table(name="turno", uniqueConstraints={@UniqueConstraint(name="turno_fecha_idx", columns={"fecha", "id_avion"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurnoRepository")
  */
 class Turno
@@ -22,12 +24,6 @@ class Turno
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Horario")
-     * @ORM\JoinColumn(name="horario", referencedColumnName="id")
-     */
-    private $horario;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime")
@@ -35,35 +31,10 @@ class Turno
     private $fecha;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="confirmado", type="boolean", nullable=true)
-     */
-    private $confirmado;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Piloto")
-     * @ORM\JoinColumn(name="piloto", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    private $piloto;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Alumno")
-     * @ORM\JoinColumn(name="alumno", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    private $alumno;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Avion")
      * @ORM\JoinColumn(name="id_avion", referencedColumnName="id")
      */
     private $avion;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Dia")
-     * @ORM\JoinColumn(name="dia", referencedColumnName="id")
-     */
-    private $dia;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime")
@@ -76,10 +47,59 @@ class Turno
     private $comentario;
 
     /**
-     * @ORM\Column(name="cancelado", type="boolean", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="turno")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
+     * @MaxDepth(1)
      */
-    private $cancelado;
-    
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     * @var User
+     * @MaxDepth(1)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param User $createdBy
+     */
+    public function setCreatedBy(User $createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
 
     /**
      * Get id
@@ -116,30 +136,6 @@ class Turno
     }
 
     /**
-     * Set confirmado
-     *
-     * @param boolean $confirmado
-     *
-     * @return Turno
-     */
-    public function setConfirmado($confirmado)
-    {
-        $this->confirmado = $confirmado;
-
-        return $this;
-    }
-
-    /**
-     * Get confirmado
-     *
-     * @return boolean
-     */
-    public function getConfirmado()
-    {
-        return $this->confirmado;
-    }
-
-    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
@@ -161,126 +157,6 @@ class Turno
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set horario
-     *
-     * @param \AppBundle\Entity\Horario $horario
-     *
-     * @return Turno
-     */
-    public function setHorario(\AppBundle\Entity\Horario $horario = null)
-    {
-        $this->horario = $horario;
-
-        return $this;
-    }
-
-    /**
-     * Get horario
-     *
-     * @return \AppBundle\Entity\Horario
-     */
-    public function getHorario()
-    {
-        return $this->horario;
-    }
-
-    /**
-     * Set piloto
-     *
-     * @param \AppBundle\Entity\Piloto $piloto
-     *
-     * @return Turno
-     */
-    public function setPiloto(\AppBundle\Entity\Piloto $piloto = null)
-    {
-        $this->piloto = $piloto;
-
-        return $this;
-    }
-
-    /**
-     * Get piloto
-     *
-     * @return \AppBundle\Entity\Piloto
-     */
-    public function getPiloto()
-    {
-        return $this->piloto;
-    }
-
-    /**
-     * Set alumno
-     *
-     * @param \AppBundle\Entity\Alumno $alumno
-     *
-     * @return Turno
-     */
-    public function setAlumno(\AppBundle\Entity\Alumno $alumno = null)
-    {
-        $this->alumno = $alumno;
-
-        return $this;
-    }
-
-    /**
-     * Get alumno
-     *
-     * @return \AppBundle\Entity\Alumno
-     */
-    public function getAlumno()
-    {
-        return $this->alumno;
-    }
-
-    /**
-     * Set avion
-     *
-     * @param \AppBundle\Entity\Avion $avion
-     *
-     * @return Turno
-     */
-    public function setAvion(\AppBundle\Entity\Avion $avion = null)
-    {
-        $this->avion = $avion;
-
-        return $this;
-    }
-
-    /**
-     * Get avion
-     *
-     * @return \AppBundle\Entity\Avion
-     */
-    public function getAvion()
-    {
-        return $this->avion;
-    }
-
-    /**
-     * Set dia
-     *
-     * @param \AppBundle\Entity\Dia $dia
-     *
-     * @return Turno
-     */
-    public function setDia(\AppBundle\Entity\Dia $dia = null)
-    {
-        $this->dia = $dia;
-
-        return $this;
-    }
-
-    /**
-     * Get dia
-     *
-     * @return \AppBundle\Entity\Dia
-     */
-    public function getDia()
-    {
-        return $this->dia;
     }
 
     /**
@@ -308,26 +184,50 @@ class Turno
     }
 
     /**
-     * Set cancelado
+     * Set avion
      *
-     * @param boolean $cancelado
+     * @param \AppBundle\Entity\Avion $avion
      *
      * @return Turno
      */
-    public function setCancelado($cancelado)
+    public function setAvion(\AppBundle\Entity\Avion $avion = null)
     {
-        $this->cancelado = $cancelado;
+        $this->avion = $avion;
 
         return $this;
     }
 
     /**
-     * Get cancelado
+     * Get avion
      *
-     * @return boolean
+     * @return \AppBundle\Entity\Avion
      */
-    public function getCancelado()
+    public function getAvion()
     {
-        return $this->cancelado;
+        return $this->avion;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Turno
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
