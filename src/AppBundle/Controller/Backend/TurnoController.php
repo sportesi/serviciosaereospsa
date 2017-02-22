@@ -362,7 +362,7 @@ class TurnoController extends BaseController
 
     private function checkDay(Turno $turno)
     {
-        if (!$this->isGranted('ROLE_ADMIN   ') && !$this->isGranted('ROLE_INSTR')) {
+        if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
             $now = new DateTime();
             if ($now > $turno->getFecha()) {
                 throw new \Exception('No se puede cargar un turno en el pasado');
