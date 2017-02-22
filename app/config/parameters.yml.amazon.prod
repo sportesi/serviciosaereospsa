@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: amazonsapsaprod
+    database_user: amazonsapsaprod
+    database_password: 5!0oyllnGwqlNJH8
+    mailer_transport: smtp
+    mailer_port: 465
+    mailer_host: mx1.hostinger.com.ar
+    mailer_user: appmailer@serviciosaereospsa.esy.es
+    mailer_password: C8zzVoyg9nnZ
+    secret: abf904944281b1885789c63123d35d1c32bd8e61
