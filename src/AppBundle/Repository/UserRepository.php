@@ -51,7 +51,7 @@ class UserRepository extends EntityRepository
         $qb->select(['u', 'd', 'l'])
             ->from('AppBundle:User', 'u')
             ->innerJoin('u.userData', 'd')
-            ->innerJoin('u.log', 'l')
+            ->leftJoin('u.log', 'l')
             ->where('u.roles not like :role');
 
         if (!$user->hasRole('ROLE_ADMIN') && !$user->hasRole('ROLE_INSTR')) {
