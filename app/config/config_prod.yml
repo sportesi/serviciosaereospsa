@@ -30,7 +30,7 @@ monolog:
             type:       swift_mailer
             from_email: 'appmailer@serviciosaereospsa.esy.es'
             to_email:   'sebastian.nahuel.portesi@gmail.com'
-            subject:    'Staging (Amazon): An Error Occurred!'
+            subject:    'PRD (Hostinger): An Error Occurred!'
             level:      debug
             formatter:  monolog.formatter.html
             content_type: text/html
