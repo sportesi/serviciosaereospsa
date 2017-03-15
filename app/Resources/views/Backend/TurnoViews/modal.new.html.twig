@@ -42,7 +42,7 @@
 							<div class="col-sm-6">
 								<select name="turno[horario]" id="turno-horario" class="form-control">
 									{% for itemHorario in horarios %}
-    	                                {% if itemHorario < '1400' %}
+                                        {% if (itemHorario <= summer[0] and itemHorario not in summer) %}
 											<option value="{{ itemHorario }}">{{ itemHorario }}</option>
 										{% endif %}
 									{% endfor %}
@@ -58,8 +58,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button"
-                            class="btn btn-danger form-delete-btn" onclick="deleteEvent();">Eliminar turno</button>
+					<button type="button" class="btn btn-danger form-delete-btn" onclick="deleteEvent();">Eliminar turno</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar edici&oacute;n</button>
 					<button type="button" onclick="saveEvent();" class="btn btn-success form-new-btn">Crear turno</button>
 					<button type="button" onclick="saveEvent(true);" class="btn btn-success form-edit-btn">Editar turno</button>
