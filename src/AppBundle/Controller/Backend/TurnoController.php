@@ -246,16 +246,24 @@ class TurnoController extends BaseController
 
         $normalizer->setIgnoredAttributes($ignored);
         $serializer = new Serializer([$normalizer], $encoders);
+        /**
+         * @var TurnoRepository $repo
+         */
         $repo = $this->getDoctrine()->getManager()->getRepository('AppBundle:Turno');
 
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
             $serializedContent = json_decode($serializer->serialize(
-                $repo->findByNotUser($this->getUser()),
-                'json'
-            ));
+                $repo->findByNotUser(
+                    $this->getUser(),
+                    new \DateTime($request->query->get('start')),
+                    new \DateTime($request->query->get('end'))
+                ), 'json'));
             $response = json_encode(array_merge($serializedContent, $this->getTurnosByUser()));
         } else {
-            $serializedContent = json_decode($serializer->serialize($repo->findAll(), 'json'));
+            $serializedContent = json_decode($serializer->serialize($repo->findByDateRange(
+                new \DateTime($request->query->get('start')),
+                new \DateTime($request->query->get('end'))
+            ), 'json'));
             $response = json_encode($serializedContent);
         }
 

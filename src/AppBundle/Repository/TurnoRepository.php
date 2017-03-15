@@ -16,13 +16,19 @@ class TurnoRepository extends EntityRepository
 {
     /**
      * @param User $user
+     * @param \DateTime $start
+     * @param \DateTime $end
      * @return array
      */
-    public function findByNotUser(User $user)
+    public function findByNotUser(User $user, \DateTime $start, \DateTime $end)
     {
-        $qb = $this->createQueryBuilder('t');
-        $qb->from('AppBundle:Turno', 'u')
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select(['t'])
+            ->from('AppBundle:Turno', 't')
             ->where('t.user != :user')
+            ->andWhere('t.fecha between :start and :end')
+            ->setParameter(':start', $start->format('Y-m-d H:i:s'))
+            ->setParameter(':end', $end->format('Y-m-d H:i:s'))
             ->setParameter('user', $user);
         return $qb->getQuery()->getResult();
     }
@@ -41,5 +47,21 @@ class TurnoRepository extends EntityRepository
             ->andWhere($qb->expr()->eq('t.user', $user->getId()))
             ->setParameter('fecha', $turno->getFecha()->format('Y-m-d') . '%');
         return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @param \DateTime $start
+     * @param \DateTime $end
+     * @return array
+     */
+    public function findByDateRange(\DateTime $start, \DateTime $end)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select(['t'])
+            ->from('AppBundle:Turno', 't')
+            ->where('t.fecha between :start and :end')
+            ->setParameter(':start', $start->format('Y-m-d H:i:s'))
+            ->setParameter(':end', $end->format('Y-m-d H:i:s'));
+        return $qb->getQuery()->getResult();
     }
 }
