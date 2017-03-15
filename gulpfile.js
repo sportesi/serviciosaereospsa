@@ -31,12 +31,7 @@ var jsFiles = [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/bootstrap-sweetalert/dist/sweetalert.min.js',
-    'node_modules/moment/min/moment-with-locales.min.js',
-    'node_modules/select2/dist/js/select2.full.min.js',
-    'node_modules/select2/dist/js/i18n/es.js',
-    'node_modules/lodash/lodash.min.js',
-    'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-    'node_modules/admin-lte/dist/js/app.min.js',
+    'node_modules/admin-lte/dist/js/app.min.js'
 ];
 
 gulp.task('compile-js', function () {

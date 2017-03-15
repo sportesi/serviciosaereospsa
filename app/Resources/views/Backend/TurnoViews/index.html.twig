@@ -24,7 +24,12 @@
 
 {% block scripts %}
 
-    <script src="/js/main.js"></script>
+    <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/i18n/es.js') }}"></script>
+    <script src="{{ asset('js/lodash.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script type="text/javascript">
 
