@@ -237,7 +237,8 @@ class TurnoController extends BaseController
             '__initializer__',
             '__cloner__',
             '__isInitialized__',
-            'avionOrder'
+            'avionOrder',
+            'log'
         ];
 
         if (!$this->isGranted('ROLE_ADMIN') && !$this->isGranted('ROLE_INSTR')) {
