@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cb342e21-cbaf-4761-9739-bced7c5a2dd5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +21,8 @@
       <file leaf-file-name="TurnoController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="236" column="30" lean-forward="true" selection-start-line="236" selection-start-column="30" selection-end-line="236" selection-end-column="30" />
+            <state relative-caret-position="107">
+              <caret line="236" column="30" lean-forward="false" selection-start-line="236" selection-start-column="30" selection-end-line="236" selection-end-column="30" />
               <folding>
                 <element signature="e#984#1073#0#PHP" expanded="false" />
                 <element signature="e#1126#1233#0#PHP" expanded="false" />
@@ -56,32 +55,32 @@
                 <element signature="e#6383#6473#0#PHP" expanded="false" />
                 <element signature="e#6478#6690#0#PHP" expanded="false" />
                 <element signature="e#7026#7093#2#PHP" expanded="false" />
-                <element signature="e#9030#9062#0#PHP" expanded="false" />
                 <element signature="e#9067#10308#0#PHP" expanded="false" />
                 <element signature="e#9127#9772#0#PHP" expanded="false" />
                 <element signature="e#9892#10001#0#PHP" expanded="false" />
-                <element signature="e#9933#10000#2#PHP" expanded="false" />
-                <element signature="e#10314#10387#0#PHP" expanded="false" />
                 <element signature="e#10392#11388#0#PHP" expanded="false" />
-                <element signature="e#10603#10685#0#PHP" expanded="false" />
-                <element signature="e#10603#10804#0#PHP" expanded="false" />
                 <element signature="e#10708#10803#1#PHP" expanded="false" />
-                <element signature="e#10603#10857#0#PHP" expanded="false" />
-                <element signature="e#10603#11335#0#PHP" expanded="false" />
                 <element signature="e#10880#11321#0#PHP" expanded="false" />
                 <element signature="e#10958#11307#0#PHP" expanded="false" />
-                <element signature="e#11394#11458#0#PHP" expanded="false" />
                 <element signature="e#11463#11966#0#PHP" expanded="false" />
-                <element signature="e#11533#11622#0#PHP" expanded="false" />
-                <element signature="e#11533#11680#0#PHP" expanded="false" />
                 <element signature="e#11690#11960#0#PHP" expanded="false" />
-                <element signature="e#11972#12036#0#PHP" expanded="false" />
                 <element signature="e#12041#12566#0#PHP" expanded="false" />
-                <element signature="e#12108#12560#0#PHP" expanded="false" />
                 <element signature="e#12321#12550#0#PHP" expanded="false" />
-                <element signature="e#12572#12891#0#PHP" expanded="false" />
-                <element signature="e#12626#12885#0#PHP" expanded="false" />
                 <element signature="e#12747#12875#0#PHP" expanded="false" />
+                <marker date="1489615050589" expanded="false" signature="9033:9060" ph=" @return mixed ..." />
+                <marker date="1489615050589" expanded="false" signature="9953:9999" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="10317:10385" ph=" @param Turno $turno ..." />
+                <marker date="1489615050589" expanded="false" signature="10658:10684" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="10708:10803" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="10825:10856" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="10880:11334" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="11397:11456" ph=" @param Turno $turno ..." />
+                <marker date="1489615050589" expanded="false" signature="11609:11621" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="11655:11679" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="11975:12034" ph=" @param Turno $turno ..." />
+                <marker date="1489615050589" expanded="false" signature="12181:12559" ph="..." />
+                <marker date="1489615050589" expanded="false" signature="12611:12891" ph="{...}" />
+                <marker date="1489615050589" expanded="false" signature="12699:12884" ph="..." />
               </folding>
             </state>
           </provider>
@@ -99,7 +98,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="staging" />
       </map>
     </option>
   </component>
@@ -317,7 +316,7 @@
       <workItem from="1489585291491" duration="1187000" />
       <workItem from="1489594637787" duration="5070000" />
       <workItem from="1489612584110" duration="1459000" />
-      <workItem from="1489614780089" duration="46000" />
+      <workItem from="1489614780089" duration="429000" />
     </task>
     <task id="LOCAL-00001" summary="Configurado Monolog para enviar errores por email">
       <created>1483464390250</created>
@@ -389,17 +388,24 @@
       <option name="project" value="LOCAL" />
       <updated>1489598390577</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Trae el log en el json de turnos">
+      <created>1489614840207</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1489614840207</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26264000" />
+    <option name="totallyTimeSpent" value="26647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="24" width="1311" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23874904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23874904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -440,7 +446,8 @@
     <MESSAGE value="Reduce page load time" />
     <MESSAGE value="Filtre el tema de traer los turnos en json para que tarde menos.&#10;En prd estaba pesando casi 5 mb" />
     <MESSAGE value="Faltaban js en la seccion de aviones" />
-    <option name="LAST_COMMIT_MESSAGE" value="Faltaban js en la seccion de aviones" />
+    <MESSAGE value="Trae el log en el json de turnos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trae el log en el json de turnos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -649,8 +656,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Backend/TurnoController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="236" column="30" lean-forward="true" selection-start-line="236" selection-start-column="30" selection-end-line="236" selection-end-column="30" />
+        <state relative-caret-position="107">
+          <caret line="236" column="30" lean-forward="false" selection-start-line="236" selection-start-column="30" selection-end-line="236" selection-end-column="30" />
           <folding>
             <element signature="e#984#1073#0#PHP" expanded="false" />
             <element signature="e#1126#1233#0#PHP" expanded="false" />
@@ -683,32 +690,32 @@
             <element signature="e#6383#6473#0#PHP" expanded="false" />
             <element signature="e#6478#6690#0#PHP" expanded="false" />
             <element signature="e#7026#7093#2#PHP" expanded="false" />
-            <element signature="e#9030#9062#0#PHP" expanded="false" />
             <element signature="e#9067#10308#0#PHP" expanded="false" />
             <element signature="e#9127#9772#0#PHP" expanded="false" />
             <element signature="e#9892#10001#0#PHP" expanded="false" />
-            <element signature="e#9933#10000#2#PHP" expanded="false" />
-            <element signature="e#10314#10387#0#PHP" expanded="false" />
             <element signature="e#10392#11388#0#PHP" expanded="false" />
-            <element signature="e#10603#10685#0#PHP" expanded="false" />
-            <element signature="e#10603#10804#0#PHP" expanded="false" />
             <element signature="e#10708#10803#1#PHP" expanded="false" />
-            <element signature="e#10603#10857#0#PHP" expanded="false" />
-            <element signature="e#10603#11335#0#PHP" expanded="false" />
             <element signature="e#10880#11321#0#PHP" expanded="false" />
             <element signature="e#10958#11307#0#PHP" expanded="false" />
-            <element signature="e#11394#11458#0#PHP" expanded="false" />
             <element signature="e#11463#11966#0#PHP" expanded="false" />
-            <element signature="e#11533#11622#0#PHP" expanded="false" />
-            <element signature="e#11533#11680#0#PHP" expanded="false" />
             <element signature="e#11690#11960#0#PHP" expanded="false" />
-            <element signature="e#11972#12036#0#PHP" expanded="false" />
             <element signature="e#12041#12566#0#PHP" expanded="false" />
-            <element signature="e#12108#12560#0#PHP" expanded="false" />
             <element signature="e#12321#12550#0#PHP" expanded="false" />
-            <element signature="e#12572#12891#0#PHP" expanded="false" />
-            <element signature="e#12626#12885#0#PHP" expanded="false" />
             <element signature="e#12747#12875#0#PHP" expanded="false" />
+            <marker date="1489615050589" expanded="false" signature="9033:9060" ph=" @return mixed ..." />
+            <marker date="1489615050589" expanded="false" signature="9953:9999" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="10317:10385" ph=" @param Turno $turno ..." />
+            <marker date="1489615050589" expanded="false" signature="10658:10684" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="10708:10803" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="10825:10856" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="10880:11334" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="11397:11456" ph=" @param Turno $turno ..." />
+            <marker date="1489615050589" expanded="false" signature="11609:11621" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="11655:11679" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="11975:12034" ph=" @param Turno $turno ..." />
+            <marker date="1489615050589" expanded="false" signature="12181:12559" ph="..." />
+            <marker date="1489615050589" expanded="false" signature="12611:12891" ph="{...}" />
+            <marker date="1489615050589" expanded="false" signature="12699:12884" ph="..." />
           </folding>
         </state>
       </provider>

@@ -304,10 +304,10 @@ function cleanGrid() {
 }
 
 function setClickEvent() {
-    $('td.clickable').off('click').on('click', function () {
+    $('td.clickable').off('click').on('click', function (event) {
         var cell = $(this);
         var data = null;
-        if (window.event.ctrlKey) {
+        if (event.ctrlKey) {
             if (!cell.data('turno')) {
                 cell.toggleClass('bg-primary');
                 data = $(this).data();
