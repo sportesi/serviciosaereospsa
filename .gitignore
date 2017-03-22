@@ -20,4 +20,5 @@
 .ssh/
 *.tar
 node_modules/
-.idea/*
+.idea/
+.sonar/
